@@ -49,7 +49,7 @@ Rex.ShopMicroService.Sample
 
 ```
 # 克隆项目
-git clone https://gitee.com/zhuyongzhengs/Rex.ShopMicroService.Sample.git
+git clone https://github.com/zhuyongzhengs/Rex.ShopMicroService.Sample.git
 
 # 创建MySQL数据库
 创建数据库：Rex.Shop.BaseService、Rex.Shop.GoodService、Rex.Shop.OrderService、Rex.Shop.PaymentService、Rex.Shop.PromotionService 或通过EF Core进行迁移~
