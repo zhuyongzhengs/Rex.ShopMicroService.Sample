@@ -107,7 +107,7 @@ Redis、MongoDB、RabbitMQ、Minio
 ![分类](doc/images/readme/UniApp-分类.png)
 ![商品详情](doc/images/readme/UniApp-商品详情.png)
 ![购物车](doc/images/readme/UniApp-购物车.png)
-![订单列表.](doc/images/readme/UniApp-订单列表..png)
+![订单列表](doc/images/readme/UniApp-订单列表.png)
 ![我的](doc/images/readme/UniApp-我的.png)
 
 ## 支持作者
