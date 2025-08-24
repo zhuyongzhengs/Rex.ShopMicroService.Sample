@@ -112,14 +112,10 @@ Redis、MongoDB、RabbitMQ、Minio
 
 ## 支持作者
 
-如果帮助到了你，希望你可以去[Gitee](https://gitee.com/zhuyongzhengs/Rex.ShopMicroService.Sample) 帮我点个 ⭐ Star，这将是对我极大的鼓励与支持。
+如果帮助到了你，希望你可以去[Gitee](https://gitee.com/zhuyongzhengs/Rex.ShopMicroService.Sample)  或 [Github](https://github.com/zhuyongzhengs/Rex.ShopMicroService.Sample)帮我点个 ⭐ Star，这将是对我极大的鼓励与支持。
 
 ## 你的点赞鼓励，是我们前进的动力~
 
 ## 你的点赞鼓励，是我们前进的动力~
 
 ## 你的点赞鼓励，是我们前进的动力~
-
-
-
-

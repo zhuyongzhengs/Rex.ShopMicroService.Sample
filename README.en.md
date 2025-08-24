@@ -136,7 +136,7 @@ Make sure all middleware connection strings are correctly configured in the proj
 
 ## Support the Author
 
-If this project helped you, please give it a ⭐ Star on [Gitee](https://gitee.com/zhuyongzhengs/Rex.ShopMicroService.Sample).  
+If this project helped you, please give it a ⭐ Star on [Gitee](https://gitee.com/zhuyongzhengs/Rex.ShopMicroService.Sample)  or [Github](https://github.com/zhuyongzhengs/Rex.ShopMicroService.Sample).  
 Your support and encouragement mean a lot!
 
 ---
