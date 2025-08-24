@@ -1,0 +1,16 @@
+﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+
+# 安装 SkiaSharp 所需的系统依赖
+RUN apt-get update && apt-get install -y \
+    libfontconfig1 \
+    libfreetype6 \
+    libpng16-16 \
+    libjpeg62-turbo \
+    libgif7 \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY . /app
+ENTRYPOINT ["dotnet", "Rex.AuthService.HttpApi.Host.dll"]

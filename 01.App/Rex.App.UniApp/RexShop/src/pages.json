@@ -1,0 +1,379 @@
+{
+	"usingShopPlugin": true,
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+			"^u--(.*)": "uview-plus/components/u-$1/u-$1.vue",
+			"^up-(.*)": "uview-plus/components/u-$1/u-$1.vue",
+			"^u-([^-].*)": "uview-plus/components/u-$1/u-$1.vue",
+			"rexshop-(.*)": "@/components/rexshop-$1/index.vue"
+		}
+	},
+	"pages": [
+		{
+			"path": "pages/home/index",
+			"style": {
+				"enablePullDownRefresh": true,
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/test/index",
+			"style": {
+				"enablePullDownRefresh": true,
+				"navigationBarTitleText": "测试"
+			}
+		},
+		{
+			"path": "pages/category/index",
+			"style": {
+				"enablePullDownRefresh": true,
+				"navigationBarTitleText": "分类"
+			}
+		},
+		{
+			"path": "pages/cart/index",
+			"style": {
+				"navigationBarTitleText": "购物车"
+			}
+		},
+		{
+			"path": "pages/member/index",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/member/address/index",
+			"style": {
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "地址列表"
+			}
+		},
+		{
+			"path": "pages/member/order/index",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "订单列表"
+			}
+		},
+		{
+			"path": "pages/member/order/detail",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "订单详情"
+			}
+		},
+		{
+			"path": "pages/member/order/comment",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "订单评价"
+			}
+		},
+		{
+			"path": "pages/member/afterSales/index",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "售后申请"
+			}
+		},
+		{
+			"path": "pages/member/afterSales/list",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "售后列表"
+			}
+		},
+		{
+			"path": "pages/member/afterSales/detail",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "售后详情"
+			}
+		},
+		{
+			"path": "pages/member/address/receiving",
+			"style": {
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "收货地址"
+			}
+		},
+		{
+			"path": "pages/member/store/index",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "门店列表"
+			}
+		},
+		{
+			"path": "pages/member/coupon/index",
+			"style": {
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "我的优惠劵"
+			}
+		},
+		{
+			"path": "pages/category/list",
+			"style": {
+			  "navigationStyle": "default",
+			  "navigationBarTextStyle": "black",
+			  "enablePullDownRefresh": false,
+			  "navigationBarTitleText": "商品列表"
+			}
+		},{
+			"path": "pages/goods/detail",
+			"style": {
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "商品详情",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/promotion/seckill/index",
+			"style": {
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "限时秒杀",
+				"navigationBarBackgroundColor": "#ff7900",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/promotion/seckill/detail",
+			"style": {
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "秒杀详情",
+				"navigationBarBackgroundColor": "#ff7900",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/promotion/coupon/index",
+			"style": {
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "white",
+				"navigationBarTitleText": "优惠劵",
+				"navigationBarBackgroundColor": "#ff7900",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/placeOrder/index",
+			"style": {
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "提交订单"
+			}
+		},
+		{
+			"path": "pages/payment/index",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "订单支付"
+			}
+		},
+		{
+			"path": "pages/payment/result",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "支付结果"
+			}
+		},
+		{
+			"path": "pages/member/balance/index",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "我的余额"
+			}
+		},
+		{
+			"path": "pages/member/balance/recharge",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "账号充值"
+			}
+		},
+		{
+			"path": "pages/member/balance/list",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "余额明细"
+			}
+		},
+		{
+			"path": "pages/member/pointLog/index",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "我的积分"
+			}
+		},
+		{
+			"path": "pages/member/goodCollection/index",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "我的收藏"
+			}
+		},
+		{
+			"path": "pages/member/goodBrowsing/index",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "我的足迹"
+			}
+		},
+		{
+			"path": "pages/member/settings/index",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "系统设置"
+			}
+		},
+		{
+			"path": "pages/member/settings/agreement",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/member/settings/password",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "修改密码"
+			}
+		},
+		{
+			"path": "pages/member/settings/userInformation",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "个人信息"
+			}
+		},
+		{
+			"path": "pages/notices/detail",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "公告详情"
+			}
+		},
+		{
+			"path": "pages/article/index",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "文章信息"
+			}
+		},
+		{
+			"path": "pages/article/detail",
+			"style": {
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default",
+				"navigationBarTextStyle": "black",
+				"navigationBarTitleText": "文章详情"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationStyle": "custom",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"mp-alipay": {
+			"allowsBounceVertical": "NO",
+			"transparentTitle": "always"
+		}
+	},
+	"tabBar": {
+		"color": "#999",
+		"selectedColor": "#333",
+		"backgroundColor": "#fff",
+		"list": [
+			{
+				"pagePath": "pages/home/index",
+				"text": "首页",
+				"iconPath": "static/images/indexMenu/home.png",
+				"selectedIconPath": "static/images/indexMenu/home_selected.png"
+			},
+			{
+				"pagePath": "pages/category/index",
+				"text": "分类",
+				"iconPath": "static/images/indexMenu/category.png",
+				"selectedIconPath": "static/images/indexMenu/category_selected.png"
+			},
+			{
+				"pagePath": "pages/cart/index",
+				"text": "购物车",
+				"iconPath": "static/images/indexMenu/cart.png",
+				"selectedIconPath": "static/images/indexMenu/cart_selected.png"
+			},
+			{
+				"pagePath": "pages/member/index",
+				"text": "我的",
+				"iconPath": "static/images/indexMenu/member.png",
+				"selectedIconPath": "static/images/indexMenu/member_selected.png"
+			}
+		]
+	}
+}

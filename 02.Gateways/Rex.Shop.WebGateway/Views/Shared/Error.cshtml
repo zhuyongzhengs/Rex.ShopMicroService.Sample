@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "异常错误";
+}
+
+@section style {
+    <style type="text/css">
+        .err-msg {
+            padding: 5px;
+            text-align: left;
+        }
+    </style>
+}
+
+<div class="auth-container">
+    <h1 class="text-danger">Error.</h1>
+    <p class="err-msg">
+        @Model
+    </p>
+</div>

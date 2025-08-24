@@ -1,0 +1,26 @@
+﻿using System;
+using Volo.Abp.Application.Dtos;
+
+namespace Rex.GoodService.Articles
+{
+    /// <summary>
+    /// 创建文章分类Dto
+    /// </summary>
+    public class ArticleTypeCreateDto : EntityDto
+    {
+        /// <summary>
+        /// 分类名称
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 父id
+        /// </summary>
+        public Guid? ParentId { get; set; }
+
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public int Sort { get; set; }
+    }
+}

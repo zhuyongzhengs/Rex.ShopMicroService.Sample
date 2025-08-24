@@ -1,0 +1,908 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Rex.BackendAggregationService</name>
+    </assembly>
+    <members>
+        <member name="T:Rex.BackendAggregationService.BackendAggregationModule">
+            <summary>
+            后台聚合服务模块
+            </summary>
+        </member>
+        <member name="M:Rex.BackendAggregationService.BackendAggregationModule.ConfigureDateJsonOptions(Volo.Abp.Modularity.ServiceConfigurationContext)">
+            <summary>
+            配置日期Json策略
+            </summary>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Controllers.BillAftersalesController">
+            <summary>
+            售后单控制器
+            </summary>
+        </member>
+        <member name="M:Rex.BackendAggregationService.Controllers.BillAftersalesController.GetBillAftersalesPageListAsync(Rex.OrderService.Bills.GetBillAftersalesInput)">
+            <summary>
+            获取(分页)售后单列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.BackendAggregationService.Controllers.BillAftersalesController.GetBillAftersalesByIdAsync(System.Guid)">
+            <summary>
+            获取(分页)售后单列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Controllers.BillPaymentController">
+            <summary>
+            支付单控制器
+            </summary>
+        </member>
+        <member name="M:Rex.BackendAggregationService.Controllers.BillPaymentController.GetBillPaymentPageListAsync(Rex.PaymentService.Payments.GetBillPaymentInput)">
+            <summary>
+            获取(分页)支付单列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.BackendAggregationService.Controllers.BillPaymentController.OrderPay(Rex.BackendAggregationService.Payments.OrderPayDto)">
+            <summary>
+            订单支付
+            </summary>
+            <param name="input">支付Dto</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.BackendAggregationService.Controllers.BillPaymentController.GenerateBillPaymentAsync(System.Collections.Generic.List{Rex.PaymentService.Payments.BillPaymentCreateDto})">
+            <summary>
+            支付成功之后，更新支付状态
+            </summary>
+            <param name="input">支付单</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.BackendAggregationService.Controllers.BillPaymentController.UpdatePaymentedStatusAsync(Rex.BackendAggregationService.Payments.PaymentBillUpdateDto)">
+            <summary>
+            支付成功之后，更新支付状态
+            </summary>
+            <param name="input">支付单</param>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Controllers.BillRefundController">
+            <summary>
+            退货单控制器
+            </summary>
+        </member>
+        <member name="M:Rex.BackendAggregationService.Controllers.BillRefundController.GetPageListAsync(Rex.PaymentService.Payments.GetBillRefundInput)">
+            <summary>
+            获取(分页)退款单列表
+            </summary>
+            <param name="input">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Controllers.BillReshipController">
+            <summary>
+            退货单控制器
+            </summary>
+        </member>
+        <member name="M:Rex.BackendAggregationService.Controllers.BillReshipController.GetBillReshipPageListAsync(Rex.OrderService.Bills.GetBillReshipInput)">
+            <summary>
+            获取(分页)退货单列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Controllers.CommonController">
+            <summary>
+            聚合公共控制器
+            </summary>
+        </member>
+        <member name="M:Rex.BackendAggregationService.Controllers.CommonController.SavePlatformSettingAsync(Rex.BaseService.Systems.PlatformSettings.PlatformSettingDto)">
+            <summary>
+            [保存]平台设置
+            </summary>
+            <param name="platformSetting">平台设置Dto</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.BackendAggregationService.Controllers.CommonController.GetWaitItemCountAsync">
+            <summary>
+            获取待办事项数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Controllers.GoodController">
+            <summary>
+            商品控制器
+            </summary>
+        </member>
+        <member name="M:Rex.BackendAggregationService.Controllers.GoodController.GetGoodPriceType">
+            <summary>
+            获取商品价格类型
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.BackendAggregationService.Controllers.GoodController.GetProductStockDetails(System.Guid)">
+            <summary>
+            获取商品库存详情
+            </summary>
+            <param name="goodId">商品ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.BackendAggregationService.Controllers.GoodController.GetGoodCommentPageListAsync(Rex.GoodService.Goods.GetGoodCommentInput)">
+            <summary>
+            获取(分页)商品评价列表
+            </summary>
+            <param name="input">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Controllers.HomeController">
+            <summary>
+            首页控制器
+            </summary>
+        </member>
+        <member name="M:Rex.BackendAggregationService.Controllers.HomeController.Index">
+            <summary>
+            首页
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Controllers.OrderController">
+            <summary>
+            订单控制器
+            </summary>
+        </member>
+        <member name="M:Rex.BackendAggregationService.Controllers.OrderController.GetOrderDetailAsync(System.Guid)">
+            <summary>
+            获取订单详情列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.BackendAggregationService.Controllers.OrderController.GetOrderDeliveryAsync(System.Guid)">
+            <summary>
+            获取订单发货信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Controllers.PromotionCouponController">
+            <summary>
+            控制器
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Rex.BackendAggregationService.Controllers.PromotionCouponController.GetListAsync(Rex.PromotionService.Promotions.GetCouponInput)" -->
+        <member name="T:Rex.BackendAggregationService.Core.Mappers.AutoMapperProfile">
+            <summary>
+            自动映射配置类
+            </summary>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Core.Mappers.ObjectMapper">
+            <summary>
+            对象映射
+            </summary>
+        </member>
+        <member name="M:Rex.BackendAggregationService.Core.Mappers.ObjectMapper.Map``2(``0)">
+            <summary>
+            映射对象
+            </summary>
+            <typeparam name="TSource">来源</typeparam>
+            <typeparam name="TDestination">目标</typeparam>
+            <param name="source">来源对象</param>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Core.RequestRemoteServiceHttpClientAuthenticator">
+            <summary>
+            动态C#客户端设置请求头
+            </summary>
+        </member>
+        <member name="F:Rex.BackendAggregationService.Core.RequestRemoteServiceHttpClientAuthenticator._httpContextAccessor">
+            <summary>
+            HttpContext访问器
+            </summary>
+        </member>
+        <member name="M:Rex.BackendAggregationService.Core.RequestRemoteServiceHttpClientAuthenticator.Authenticate(Volo.Abp.Http.Client.Authentication.RemoteServiceHttpClientAuthenticateContext)">
+            <summary>
+            进行身份验证
+            </summary>
+            <param name="context">远程服务认证上下文</param>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Goods.GoodCommentManyDto">
+            <summary>
+            商品评价Dto
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Goods.GoodCommentManyDto.Avatar">
+            <summary>
+            用户头像
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Goods.GoodCommentManyDto.UserName">
+            <summary>
+            用户名称
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Goods.GoodCommentManyDto.PhoneNumber">
+            <summary>
+            用户手机号码
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Goods.GoodCommentManyDto.GoodName">
+            <summary>
+            商品名称
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Goods.GoodCommentManyDto.OrderNo">
+            <summary>
+            订单号
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Goods.GoodCommentManyDto.ShipName">
+            <summary>
+            收货人姓名
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Goods.GoodCommentManyDto.ShipMobile">
+            <summary>
+            收货人联系方式
+            </summary>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Goods.ProductDetailDto">
+            <summary>
+            货品详情Dto
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Goods.ProductDetailDto.GoodId">
+            <summary>
+            商品ID
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Goods.ProductDetailDto.BarCode">
+            <summary>
+            商品条码
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Goods.ProductDetailDto.Sn">
+            <summary>
+            货品编码
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Goods.ProductDetailDto.Price">
+            <summary>
+            货品价格
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Goods.ProductDetailDto.CostPrice">
+            <summary>
+            货品成本价
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Goods.ProductDetailDto.MktPrice">
+            <summary>
+            货品市场价
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Goods.ProductDetailDto.Weight">
+            <summary>
+            重量(千克)
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Goods.ProductDetailDto.Stock">
+            <summary>
+            库存
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Goods.ProductDetailDto.FreezeStock">
+            <summary>
+            冻结库存
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Goods.ProductDetailDto.RemainingStock">
+            <summary>
+            可用库存
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Goods.ProductDetailDto.SpesDesc">
+            <summary>
+            规格值
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Goods.ProductDetailDto.IsDefault">
+            <summary>
+            是否默认货品
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Goods.ProductDetailDto.Images">
+            <summary>
+            规格图片
+            </summary>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Orders.BillAftersalesDtlDto">
+            <summary>
+            售后单明细Dto
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlDto.No">
+            <summary>
+            售后单号
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlDto.OrderId">
+            <summary>
+            订单ID
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlDto.OrderNo">
+            <summary>
+            订单号
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlDto.UserId">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlDto.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlDto.Type">
+            <summary>
+            售后类型
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlDto.TypeDisplay">
+            <summary>
+            显示售后类型
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlDto.RefundAmount">
+            <summary>
+            退款金额
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlDto.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlDto.StatusDisplay">
+            <summary>
+            显示审核状态
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlDto.Reason">
+            <summary>
+            退款原因
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlDto.Mark">
+            <summary>
+            卖家备注
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlDto.Images">
+            <summary>
+            凭证图片
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlDto.ProductItems">
+            <summary>
+            售后单明细
+            </summary>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Orders.BillAftersalesDtlItemDto">
+            <summary>
+            售后单明细Dto
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlItemDto.AftersalesId">
+            <summary>
+            售后单id
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlItemDto.OrderItemId">
+            <summary>
+            订单明细ID
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlItemDto.GoodId">
+            <summary>
+            商品ID
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlItemDto.ProductId">
+            <summary>
+            货品ID
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlItemDto.Sn">
+            <summary>
+            货品编码
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlItemDto.Bn">
+            <summary>
+            商品编码
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlItemDto.Name">
+            <summary>
+            商品名称
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlItemDto.ImageUrl">
+            <summary>
+            图片
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlItemDto.Amount">
+            <summary>
+            总价
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlItemDto.BuyNums">
+            <summary>
+            购买数量
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlItemDto.SendNums">
+            <summary>
+            发货数量
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlItemDto.Nums">
+            <summary>
+            退货数量
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlItemDto.Addon">
+            <summary>
+            货品明细序列号存储
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesDtlItemDto.Checked">
+            <summary>
+            是否选中
+            </summary>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Orders.BillAftersalesManyDto">
+            <summary>
+            售后单Dto
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesManyDto.UserName">
+            <summary>
+            用户名称
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillAftersalesManyDto.OrderNo">
+            <summary>
+            订单号
+            </summary>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Orders.BillReshipManyDto">
+            <summary>
+            退货单
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillReshipManyDto.UserName">
+            <summary>
+            用户名称
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillReshipManyDto.OrderNo">
+            <summary>
+            订单号
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.BillReshipManyDto.AftersalesNo">
+            <summary>
+            售后单号
+            </summary>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Orders.OrderDetailDto">
+            <summary>
+            订单详情Dto
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.No">
+            <summary>
+            订单号
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.OrderType">
+            <summary>
+            订单类型
+            </summary>
+            <remarks>
+            枚举：OrderType
+            1：普通、2：拼团、3：团购、4：秒杀、5：积分兑换、6：砍价、
+            7：赠品、8：接龙、10：微信交易组件
+            </remarks>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.OrderTypeDisplay">
+            <summary>
+            显示订单来源
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.Source">
+            <summary>
+            订单来源
+            </summary>
+            <remarks>
+            枚举：Source
+            1：PC端、2：H5端、3：微信小程序端、4：支付宝小程序端、5：APP端
+            </remarks>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.SourceDisplay">
+            <summary>
+            显示订单来源
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.PaymentCode">
+            <summary>
+            支付方式代码
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.Status">
+            <summary>
+            订单状态
+            </summary>
+            <remarks>
+            枚举：OrderStatus
+            1：订单正常、2：订单完成、3：订单取消
+            </remarks>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.StatusDisplay">
+            <summary>
+            显示订单状态
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.ShipStatus">
+            <summary>
+            发货状态
+            </summary>
+            <remarks>
+            枚举：OrderShipStatus
+            1：未发货、2：部分发货、3：已发货、4：部分退货、5：已退货
+            </remarks>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.ShipStatusDisplay">
+            <summary>
+            显示发货状态
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.LogisticsId">
+            <summary>
+            配送方式ID
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.LogisticsName">
+            <summary>
+            配送方式名称
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.Weight">
+            <summary>
+            商品总重量
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.GoodAmount">
+            <summary>
+            商品总价
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.CostFreight">
+            <summary>
+            配送费用
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.PayedAmount">
+            <summary>
+            已支付的金额
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.GradeDiscountAmount">
+            <summary>
+            会员优惠
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.SeckillDiscountAmount">
+            <summary>
+            秒杀优惠
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.OrderDiscountAmount">
+            <summary>
+            订单优惠金额
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.GoodsDiscountAmount">
+            <summary>
+            商品优惠金额
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.CouponDiscountAmount">
+            <summary>
+            优惠券优惠额度
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.PointMoney">
+            <summary>
+            积分抵扣金额
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.OrderAmount">
+            <summary>
+            订单实际销售总额
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.PayStatus">
+            <summary>
+            支付状态
+            </summary>
+            <remarks>
+            枚举：OrderPayStatus
+            1：未付款、2：已付款、3：部分付款、4：部分退款、5：已退款
+            </remarks>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.PayStatusDisplay">
+            <summary>
+            显示发货状态
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.ShipAreaId">
+            <summary>
+            收货地区ID
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.DisplayArea">
+            <summary>
+            显示区域信息
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.ShipAddress">
+            <summary>
+            收货详细地址
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.ShipName">
+            <summary>
+            收货人姓名
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.ShipMobile">
+            <summary>
+            收货电话
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.ConfirmStatus">
+            <summary>
+            售后状态
+            </summary>
+            <remarks>
+            枚举：OrderConfirmStatus
+            1：未确认收货、2：已确认收货
+            </remarks>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.ConfirmStatusDisplay">
+            <summary>
+            显示售后状态
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.ConfirmTime">
+            <summary>
+            确认收货时间
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.Memo">
+            <summary>
+            买家备注
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.UserId">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.UserName">
+            <summary>
+            用户名称
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.NickName">
+            <summary>
+            用户昵称
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.PhoneNumber">
+            <summary>
+            手机号码
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.UserGradeName">
+            <summary>
+            用户等级
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.Mark">
+            <summary>
+            卖家备注
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.CreationTime">
+            <summary>
+            创建日期
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.OrderItems">
+            <summary>
+            订单明细
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.BillPayments">
+            <summary>
+            支付单
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.BillRefunds">
+            <summary>
+            退款单
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.BillDeliverys">
+            <summary>
+            发货单
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.BillReships">
+            <summary>
+            退货单
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.Coupons">
+            <summary>
+            优惠劵
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Orders.OrderDetailDto.OrderLogs">
+            <summary>
+            订单记录
+            </summary>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Payments.BillRefundManyDto">
+            <summary>
+            退款单Dto
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Payments.BillRefundManyDto.BillAftersalesNo">
+            <summary>
+            售后单号
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Payments.BillRefundManyDto.SourceNo">
+            <summary>
+            关联单号
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Payments.BillRefundManyDto.UserName">
+            <summary>
+            用户名称
+            </summary>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Payments.OrderPayDto">
+            <summary>
+            订单支付 Dto
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Payments.OrderPayDto.OrderIds">
+            <summary>
+            订单ID
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Payments.OrderPayDto.PaymentCode">
+            <summary>
+            支付方式编码
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Payments.OrderPayDto.PaymentType">
+            <summary>
+            付款单类型
+            </summary>
+            <remarks>
+            枚举：BillPaymentType
+            1：订单、2：充值、3：表单订单、4：表单付款码、5：服务订单
+            </remarks>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Payments.PaymentBillUpdateDto">
+            <summary>
+            更新支付单Dto
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Payments.PaymentBillUpdateDto.BillPaymentNo">
+            <summary>
+            支付单号
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Payments.PaymentBillUpdateDto.Status">
+            <summary>
+            支付状态
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Payments.PaymentBillUpdateDto.PaymentCode">
+            <summary>
+            支付类型编码
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Payments.PaymentBillUpdateDto.Money">
+            <summary>
+            支付金额
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Payments.PaymentBillUpdateDto.PayedMsg">
+            <summary>
+            支付回调后的状态描述
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Payments.PaymentBillUpdateDto.TradeNo">
+            <summary>
+            第三方平台交易流水号
+            </summary>
+        </member>
+        <member name="T:Rex.BackendAggregationService.Promotions.CouponManyDto">
+            <summary>
+            优惠卷Dto
+            </summary>
+        </member>
+        <member name="P:Rex.BackendAggregationService.Promotions.CouponManyDto.UserName">
+            <summary>
+            用户名称
+            </summary>
+        </member>
+        <member name="T:Rex.BackendPinTuanAggregationService.Controllers.PinTuanController">
+            <summary>
+            拼团控制器
+            </summary>
+        </member>
+        <member name="M:Rex.BackendPinTuanAggregationService.Controllers.PinTuanController.GetPageListAsync(Rex.PromotionService.PinTuans.GetPinTuanRuleInput)">
+            <summary>
+            获取(分页)拼团规则列表
+            </summary>
+            <param name="input">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.BackendPinTuanAggregationService.Controllers.PinTuanController.GetPinTuanGoodByRuleIdsAsync(System.Guid[])">
+            <summary>
+            根据拼团规则ID获取拼团商品
+            </summary>
+            <param name="ruleIds">拼团规则ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.BackendPinTuanAggregationService.Controllers.PinTuanController.LoadPinTuanGood(System.Collections.Generic.List{Rex.PromotionService.PinTuans.PinTuanGoodDto}@)">
+            <summary>
+            加载拼团商品信息
+            </summary>
+            <param name="pinTuanGoods"></param>
+        </member>
+        <member name="T:Rex.BackendStoreClerkAggregationService.Controllers.StoreClerkController">
+            <summary>
+            店铺店员关联控制器
+            </summary>
+        </member>
+        <member name="M:Rex.BackendStoreClerkAggregationService.Controllers.StoreClerkController.GetPageListAsync(Rex.GoodService.StoreClerks.GetStoreClerkInput)">
+            <summary>
+            获取店铺店员关联信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.BackendStoreClerkAggregationService.Controllers.StoreClerkController.CreateAsync(Rex.GoodService.StoreClerks.StoreClerkCreateDto)">
+            <summary>
+            创建店员关联用户
+            </summary>
+            <param name="input">店员关联</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.BackendStoreClerkAggregationService.Controllers.StoreClerkController.UpdateAsync(System.Guid,Rex.GoodService.StoreClerks.StoreClerkUpdateDto)">
+            <summary>
+            修改店员关联用户
+            </summary>
+            <param name="id">关联ID</param>
+            <param name="input">店员关联</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
