@@ -1,0 +1,1556 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Rex.FrontAggregationService</name>
+    </assembly>
+    <members>
+        <member name="T:Rex.FrontAggregationService.Controllers.BillAftersalesController">
+            <summary>
+            售后单控制器
+            </summary>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.BillAftersalesController.GetBillAftersalesByIdAsync(System.Guid)">
+            <summary>
+            查询售后单信息
+            </summary>
+            <param name="id">售后单ID</param>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Controllers.CartController">
+            <summary>
+            购物车控制器
+            </summary>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.CartController.GetUserCartInfoAsync(System.Int32)">
+            <summary>
+            获取用户的购物车信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.CartController.OrderConfirmAsync(Rex.FrontAggregationService.Orders.OrderConfirmDto)">
+            <summary>
+            确认下单
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.CartController.OrderSeckillAsync(System.String,Rex.Service.Core.Events.Orders.OrderCreateEto)">
+            <summary>
+            秒杀订单
+            </summary>
+            <param name="orderNo">订单号</param>
+            <param name="orderCreate">用户订单</param>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.CartController.PlaceOrderAsync(System.String,Rex.Service.Core.Events.Orders.OrderCreateEto)">
+            <summary>
+            正常下单
+            </summary>
+            <param name="orderNo"></param>
+            <param name="orderCreate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.CartController.RollbackPlaceOrder(System.String,System.Collections.Generic.Dictionary{System.Guid,System.Collections.Generic.List{Rex.Service.Core.Events.Orders.OrderItemCreateEto}})">
+            <summary>
+            [回滚]正常下单
+            </summary>
+            <param name="orderNo"></param>
+            <param name="rollbackOrderItemDic"></param>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.CartController.GetUserCartByIdsAsync(System.Collections.Generic.List{System.Guid},System.Int32,System.Int32,System.String)">
+            <summary>
+            根据购物(车)ID获取购物车信息
+            </summary>
+            <param name="ids">ID</param>
+            <param name="receiptType">[收货方式]1：物流快递、2：同城配送、3：门店自提</param>
+            <param name="shipAreaId">区域ID</param>
+            <param name="orderNo">订单号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.CartController.SetUserCoupon(Rex.FrontAggregationService.Orders.CartOrderDto@)">
+            <summary>
+            获取用户可用优惠卷
+            </summary>
+            <param name="cartOrder"></param>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.CartController.SetGoodSeckillAmount(Rex.FrontAggregationService.Orders.CartOrderDto@,Rex.PromotionService.Promotions.PromotionDto)">
+            <summary>
+            设置商品秒杀
+            </summary>
+            <param name="cartOrder">购物车</param>
+            <param name="promotion">促销信息</param>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.CartController.SetUserGradeAmount(Rex.FrontAggregationService.Orders.CartOrderDto@,Rex.Service.Core.Models.GradeEto)">
+            <summary>
+            设置用户会员等级
+            </summary>
+            <param name="cartOrder"></param>
+            <param name="uGrade">用户等级</param>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.CartController.SetPromotionGlobalAmount(Rex.FrontAggregationService.Orders.CartOrderDto@)">
+            <summary>
+            设置全局促销
+            </summary>
+            <param name="cartOrder">购物车</param>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.CartController.ValidatePromotionCondition(Rex.FrontAggregationService.Orders.CartOrderDto,System.Collections.Generic.List{Rex.PromotionService.Promotions.PromotionConditionDto},Rex.FrontAggregationService.Orders.ShoppingCartDto)">
+            <summary>
+            验证是否满足(所有)促销条件
+            </summary>
+            <param name="cartOrder">购物车订单</param>
+            <param name="promotionConditions">促销条件</param>
+            <param name="shoppingCart">购物车</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.CartController.UpdateUserCartNumsAsnyc(System.Guid,System.Int32)">
+            <summary>
+            更新用户的购物车货品数量
+            </summary>
+            <param name="id">购物车ID</param>
+            <param name="nums">货品数量</param>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Controllers.HomeController">
+            <summary>
+            首页控制器
+            </summary>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.HomeController.Index">
+            <summary>
+            首页
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Controllers.OrderController">
+            <summary>
+            订单控制器
+            </summary>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.OrderController.GetUserOrderPageListAsync(Rex.OrderService.Orders.GetUserOrderInput)">
+            <summary>
+            获取(分页)订单列表
+            </summary>
+            <param name="input">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Controllers.PaymentController">
+            <summary>
+            支付控制器
+            </summary>
+            <summary>
+            支付控制器.NonAction
+            </summary>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.PaymentController.WxmpPaymentAsync(Rex.FrontAggregationService.Payments.UserPayDto)">
+            <summary>
+            微信小程序支付
+            </summary>
+            <param name="input">支付单</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.PaymentController.BalancePaymentAsync(Rex.FrontAggregationService.Payments.UserPayDto)">
+            <summary>
+            余额支付
+            </summary>
+            <param name="input">支付单</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.PaymentController.GetPaymentOrderDetailAsync(System.String)">
+            <summary>
+            查询支付订单详情
+            </summary>
+            <param name="billPaymentNo">支付单号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.PaymentController.GenerateBillPaymentAsync(Rex.FrontAggregationService.Payments.UserPayDto)">
+            <summary>
+            生成支付单
+            </summary>
+            <param name="input">用户支付Dto</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.PaymentController.CheckPayRelAsync(Rex.FrontAggregationService.Payments.PaymentRelDto)">
+            <summary>
+            验证支付Rel
+            </summary>
+            <param name="input">支付RelDto</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Controllers.PaymentController.UpdatePaymentedStatusAsync(Rex.FrontAggregationService.Payments.PaymentBillUpdateDto)">
+            <summary>
+            支付成功之后，更新支付状态
+            </summary>
+            <param name="input">支付单</param>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Core.FaHandle">
+            <summary>
+            处理类
+            </summary>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Core.FaHandle.GetShipCost(Rex.OrderService.Ships.ShipDto,System.Decimal,System.Decimal,System.Int64)">
+            <summary>
+            获取配送费用
+            </summary>
+            <param name="shipDto">配送方式</param>
+            <param name="weight">重量</param>
+            <param name="goodAmount">商品总价</param>
+            <param name="areaId">区域ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Core.FaHandle.CalcFee(Rex.OrderService.Ships.ShipDto,System.Decimal,System.Decimal,System.Decimal)">
+            <summary>
+            计算运费
+            </summary>
+            <param name="ship">配送方式</param>
+            <param name="weight">订单重量</param>
+            <param name="totalMoney">商品总价</param>
+            <param name="areaFirstunitPrice">[区域]首重费用</param>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Core.Mappers.AutoMapperProfile">
+            <summary>
+            自动映射配置类
+            </summary>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Core.Mappers.ObjectMapper">
+            <summary>
+            对象映射
+            </summary>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Core.Mappers.ObjectMapper.Map``2(``0)">
+            <summary>
+            映射对象
+            </summary>
+            <typeparam name="TSource">来源</typeparam>
+            <typeparam name="TDestination">目标</typeparam>
+            <param name="source">来源对象</param>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Core.RequestRemoteServiceHttpClientAuthenticator">
+            <summary>
+            动态C#客户端设置请求头
+            </summary>
+        </member>
+        <member name="F:Rex.FrontAggregationService.Core.RequestRemoteServiceHttpClientAuthenticator._httpContextAccessor">
+            <summary>
+            HttpContext访问器
+            </summary>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Core.RequestRemoteServiceHttpClientAuthenticator.Authenticate(Volo.Abp.Http.Client.Authentication.RemoteServiceHttpClientAuthenticateContext)">
+            <summary>
+            进行身份验证
+            </summary>
+            <param name="context">远程服务认证上下文</param>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Events.PlaceOrderCallbackEventHandler">
+            <summary>
+            下单(取消)回滚事件处理
+            </summary>
+            <remarks>
+            订阅事件
+            </remarks>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Events.PlaceOrderCallbackEventHandler.PlaceOrderCallbackAsync(Rex.Service.Core.Events.Orders.PlaceOrderCallbackEto)">
+            <summary>
+            事件执行
+            </summary>
+            <param name="eventData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Events.PlaceOrderCallbackEventHandler.SeckillOrderCallbackAsync(Rex.OrderService.Orders.OrderDto)">
+            <summary>
+            秒杀订单库存缓存回滚
+            </summary>
+            <param name="order"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Events.PlaceOrderCallbackEventHandler.PlaceOrderCallbackAsync(Rex.OrderService.Orders.OrderDto)">
+            <summary>
+            订单有效性缓存回滚
+            </summary>
+            <param name="order"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.FrontAggregationService.FrontAggregationHostedService">
+            <summary>
+            服务启动加载Lua文件
+            </summary>
+        </member>
+        <member name="F:Rex.FrontAggregationService.FrontAggregationHostedService.PlaceOrderKey">
+            <summary>
+            正常下单Lua执行脚本缓存Key
+            </summary>
+        </member>
+        <member name="F:Rex.FrontAggregationService.FrontAggregationHostedService.RollbackPlaceOrderKey">
+            <summary>
+            [回滚]正常下单Lua执行脚本缓存Key
+            </summary>
+        </member>
+        <member name="F:Rex.FrontAggregationService.FrontAggregationHostedService.SeckillOrderLuaKey">
+            <summary>
+            订单秒杀Lua脚本缓存Key
+            </summary>
+        </member>
+        <member name="F:Rex.FrontAggregationService.FrontAggregationHostedService.PlaceOrderCallbackKey">
+            <summary>
+            订单回滚有效性缓存Key
+            </summary>
+        </member>
+        <member name="F:Rex.FrontAggregationService.FrontAggregationHostedService.SeckillOrderCallbackLuaKey">
+            <summary>
+            订单回滚Lua脚本缓存Key
+            </summary>
+        </member>
+        <member name="M:Rex.FrontAggregationService.FrontAggregationHostedService.StartAsync(System.Threading.CancellationToken)">
+            <summary>
+            加载Lua脚本文件缓存
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.FrontAggregationService.FrontAggregationModule">
+            <summary>
+            前台聚合服务模块
+            </summary>
+        </member>
+        <member name="M:Rex.FrontAggregationService.FrontAggregationModule.ConfigureRedisCacheOption(Volo.Abp.Modularity.ServiceConfigurationContext)">
+            <summary>
+            配置Redis缓存
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Rex.FrontAggregationService.FrontAggregationModule.ConfigureCapRabbitMqOptions(Volo.Abp.Modularity.ServiceConfigurationContext,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            配置CAP事件总线RabbitMQ
+            </summary>
+            <param name="context"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:Rex.FrontAggregationService.FrontAggregationModule.ConfigureDateJsonOptions(Volo.Abp.Modularity.ServiceConfigurationContext)">
+            <summary>
+            配置日期Json策略
+            </summary>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Goods.PageLayoutDto">
+            <summary>
+            页面布局Dto
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.PageLayoutDto.Code">
+            <summary>
+            可视化区域编码
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.PageLayoutDto.Name">
+            <summary>
+            可编辑区域名称
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.PageLayoutDto.Desc">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.PageLayoutDto.Layout">
+            <summary>
+            布局样式编码
+            </summary>
+            <remarks>
+            1、手机端
+            2、PC端
+            </remarks>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.PageLayoutDto.Type">
+            <summary>
+            是否默认
+            </summary>
+            <remarks>
+            1、是  2、否
+            </remarks>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.PageLayoutDto.Items">
+            <summary>
+            页面布局项
+            </summary>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Goods.SeckillGoodDto">
+            <summary>
+            秒杀商品Dto
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.BarCode">
+            <summary>
+            商品条码
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.Name">
+            <summary>
+            商品名称
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.BrandName">
+            <summary>
+            品牌名称
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.Brief">
+            <summary>
+            商品简介
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.Image">
+            <summary>
+            缩略图
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.Images">
+            <summary>
+            图集
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.Video">
+            <summary>
+            视频
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.GoodSkuIds">
+            <summary>
+            sku序列
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.GoodParamsIds">
+            <summary>
+            参数序列
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.IsNomalVirtual">
+            <summary>
+            是否虚拟商品
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.Unit">
+            <summary>
+            商品单位
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.Intro">
+            <summary>
+            商品详情
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.SpesDesc">
+            <summary>
+            商品规格序列号存储
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.Parameters">
+            <summary>
+            参数序列化
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.CommentsCount">
+            <summary>
+            评论次数
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.ViewCount">
+            <summary>
+            浏览次数
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.BuyCount">
+            <summary>
+            购买次数
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.Sort">
+            <summary>
+            商品排序
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.NewSpec">
+            <summary>
+            自定义规格名称
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.OpenSpec">
+            <summary>
+            开启规则
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.IsRecommend">
+            <summary>
+            是否推荐
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.IsHot">
+            <summary>
+            是否热门
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.IsFav">
+            <summary>
+            是否收藏
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.Price">
+            <summary>
+            销售价
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.MktPrice">
+            <summary>
+            市场价
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.Products">
+            <summary>
+            货品信息
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.PromotionId">
+            <summary>
+            促销ID
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.PromotionType">
+            <summary>
+            促销类型
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.PromotionIsEnable">
+            <summary>
+            促销是否启用
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.PromotionTime">
+            <summary>
+            促销(当前)时间
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.PromotionStartTime">
+            <summary>
+            促销开始时间
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.PromotionEndTime">
+            <summary>
+            促销结束时间
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.StartStatus">
+            <summary>
+            开始状态
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.StartStatusDisplay">
+            <summary>
+            显示类型
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.IsOverdue">
+            <summary>
+            是否过期
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.PromotionSeconds">
+            <summary>
+            促销剩余时间(秒)
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.GoodSeckillMoney">
+            <summary>
+            秒杀价格
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.SeckillDiscountAmount">
+            <summary>
+            秒杀优惠价格
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.TotalStock">
+            <summary>
+            (总)库存数量
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillGoodDto.TotalFreezeStock">
+            <summary>
+            (总)冻结库存数量
+            </summary>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Goods.SeckillProductDto">
+            <summary>
+            秒杀货品信息
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillProductDto.GoodId">
+            <summary>
+            商品ID
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillProductDto.BarCode">
+            <summary>
+            商品条码
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillProductDto.Sn">
+            <summary>
+            货品编码
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillProductDto.Price">
+            <summary>
+            货品价格
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillProductDto.MktPrice">
+            <summary>
+            货品市场价
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillProductDto.Marketable">
+            <summary>
+            是否上架
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillProductDto.Weight">
+            <summary>
+            重量(千克)
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillProductDto.Stock">
+            <summary>
+            库存
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillProductDto.FreezeStock">
+            <summary>
+            冻结库存
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillProductDto.SpesDesc">
+            <summary>
+            规格值
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillProductDto.IsDefault">
+            <summary>
+            是否默认货品
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.SeckillProductDto.Images">
+            <summary>
+            规格图片
+            </summary>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Goods.UserGoodCommentDto">
+            <summary>
+            用户商品评价Dto
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.UserGoodCommentDto.UserId">
+            <summary>
+            评价用户ID
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.UserGoodCommentDto.UserName">
+            <summary>
+            用户名称
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.UserGoodCommentDto.Avatar">
+            <summary>
+            用户头像
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.UserGoodCommentDto.Score">
+            <summary>
+            评价1-5星
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.UserGoodCommentDto.GoodId">
+            <summary>
+            商品ID
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.UserGoodCommentDto.Addon">
+            <summary>
+            货品规格序列号存储
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.UserGoodCommentDto.Images">
+            <summary>
+            评价图片逗号分隔最多五张
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.UserGoodCommentDto.ContentBody">
+            <summary>
+            评价内容
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Goods.UserGoodCommentDto.CreationTime">
+            <summary>
+            创建日期
+            </summary>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Luas.PlaceOrderServiceCollectionExtensions">
+            <summary>
+            下单Lua脚本服务扩展
+            </summary>
+        </member>
+        <member name="M:Rex.FrontAggregationService.Luas.PlaceOrderServiceCollectionExtensions.AddPlaceOrderLua(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加下单Lua脚本服务
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Orders.BillAftersalesDetailDto">
+            <summary>
+            售后单Dto
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.BillAftersalesDetailDto.BillRefund">
+            <summary>
+            退款单
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.BillAftersalesDetailDto.BillReship">
+            <summary>
+            退货单
+            </summary>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Orders.CartOrderDto">
+            <summary>
+            购物车订单
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.CartOrderDto.OrderNo">
+            <summary>
+            订单号
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.CartOrderDto.ShoppingCarts">
+            <summary>
+            购物车列表
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.CartOrderDto.GoodAmount">
+            <summary>
+            商品总额
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.CartOrderDto.OrderAmount">
+            <summary>
+            订单金额
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.CartOrderDto.GoodGradeMoney">
+            <summary>
+            会员优惠
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.CartOrderDto.GoodPromotionMoney">
+            <summary>
+            商品优惠
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.CartOrderDto.GoodSeckillMoney">
+            <summary>
+            秒杀优惠
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.CartOrderDto.OrderPromotionMoney">
+            <summary>
+            订单优惠
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.CartOrderDto.CouponPromotionMoney">
+            <summary>
+            优惠券抵扣
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.CartOrderDto.PointExchangeMoney">
+            <summary>
+            积分抵扣
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.CartOrderDto.CostFreight">
+            <summary>
+            运费
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.CartOrderDto.ProductNums">
+            <summary>
+            商品(件)数量
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.CartOrderDto.Weight">
+            <summary>
+            总重量
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.CartOrderDto.Memo">
+            <summary>
+            买家留言
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.CartOrderDto.PointExchangeItem">
+            <summary>
+            用户可用积分
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.CartOrderDto.CouponExchanges">
+            <summary>
+            用户(可用)优惠券
+            </summary>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Orders.OrderConfirmDto">
+            <summary>
+            订单确认Dto
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.OrderConfirmDto.CartIds">
+            <summary>
+            购物车ID
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.OrderConfirmDto.OrderType">
+            <summary>
+            订单类型
+            </summary>
+            <remarks>
+            枚举：OrderType
+            1：普通、2：拼团、3：团购、4：秒杀、5：积分兑换、6：砍价、
+            7：赠品、8：接龙、10：微信交易组件
+            </remarks>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.OrderConfirmDto.ReceiptType">
+            <summary>
+            收货方式：1.物流快递、2.同城配送、3.门店自提
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.OrderConfirmDto.PaymentCode">
+            <summary>
+            支付方式代码
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.OrderConfirmDto.ShipAreaId">
+            <summary>
+            区域ID
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.OrderConfirmDto.CouponIds">
+            <summary>
+            优惠劵ID
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.OrderConfirmDto.IsUsePoint">
+            <summary>
+            是否使用积分
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.OrderConfirmDto.UserShipId">
+            <summary>
+            用户(收货)地址ID
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.OrderConfirmDto.ObjectId">
+            <summary>
+            关联营销类型对象序列
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.OrderConfirmDto.OrderNo">
+            <summary>
+            订单号
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.OrderConfirmDto.Memo">
+            <summary>
+            买家备注
+            </summary>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Orders.PlaceSeckillOrderDto_">
+            <summary>
+            下(秒杀)订单Dto
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.PlaceSeckillOrderDto_.RequestIdKey">
+            <summary>
+            订单请求(ID)键
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.PlaceSeckillOrderDto_.OrderRateLimitKey">
+            <summary>
+            单品限流访问量限制Key
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.PlaceSeckillOrderDto_.OrderRateLimitCount">
+            <summary>
+            单品限流请求数
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.PlaceSeckillOrderDto_.OrderRateLimitExpire">
+            <summary>
+            单品限流请求过期时间
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.PlaceSeckillOrderDto_.ProductStockKey">
+            <summary>
+            商品库存Key
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.PlaceSeckillOrderDto_.Nums">
+            <summary>
+            购买(商品)数量
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.PlaceSeckillOrderDto_.UserMaxNums">
+            <summary>
+            用户购买(商品)限制
+            </summary>
+            <remarks>
+            0：表示不限制
+            </remarks>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.PlaceSeckillOrderDto_.TotalBuyNumsKey">
+            <summary>
+            购买商品总量Key
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.PlaceSeckillOrderDto_.MaxGoodNums">
+            <summary>
+            商品总量
+            </summary>
+            <remarks>
+            0：表示不限制，以商品库存为准
+            </remarks>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.PlaceSeckillOrderDto_.UserBuyNumsKey">
+            <summary>
+            用户购买数量Key
+            </summary>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Orders.ShoppingCartDto">
+            <summary>
+            购物车Dto
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.ShoppingCartDto.UserId">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.ShoppingCartDto.GoodId">
+            <summary>
+            商品ID
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.ShoppingCartDto.GoodName">
+            <summary>
+            商品名称
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.ShoppingCartDto.ProductId">
+            <summary>
+            货品ID
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.ShoppingCartDto.BarCode">
+            <summary>
+            商品条码
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.ShoppingCartDto.Sn">
+            <summary>
+            货品编码
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.ShoppingCartDto.Price">
+            <summary>
+            货品价格
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.ShoppingCartDto.Amount">
+            <summary>
+            总价
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.ShoppingCartDto.Stock">
+            <summary>
+            库存
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.ShoppingCartDto.IsStockSufficient">
+            <summary>
+            库存是否充足
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.ShoppingCartDto.Images">
+            <summary>
+            规格图片
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.ShoppingCartDto.SpesDesc">
+            <summary>
+            规格值
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.ShoppingCartDto.Nums">
+            <summary>
+            货品数量
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.ShoppingCartDto.Weight">
+            <summary>
+            总重量
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.ShoppingCartDto.Type">
+            <summary>
+            购物车类型
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.ShoppingCartDto.ObjectId">
+            <summary>
+            关联对象ID
+            </summary>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Orders.UserOrderCreateDto">
+            <summary>
+            创建用户订单Dto
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.UserOrderCreateDto.CartIds">
+            <summary>
+            购物车ID
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.UserOrderCreateDto.OrderType">
+            <summary>
+            订单类型
+            </summary>
+            <remarks>
+            枚举：OrderType
+            1：普通、2：拼团、3：团购、4：秒杀、5：积分兑换、6：砍价、
+            7：赠品、8：接龙、10：微信交易组件
+            </remarks>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.UserOrderCreateDto.ReceiptType">
+            <summary>
+            收货方式
+            </summary>
+            <remarks>
+            枚举：OrderReceiptType
+            1：物流快递、2：同城配送、3：门店自提
+            </remarks>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.UserOrderCreateDto.PaymentCode">
+            <summary>
+            支付方式代码
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.UserOrderCreateDto.StoreId">
+            <summary>
+            自提门店ID，null就是不门店自提
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.UserOrderCreateDto.ShipAreaId">
+            <summary>
+            收货地区ID
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.UserOrderCreateDto.Point">
+            <summary>
+            使用积分
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.UserOrderCreateDto.Coupon">
+            <summary>
+            优惠券信息
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.UserOrderCreateDto.CouponCodes">
+            <summary>
+            优惠劵码
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.UserOrderCreateDto.Memo">
+            <summary>
+            买家备注
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.UserOrderCreateDto.ObjectId">
+            <summary>
+            关联营销类型对象序列
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.UserOrderCreateDto.UserShipId">
+            <summary>
+            用户(收货)地址ID
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.UserOrderCreateDto.LadingName">
+            <summary>
+            提货人姓名
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Orders.UserOrderCreateDto.LadingMobile">
+            <summary>
+            提货人联系方式
+            </summary>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Payments.CheckPayDto">
+            <summary>
+            支付确认页面Dto
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.CheckPayDto.UserId">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.CheckPayDto.Money">
+            <summary>
+            金额
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.CheckPayDto.Rel">
+            <summary>
+            支付Rel信息
+            </summary>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Payments.PayRel">
+            <summary>
+            支付Rel
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PayRel.SourceId">
+            <summary>
+            资源ID
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PayRel.Money">
+            <summary>
+            金额
+            </summary>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Payments.PaymentRelDto">
+            <summary>
+            支付RelDto
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentRelDto.SourceIds">
+            <summary>
+            资源ID
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentRelDto.PaymentType">
+            <summary>
+            付款单类型
+            </summary>
+            <remarks>
+            枚举：BillPaymentType
+            1：订单、2：充值、3：表单订单、4：表单付款码、5：服务订单
+            </remarks>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentRelDto.Params">
+            <summary>
+            附件参数对象
+            </summary>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Payments.RechargeParams">
+            <summary>
+            充值参数
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.RechargeParams.Money">
+            <summary>
+            充值金额
+            </summary>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Payments.PaymentBillUpdateDto">
+            <summary>
+            更新支付单Dto
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentBillUpdateDto.BillPaymentNo">
+            <summary>
+            支付单号
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentBillUpdateDto.Status">
+            <summary>
+            支付状态
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentBillUpdateDto.PaymentCode">
+            <summary>
+            支付类型编码
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentBillUpdateDto.Money">
+            <summary>
+            支付金额
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentBillUpdateDto.PayedMsg">
+            <summary>
+            支付回调后的状态描述
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentBillUpdateDto.TradeNo">
+            <summary>
+            第三方平台交易流水号
+            </summary>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Payments.PaymentOrderDetailDto">
+            <summary>
+            支付订单详情Dto
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentOrderDetailDto.OrderId">
+            <summary>
+            订单ID
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentOrderDetailDto.OrderNo">
+            <summary>
+            订单号
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentOrderDetailDto.PaymentId">
+            <summary>
+            支付单ID
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentOrderDetailDto.PaymentNo">
+            <summary>
+            支付单号
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentOrderDetailDto.Money">
+            <summary>
+            支付金额
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentOrderDetailDto.PaymentCode">
+            <summary>
+            支付类型编码
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentOrderDetailDto.Parameters">
+            <summary>
+            支付的时候需要的参数，存的是json格式的一维数组
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentOrderDetailDto.PayedMsg">
+            <summary>
+            支付回调后的状态描述
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentOrderDetailDto.TradeNo">
+            <summary>
+            第三方平台交易流水号
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentOrderDetailDto.PaymentType">
+            <summary>
+            单据类型
+            </summary>
+            <remarks>
+            枚举：BillPaymentType
+            1：订单、2：充值、3：表单订单、4：表单付款单、5：服务订单
+            </remarks>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentOrderDetailDto.PaymentStatus">
+            <summary>
+            支付状态
+            </summary>
+            <remarks>
+            枚举：BillPaymentStatus
+            1：未支付、2：已支付、3：其他
+            </remarks>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentOrderDetailDto.OrderPayStatus">
+            <summary>
+            支付状态
+            </summary>
+            <remarks>
+            枚举：OrderPayStatus
+            1：未付款、2：已付款、3：部分付款、4：部分退款、5：已退款
+            </remarks>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentOrderDetailDto.OrderShipStatus">
+            <summary>
+            发货状态
+            </summary>
+            <remarks>
+            枚举：OrderShipStatus
+            1：未发货、2：部分发货、3：已发货、4：部分退货、5：已退货
+            </remarks>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentOrderDetailDto.OrderStatus">
+            <summary>
+            订单状态
+            </summary>
+            <remarks>
+            枚举：OrderStatus
+            1：订单正常、2：订单完成、3：订单取消
+            </remarks>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.PaymentOrderDetailDto.CreationTime">
+            <summary>
+            创建日期
+            </summary>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Payments.UserPayDto">
+            <summary>
+            用户支付Dto
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.UserPayDto.SourceIds">
+            <summary>
+            资源ID
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.UserPayDto.PaymentCode">
+            <summary>
+            支付方式编码
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.UserPayDto.PaymentType">
+            <summary>
+            付款单类型
+            </summary>
+            <remarks>
+            枚举：BillPaymentType
+            1：订单、2：充值、3：表单订单、4：表单付款码、5：服务订单
+            </remarks>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Payments.UserPayDto.Params">
+            <summary>
+            附件参数对象
+            </summary>
+        </member>
+        <member name="T:Rex.FrontAggregationService.Users.UserNoticeNumberDto">
+            <summary>
+            用户通知数量Dto
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Users.UserNoticeNumberDto.TotalGoodBrowsing">
+            <summary>
+            浏览记录
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Users.UserNoticeNumberDto.TotalCoupon">
+            <summary>
+            优惠劵
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Users.UserNoticeNumberDto.TotalGoodCollection">
+            <summary>
+            商品收藏
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Users.UserNoticeNumberDto.TotalBillAftersale">
+            <summary>
+            售后单
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Users.UserNoticeNumberDto.TotalPendingPayment">
+            <summary>
+            待付款
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Users.UserNoticeNumberDto.TotalPendingShipment">
+            <summary>
+            待发货
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Users.UserNoticeNumberDto.TotalPendingDelivery">
+            <summary>
+            待收货
+            </summary>
+        </member>
+        <member name="P:Rex.FrontAggregationService.Users.UserNoticeNumberDto.TotalPendingEvaluate">
+            <summary>
+            待评价
+            </summary>
+        </member>
+        <member name="T:Rex.FrontCommonAggregationService.Controllers.CommonController">
+            <summary>
+            聚合公共控制器
+            </summary>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.GetGoodPageListAsync(Rex.GoodService.Goods.GetGoodInput)">
+            <summary>
+            获取商品信息
+            </summary>
+            <param name="input">查询条件</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.GetGoodByIdAsync(System.Guid)">
+            <summary>
+            根据ID获取商品信息
+            </summary>
+            <param name="id">商品ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.GetSeckillGoodByIdAsync(System.Guid,System.Guid)">
+            <summary>
+            根据ID获取秒杀商品信息
+            </summary>
+            <param name="id">商品ID</param>
+            <param name="promotionId">促销ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.SetPromotionGlobalAmount(Rex.FrontAggregationService.Goods.SeckillGoodDto@,Rex.GoodService.Products.ProductDto)">
+            <summary>
+            设置全局促销
+            </summary>
+            <param name="seckillGood">秒杀商品</param>
+            <param name="product">货品信息</param>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.ValidatePromotionCondition(Rex.FrontAggregationService.Goods.SeckillGoodDto,System.Collections.Generic.List{Rex.PromotionService.Promotions.PromotionConditionDto},Rex.GoodService.Products.ProductDto)">
+            <summary>
+            验证是否满足(所有)促销条件
+            </summary>
+            <param name="seckillGood">秒杀商品</param>
+            <param name="promotionConditions">促销条件</param>
+            <param name="product">货品信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.GetPageLayoutAsync(System.Int32,System.String)">
+            <summary>
+            获取页面布局信息
+            </summary>
+            <param name="layout">布局样式：1、手机端  2、PC端</param>
+            <param name="pageCode">页面编码</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.LoadNotices(Rex.GoodService.PageDesigns.PageDesignItemDto@,Rex.GoodService.PageDesigns.PageDesignItemDto)">
+            <summary>
+            加载公告信息
+            </summary>
+            <param name="pDesignItem">页面设计项Dto</param>
+            <param name="pageDesignItem">页面设计项</param>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.LoadCoupons(Rex.GoodService.PageDesigns.PageDesignItemDto@,Rex.GoodService.PageDesigns.PageDesignItemDto)">
+            <summary>
+            加载优惠券组
+            </summary>
+            <param name="pDesignItem">页面设计项Dto</param>
+            <param name="pageDesignItem">页面设计项</param>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.LoadTextareas(Rex.GoodService.PageDesigns.PageDesignItemDto@,Rex.GoodService.PageDesigns.PageDesignItemDto)">
+            <summary>
+            加载文本域
+            </summary>
+            <param name="pDesignItem">页面设计项Dto</param>
+            <param name="pageDesignItem">页面设计项</param>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.LoadGoodTabBars(Rex.GoodService.PageDesigns.PageDesignItemDto@,Rex.GoodService.PageDesigns.PageDesignItemDto)">
+            <summary>
+            加载商品选项卡
+            </summary>
+            <param name="pDesignItem">页面设计项Dto</param>
+            <param name="pageDesignItem">页面设计项</param>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.LoadGoods(Rex.GoodService.PageDesigns.PageDesignItemDto@,Rex.GoodService.PageDesigns.PageDesignItemDto)">
+            <summary>
+            加载商品组
+            </summary>
+            <param name="pDesignItem">页面设计项Dto</param>
+            <param name="pageDesignItem">页面设计项</param>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.LoadArticleByClassifys(Rex.GoodService.PageDesigns.PageDesignItemDto@,Rex.GoodService.PageDesigns.PageDesignItemDto)">
+            <summary>
+            加载文章分类
+            </summary>
+            <param name="pDesignItem">页面设计项Dto</param>
+            <param name="pageDesignItem">页面设计项</param>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.LoadGroupPurchases(Rex.GoodService.PageDesigns.PageDesignItemDto@,Rex.GoodService.PageDesigns.PageDesignItemDto)">
+            <summary>
+            加载团购秒杀
+            </summary>
+            <param name="pDesignItem">页面设计项Dto</param>
+            <param name="pageDesignItem">页面设计项</param>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.LoadPinTuans(Rex.GoodService.PageDesigns.PageDesignItemDto@,Rex.GoodService.PageDesigns.PageDesignItemDto)">
+            <summary>
+            加载拼团
+            </summary>
+            <param name="pDesignItem">页面设计项Dto</param>
+            <param name="pageDesignItem">页面设计项</param>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.LoadServices(Rex.GoodService.PageDesigns.PageDesignItemDto@,Rex.GoodService.PageDesigns.PageDesignItemDto)">
+            <summary>
+            加载服务组
+            </summary>
+            <param name="pDesignItem">页面设计项Dto</param>
+            <param name="pageDesignItem">页面设计项</param>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.GetGoodCategorysTreeAsync(System.Nullable{System.Guid})">
+            <summary>
+            获取树形商品分类信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.GetGoodCategoryByParentIdAsync(System.Guid)">
+            <summary>
+            获取商品分类中的子分类
+            </summary>
+            <param name="parentId">父ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.GetServiceDescriptionAllAsync">
+            <summary>
+            查询商城服务描述
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.GetGoodRecommendListAsync(System.Int32,System.Boolean)">
+            <summary>
+            获取商品推荐数据
+            </summary>
+            <param name="limit">获取数量</param>
+            <param name="isRecommend">是否推荐[默认：true]</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.GetGoodParamByIdsAsync(System.Collections.Generic.List{System.Guid})">
+            <summary>
+            根据参数ID查询商品参数
+            </summary>
+            <param name="paramIds">参数ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.GetPromotionSeckills(System.Nullable{System.Int32},System.String,System.Int32,System.Int32)">
+            <summary>
+            秒杀促销信息
+            </summary>
+            <param name="status">状态</param>
+            <param name="name">促销名称</param>
+            <param name="skipCount"></param>
+            <param name="maxResultCount"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.GetUserNoticeNumberAsync">
+            <summary>
+            获取用户通知数量
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Rex.FrontCommonAggregationService.Controllers.CommonController.GetUserGoodCommentAsync(System.Guid,System.Int32,System.Int32)">
+            <summary>
+            获取用户商品评价
+            </summary>
+            <param name="goodId">商品ID</param>
+            <param name="skipCount"></param>
+            <param name="maxResultCount"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

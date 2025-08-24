@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\04.MicroServices\Rex.AuthService\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Rex.AuthService</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Scopes\OpenIddictScopeAppService.cs~RF5b7506.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rex.AuthService.Domain\Rex.AuthService.Domain.csproj" />
+    <ProjectReference Include="..\Rex.AuthService.Application.Contracts\Rex.AuthService.Application.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Volo.Abp.Account.Application" Version="8.1.0" />
+    <PackageReference Include="Volo.Abp.Identity.Application" Version="8.1.0" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Application" Version="8.1.0" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Application" Version="8.1.0" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Application" Version="8.1.0" />
+    <PackageReference Include="Volo.Abp.SettingManagement.Application" Version="8.1.0" />
+  </ItemGroup>
+
+</Project>

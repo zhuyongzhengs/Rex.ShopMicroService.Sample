@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Rex.OrderService</RootNamespace>
+    <PreserveCompilationReferences>true</PreserveCompilationReferences>
+    <UserSecretsId>Rex.OrderService-4681b4fd-151f-4221-84a4-929d86723e4c</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.10" />
+	<PackageReference Include="Elastic.Serilog.Sinks" Version="9.0.0" />
+	<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+	<PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+    <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
+    <PackageReference Include="Volo.Abp.AspNetCore.MultiTenancy" Version="8.1.0" />
+    <PackageReference Include="Volo.Abp.Autofac" Version="8.1.0" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="8.1.0" />
+    <PackageReference Include="Volo.Abp.Swashbuckle" Version="8.1.0" />
+    <!--<PackageReference Include="Volo.Abp.Account.Web.OpenIddict" Version="8.1.0" />-->
+  </ItemGroup>
+
+  <ItemGroup>
+	  <!-- <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite" Version="2.3.*-*" /> -->
+	<PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite" Version="3.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\05.Modules\Rex.OrderService\Rex.OrderService.Application\Rex.OrderService.Application.csproj" />
+    <ProjectReference Include="..\..\..\..\05.Modules\Rex.OrderService\Rex.OrderService.EntityFrameworkCore\Rex.OrderService.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\..\..\05.Modules\Rex.OrderService\Rex.OrderService.HttpApi\Rex.OrderService.HttpApi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Logs\**" />
+    <Content Remove="Logs\**" />
+    <EmbeddedResource Remove="Logs\**" />
+    <None Remove="Logs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.account.web.openiddict\8.1.0\contentFiles\any\net8.0\Volo.Abp.Account.Web.OpenIddict.abppkg.analyze.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.account.web.openiddict\8.1.0\contentFiles\any\net8.0\Volo.Abp.Account.Web.OpenIddict.abppkg.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.multitenancy\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.MultiTenancy.abppkg.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Serilog.abppkg.analyze.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Serilog.abppkg.json" />
+    <Content Remove="E:\NuGet\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Serilog.abppkg.analyze.json" />
+  </ItemGroup>
+
+</Project>

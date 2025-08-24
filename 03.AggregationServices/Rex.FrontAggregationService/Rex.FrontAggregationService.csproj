@@ -1,0 +1,110 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>Config\Rex.FrontAggregationService.xml</DocumentationFile>
+    <UserSecretsId>31eb1c9b-e69a-4fe6-8476-2edca82fa19e</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Logs\**" />
+    <Content Remove="Logs\**" />
+    <EmbeddedResource Remove="Logs\**" />
+    <None Remove="Logs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Orders\CartProductDto.cs" />
+    <Compile Remove="Orders\UserCartDto.cs" />
+    <Compile Remove="Orders\WxNameTypeDto.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.mvc\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Mvc.abppkg.analyze.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.mvc\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Mvc.abppkg.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Serilog.abppkg.analyze.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Serilog.abppkg.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.mvc\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Mvc.abppkg.analyze.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.mvc\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Mvc.abppkg.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Serilog.abppkg.analyze.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Serilog.abppkg.json" />
+    <Content Remove="E:\NuGet\.nuget\packages\volo.abp.aspnetcore.mvc\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Mvc.abppkg.analyze.json" />
+    <Content Remove="E:\NuGet\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Serilog.abppkg.analyze.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Config\Rex.FrontAggregationService.xml" />
+    <None Remove="Controllers\OrderControllerOld.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Config\Rex.FrontAggregationService.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+	<PackageReference Include="AutoMapper" Version="13.0.1" />
+	<!--<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="9.0.5" />-->
+	<PackageReference Include="Elastic.Serilog.Sinks" Version="9.0.0" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+	  <PrivateAssets>all</PrivateAssets>
+	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
+	<PackageReference Include="DotNetCore.CAP" Version="6.2.1" />
+	<PackageReference Include="DotNetCore.CAP.Dashboard" Version="6.2.1" />
+	<PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="6.2.1" />
+	<PackageReference Include="DotNetCore.CAP.MySql" Version="6.2.1" />
+	<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+  	<PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+  	<PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
+  	<PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="8.1.0" />
+  	<PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="8.1.0" />
+  	<PackageReference Include="Volo.Abp.Autofac" Version="8.1.0" />
+  	<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  	<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
+  	<PackageReference Include="Volo.Abp.Http.Client.IdentityModel" Version="8.1.0" />
+	<PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.2" />
+	<PackageReference Include="Volo.Abp.EntityFrameworkCore.MySQL" Version="8.1.0" />
+	<PackageReference Include="Volo.Abp.PermissionManagement.EntityFrameworkCore" Version="8.1.0" />
+	<PackageReference Include="Volo.Abp.TenantManagement.EntityFrameworkCore" Version="8.1.0" />
+	<PackageReference Include="Volo.Abp.EventBus.RabbitMQ" Version="8.1.0" />
+	<PackageReference Include="Volo.Abp.Caching.StackExchangeRedis" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\00.Core\Rex.Service.AspNetCore\Rex.Service.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\05.Modules\Rex.BaseService\Rex.BaseService.HttpApi.Client\Rex.BaseService.HttpApi.Client.csproj" />
+    <ProjectReference Include="..\..\05.Modules\Rex.GoodService\Rex.GoodService.HttpApi.Client\Rex.GoodService.HttpApi.Client.csproj" />
+    <ProjectReference Include="..\..\05.Modules\Rex.OrderService\Rex.OrderService.HttpApi.Client\Rex.OrderService.HttpApi.Client.csproj" />
+    <ProjectReference Include="..\..\05.Modules\Rex.PaymentService\Rex.PaymentService.HttpApi.Client\Rex.PaymentService.HttpApi.Client.csproj" />
+    <ProjectReference Include="..\..\05.Modules\Rex.PromotionService\Rex.PromotionService.HttpApi.Client\Rex.PromotionService.HttpApi.Client.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Luas\PlaceOrderRollback.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Luas\SeckillOrderCallback.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Luas\PlaceOrder.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Luas\SeckillOrder.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Luas\PlaceOrderCallback.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

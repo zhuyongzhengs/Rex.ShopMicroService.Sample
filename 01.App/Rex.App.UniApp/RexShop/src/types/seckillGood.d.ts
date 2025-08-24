@@ -1,0 +1,62 @@
+// 秒杀货品
+declare type SeckillProductType = {
+	id: string;
+	goodId: string;
+	barCode: string;
+	sn: string;
+	price: number;
+	costPrice: number;
+	mktPrice: number;
+	marketable: boolean;
+	weight: number;
+	stock: number;
+	freezeStock: number;
+	spesDesc: string;
+	isDefault: boolean;
+	images: string;
+};
+
+// 秒杀商品
+declare type SeckillGoodType = {
+	id: string;
+	barCode: string;
+	name: string;
+	brandName: string;
+	brief: string;
+	image: string;
+	images: string;
+	video: string;
+	goodSkuIds: string;
+	goodParamsIds: string;
+	isNomalVirtual: boolean;
+	unit: string;
+	intro: string;
+	spesDesc: string;
+	parameters: string;
+	commentsCount: number;
+	viewCount: number;
+	buyCount: number;
+	sort: number;
+	newSpec: string;
+	openSpec: number;
+	isRecommend: boolean;
+	isHot: boolean;
+	isFav: boolean;
+	price: number;
+	mktPrice: number;
+	goodSeckillMoney: number;
+	seckillDiscountAmount: number;
+	products: SeckillProductType[]
+	promotionId: string;
+	promotionType: number;
+	promotionIsEnable: boolean;
+	promotionSeconds: number;
+	promotionTime: string;
+	promotionStartTime: string;
+	promotionEndTime: string;
+	startStatus: number;
+	startStatusDisplay: string;
+	isOverdue: boolean;
+	totalStock: number;
+	totalFreezeStock: number;
+};

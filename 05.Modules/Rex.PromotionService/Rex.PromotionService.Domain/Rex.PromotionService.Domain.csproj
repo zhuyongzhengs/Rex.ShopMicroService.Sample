@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="..\..\..\04.MicroServices\Rex.PromotionService\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Rex.PromotionService</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\00.Core\Rex.Service.AspNetCore\Rex.Service.AspNetCore.csproj" />
+    <ProjectReference Include="..\Rex.PromotionService.Domain.Shared\Rex.PromotionService.Domain.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="DotNetCore.CAP" Version="6.2.1" />
+	  <PackageReference Include="DotNetCore.CAP.Dashboard" Version="6.2.1" />
+	  <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="6.2.1" />
+	  <PackageReference Include="Volo.Abp.Caching.StackExchangeRedis" Version="8.1.0" />
+	  <PackageReference Include="Volo.Abp.Identity.Domain" Version="8.1.0" />
+	  <PackageReference Include="Volo.Abp.PermissionManagement.Domain.Identity" Version="8.1.0" />
+	  <PackageReference Include="Volo.Abp.AuditLogging.Domain" Version="8.1.0" />
+	  <PackageReference Include="Volo.Abp.TenantManagement.Domain" Version="8.1.0" />
+	  <PackageReference Include="Volo.Abp.FeatureManagement.Domain" Version="8.1.0" />
+	  <PackageReference Include="Volo.Abp.SettingManagement.Domain" Version="8.1.0" />
+	  <PackageReference Include="Volo.Abp.PermissionManagement.Domain.OpenIddict" Version="8.1.0" />
+	  <!--<PackageReference Include="Volo.Abp.EventBus.RabbitMQ" Version="8.1.0" />-->
+  </ItemGroup>
+
+</Project>

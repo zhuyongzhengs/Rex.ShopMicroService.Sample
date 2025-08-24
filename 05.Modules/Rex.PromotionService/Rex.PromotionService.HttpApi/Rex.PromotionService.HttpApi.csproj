@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="..\..\..\04.MicroServices\Rex.PromotionService\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Rex.PromotionService</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\PromotionCouponController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Rex.PromotionService.Application.Contracts\Rex.PromotionService.Application.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Volo.Abp.Account.HttpApi" Version="8.1.0" />
+	  <PackageReference Include="Volo.Abp.Identity.HttpApi" Version="8.1.0" />
+	  <PackageReference Include="Volo.Abp.PermissionManagement.HttpApi" Version="8.1.0" />
+	  <PackageReference Include="Volo.Abp.TenantManagement.HttpApi" Version="8.1.0" />
+	  <PackageReference Include="Volo.Abp.FeatureManagement.HttpApi" Version="8.1.0" />
+	  <PackageReference Include="Volo.Abp.SettingManagement.HttpApi" Version="8.1.0" />
+  </ItemGroup>
+
+</Project>

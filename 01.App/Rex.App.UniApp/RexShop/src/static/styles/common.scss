@@ -1,0 +1,101 @@
+body, page, .bg-page {
+    background-color: #F2F3F7;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+.float-l {
+	float: left;
+}
+
+.float-r {
+	float: right;
+}
+
+.clear-both {
+    clear: both;
+}
+
+.align-l {
+	text-align: left;
+}
+
+.align-c {
+	text-align: center;
+}
+
+.align-r {
+	text-align: right;
+}
+
+.product-price {
+	font-size: 30rpx;
+    color: $u-error;
+}
+
+.product-price::before {
+	content: '￥';
+	font-size: 22rpx;
+	text-decoration: none;
+}
+
+.product-mkt-price {
+	font-size: 22rpx;
+    color: #aaaaaa;
+	text-decoration: line-through;
+}
+
+.product-mkt-price::before {
+	content: '￥';
+	font-size: 18rpx;
+	text-decoration: none;
+}
+
+//下划线
+.rexshop-underline { text-decoration: underline; }
+
+//顶划线
+.rexshop-text-overline { text-decoration: overline; }
+
+//删除线
+.rexshop-text-through { text-decoration: line-through; }
+
+/*字体颜色*/
+.rexshop-text-green { background-color: #19be6b; color: #fff; }
+.rexshop-text-red, .line-red, .lines-red { color: #e54d42; }
+.rexshop-text-orange, .line-orange, .lines-orange { color: #f37b1d; }
+.rexshop-text-yellow, .line-yellow, .lines-yellow { color: #fbbd08; }
+.rexshop-text-olive, .line-olive, .lines-olive { color: #8dc63f; }
+.rexshop-text-green, .line-green, .lines-green { color: #39b54a; }
+.rexshop-text-cyan, .line-cyan, .lines-cyan { color: #1cbbb4; }
+.rexshop-text-blue, .line-blue, .lines-blue { color: #0081ff; }
+.rexshop-text-purple, .line-purple, .lines-purple { color: #6739b6; }
+.rexshop-text-mauve, .line-mauve, .lines-mauve { color: #9c26b0; }
+.rexshop-text-pink, .line-pink, .lines-pink { color: #e03997; }
+.rexshop-text-brown, .line-brown, .lines-brown { color: #a5673f; }
+.rexshop-text-grey, .line-grey, .lines-grey { color: #8799a3; }
+.rexshop-text-gray, .line-gray, .lines-gray { color: #aaaaaa; }
+.rexshop-text-black, .line-black, .lines-black { color: #333333; }
+.rexshop-text-white, .line-white, .lines-white { color: #ffffff; }
+
+.u-font-xs {
+	font-size: 22rpx;
+}
+
+.u-font-sm {
+	font-size: 26rpx;
+}
+
+.u-font-md {
+	font-size: 28rpx;
+}
+
+.u-font-lg {
+	font-size: 30rpx;
+}
+
+.u-font-xl {
+	font-size: 34rpx;
+}

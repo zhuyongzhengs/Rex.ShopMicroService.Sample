@@ -1,0 +1,279 @@
+﻿{
+  "ReverseProxy": {
+    "Routes": {
+      "BaseService": {
+        "ClusterId": "BaseServiceCluster",
+        "Match": {
+          "Path": "/api/base/{**everything}"
+        }
+      },
+      //"AbpCatchAllService": {
+      //  "ClusterId": "BaseServiceCluster",
+      //  "Match": {
+      //    "Path": "/api/abp/{**catch-all}"
+      //  }
+      //},
+      "RexShopLocalization": {
+        "ClusterId": "BaseServiceCluster",
+        "Match": {
+          "Path": "/api/abp/application-localization"
+        }
+      },
+      "RexShopApplicationConfiguration": {
+        "ClusterId": "BaseServiceCluster",
+        "Match": {
+          "Path": "/api/abp/application-configuration"
+        }
+      },
+      "FeatureManagement": {
+        "ClusterId": "BaseServiceCluster",
+        "Match": {
+          "Path": "/api/feature-management/{**everything}"
+        }
+      },
+      "SettingManagement": {
+        "ClusterId": "BaseServiceCluster",
+        "Match": {
+          "Path": "/api/setting-management/{**everything}"
+        }
+      },
+      "PermissionManagement": {
+        "ClusterId": "AuthServiceCluster",
+        "Match": {
+          "Path": "/api/permission-management/{**everything}"
+        }
+      },
+      "AccountService": {
+        "ClusterId": "AuthServiceCluster",
+        "Match": {
+          "Path": "/api/account/{**everything}"
+        }
+      },
+      "AuthService": {
+        "ClusterId": "AuthServiceCluster",
+        "Match": {
+          "Path": "/api/identity/{**everything}"
+        }
+      },
+      "AuthorizationWechatService": {
+        "ClusterId": "AuthServiceCluster",
+        "Match": {
+          "Path": "/api/authorization/wechat/{**everything}"
+        }
+      },
+      "AuthorizationWebService": {
+        "ClusterId": "AuthServiceCluster",
+        "Match": {
+          "Path": "/connect/{**everything}"
+        }
+      },
+      "GoodService": {
+        "ClusterId": "GoodServiceCluster",
+        "Match": {
+          "Path": "/api/good/{**everything}"
+        }
+      },
+      "PromotionService": {
+        "ClusterId": "PromotionServiceCluster",
+        "Match": {
+          "Path": "/api/promotion/{**everything}"
+        }
+      },
+      "OrderService": {
+        "ClusterId": "OrderServiceCluster",
+        "Match": {
+          "Path": "/api/order/{**everything}"
+        }
+      },
+      "PaymentService": {
+        "ClusterId": "PaymentServiceCluster",
+        "Match": {
+          "Path": "/api/payment/{**everything}"
+        }
+      },
+      "FrontAggregationService": {
+        "ClusterId": "FrontAggregationServiceCluster",
+        "Match": {
+          "Path": "/api/front/aggregation/{**everything}"
+        }
+      }
+    },
+    "Clusters": {
+      "BaseServiceCluster": {
+        "Destinations": {
+          "destination1": {
+            "Address": "https://localhost:4455"
+          }
+        },
+        "HealthCheck": {
+          "Active": {
+            "Enabled": true,
+            "Interval": "00:00:03",
+            "Timeout": "00:00:05",
+            "Policy": "ConsecutiveFailures",
+            "Path": "/HealthCheck"
+          },
+          "Passive": {
+            "Enabled": true,
+            "Policy": "TransportFailureRate",
+            "ReactivationPeriod": "00:00:30",
+            "Options": {
+              "FailureRateLimit": 0.05, // 5% 的请求失败率认为不健康
+              "MinimumRequestCount": 5 // 至少 5 次请求后开始评估
+            }
+          }
+        }
+      },
+      "AuthServiceCluster": {
+        "Destinations": {
+          "destination1": {
+            "Address": "https://localhost:4466"
+          }
+        },
+        "HealthCheck": {
+          "Active": {
+            "Enabled": true,
+            "Interval": "00:00:03",
+            "Timeout": "00:00:05",
+            "Policy": "ConsecutiveFailures",
+            "Path": "/HealthCheck"
+          },
+          "Passive": {
+            "Enabled": true,
+            "Policy": "TransportFailureRate",
+            "ReactivationPeriod": "00:00:30",
+            "Options": {
+              "FailureRateLimit": 0.05, // 5% 的请求失败率认为不健康
+              "MinimumRequestCount": 5 // 至少 5 次请求后开始评估
+            }
+          }
+        }
+      },
+      "GoodServiceCluster": {
+        "Destinations": {
+          "destination1": {
+            "Address": "https://localhost:4477"
+          }
+        },
+        "HealthCheck": {
+          "Active": {
+            "Enabled": true,
+            "Interval": "00:00:03",
+            "Timeout": "00:00:05",
+            "Policy": "ConsecutiveFailures",
+            "Path": "/HealthCheck"
+          },
+          "Passive": {
+            "Enabled": true,
+            "Policy": "TransportFailureRate",
+            "ReactivationPeriod": "00:00:30",
+            "Options": {
+              "FailureRateLimit": 0.05, // 5% 的请求失败率认为不健康
+              "MinimumRequestCount": 5 // 至少 5 次请求后开始评估
+            }
+          }
+        }
+      },
+      "PromotionServiceCluster": {
+        "Destinations": {
+          "destination1": {
+            "Address": "https://localhost:4488"
+          }
+        },
+        "HealthCheck": {
+          "Active": {
+            "Enabled": true,
+            "Interval": "00:00:03",
+            "Timeout": "00:00:05",
+            "Policy": "ConsecutiveFailures",
+            "Path": "/HealthCheck"
+          },
+          "Passive": {
+            "Enabled": true,
+            "Policy": "TransportFailureRate",
+            "ReactivationPeriod": "00:00:30",
+            "Options": {
+              "FailureRateLimit": 0.05, // 5% 的请求失败率认为不健康
+              "MinimumRequestCount": 5 // 至少 5 次请求后开始评估
+            }
+          }
+        }
+      },
+      "OrderServiceCluster": {
+        "Destinations": {
+          "destination1": {
+            "Address": "https://localhost:5500"
+          }
+        },
+        "HealthCheck": {
+          "Active": {
+            "Enabled": true,
+            "Interval": "00:00:03",
+            "Timeout": "00:00:05",
+            "Policy": "ConsecutiveFailures",
+            "Path": "/HealthCheck"
+          },
+          "Passive": {
+            "Enabled": true,
+            "Policy": "TransportFailureRate",
+            "ReactivationPeriod": "00:00:30",
+            "Options": {
+              "FailureRateLimit": 0.05, // 5% 的请求失败率认为不健康
+              "MinimumRequestCount": 5 // 至少 5 次请求后开始评估
+            }
+          }
+        }
+      },
+      "PaymentServiceCluster": {
+        "Destinations": {
+          "destination1": {
+            "Address": "https://localhost:5510"
+          }
+        },
+        "HealthCheck": {
+          "Active": {
+            "Enabled": true,
+            "Interval": "00:00:03",
+            "Timeout": "00:00:05",
+            "Policy": "ConsecutiveFailures",
+            "Path": "/HealthCheck"
+          },
+          "Passive": {
+            "Enabled": true,
+            "Policy": "TransportFailureRate",
+            "ReactivationPeriod": "00:00:30",
+            "Options": {
+              "FailureRateLimit": 0.05, // 5% 的请求失败率认为不健康
+              "MinimumRequestCount": 5 // 至少 5 次请求后开始评估
+            }
+          }
+        }
+      },
+      "FrontAggregationServiceCluster": {
+        "Destinations": {
+          "destination1": {
+            "Address": "https://localhost:4420"
+          }
+        },
+        "HealthCheck": {
+          "Active": {
+            "Enabled": true,
+            "Interval": "00:00:03",
+            "Timeout": "00:00:05",
+            "Policy": "ConsecutiveFailures",
+            "Path": "/HealthCheck"
+          },
+          "Passive": {
+            "Enabled": true,
+            "Policy": "TransportFailureRate",
+            "ReactivationPeriod": "00:00:30",
+            "Options": {
+              "FailureRateLimit": 0.05, // 5% 的请求失败率认为不健康
+              "MinimumRequestCount": 5 // 至少 5 次请求后开始评估
+            }
+          }
+        }
+      }
+    }
+  }
+}

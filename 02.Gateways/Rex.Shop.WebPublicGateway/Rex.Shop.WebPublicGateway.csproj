@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>5680178c-8d1a-4bab-ba57-31aa83b335a6</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+  	<Compile Remove="Logs\**" />
+  	<Content Remove="Logs\**" />
+  	<EmbeddedResource Remove="Logs\**" />
+  	<None Remove="Logs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.mvc.ui.multitenancy\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy.abppkg.analyze.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.mvc.ui.multitenancy\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy.abppkg.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Serilog.abppkg.analyze.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Serilog.abppkg.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.mvc.ui.multitenancy\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy.abppkg.analyze.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.mvc.ui.multitenancy\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy.abppkg.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Serilog.abppkg.analyze.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Serilog.abppkg.json" />
+    <Content Remove="E:\NuGet\.nuget\packages\volo.abp.aspnetcore.mvc.ui.multitenancy\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy.abppkg.analyze.json" />
+    <Content Remove="E:\NuGet\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Serilog.abppkg.analyze.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+  	<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+  	<PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+  	<PackageReference Include="Serilog.Sinks.Async" Version="2.0.0" />
+  	<PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="8.1.0" />
+  	<PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy" Version="8.1.0" />
+  	<PackageReference Include="Volo.Abp.Autofac" Version="8.1.0" />
+  	<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.6" />
+  	<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.6" />
+  	<PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="8.0.0" />
+  	<PackageReference Include="Volo.Abp.Swashbuckle" Version="8.1.0" />
+  	<PackageReference Include="Yarp.ReverseProxy" Version="2.3.0" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\00.Core\Rex.Service.Permission\Rex.Service.Permission.csproj" />
+	</ItemGroup>
+</Project>
