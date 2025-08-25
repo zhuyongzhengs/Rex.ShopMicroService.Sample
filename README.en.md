@@ -2,6 +2,8 @@
 
 ![Memo](doc/images/readme/rex-shop-memo.png)
 
+[简体中文](./README.md) | English
+
 A microservice-based e-commerce platform built on **ABP Framework 8.x, MySQL, MongoDB, Redis, RabbitMQ, CAP, ElasticSearch, Minio, and YARP**.  
 It adopts a mainstream internet architecture, modern UI design, visual layout, and supports cluster deployment.  
 The platform provides a wide range of marketing features such as promotions, coupons, and flash sales.  
