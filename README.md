@@ -1,4 +1,4 @@
-﻿![输入图片说明](doc/images/readme/rex-shop-memo.png)
+![输入图片说明](doc/images/readme/rex-shop-memo.png)
 
 一个基于ABP Framework 8.x、Mysql、MongoDB、Redis、RabbitMQ、CAP、ElasticSearch、Minio、YARP的微服务电商商城平台，采用主流的互联网技术架构、全新的UI设计、可视化布局、支持集群部署；拥有活动促销、优惠卷、商品秒杀等众多完整的营销功能，代码完全开源，没有任何二次封装，是一个非常适合二次开发的电商平台案例。
 
@@ -103,12 +103,12 @@ Redis、MongoDB、RabbitMQ、Minio
 
 ### 2.小程序截图
 
-![首页](doc/images/readme/UniApp-首页.png)
-![分类](doc/images/readme/UniApp-分类.png)
-![商品详情](doc/images/readme/UniApp-商品详情.png)
-![购物车](doc/images/readme/UniApp-购物车.png)
-![订单列表](doc/images/readme/UniApp-订单列表.png)
-![我的](doc/images/readme/UniApp-我的.png)
+<img src="doc/images/readme/UniApp-首页.png" title="" alt="首页" style="zoom:67%;">
+<img src="doc/images/readme/UniApp-分类.png" title="" alt="分类" style="zoom:67%;">
+<img src="doc/images/readme/UniApp-商品详情.png" title="" alt="商品详情" style="zoom:67%;">
+<img src="doc/images/readme/UniApp-购物车.png" title="" alt="购物车" style="zoom:67%;">
+<img src="doc/images/readme/UniApp-订单列表.png" title="" alt="订单列表" style="zoom:67%;">
+<img src="doc/images/readme/UniApp-我的.png" title="" alt="我的" style="zoom:67%;">
 
 ## 支持作者
 
