@@ -125,12 +125,12 @@ Make sure all middleware connection strings are correctly configured in the proj
 
 ### 2. Mini Program
 
-![Home](doc/images/readme/UniApp-首页.png)  
-![Categories](doc/images/readme/UniApp-分类.png)  
-![Product Details](doc/images/readme/UniApp-商品详情.png)  
-![Shopping Cart](doc/images/readme/UniApp-购物车.png)  
-![Order List](doc/images/readme/UniApp-订单列表..png)  
-![My Profile](doc/images/readme/UniApp-我的.png)  
+<img src="doc/images/readme/UniApp-首页.png" title="" alt="首页" style="zoom:67%;">
+<img src="doc/images/readme/UniApp-分类.png" title="" alt="分类" style="zoom:67%;">
+<img src="doc/images/readme/UniApp-商品详情.png" title="" alt="商品详情" style="zoom:67%;">
+<img src="doc/images/readme/UniApp-购物车.png" title="" alt="购物车" style="zoom:67%;">
+<img src="doc/images/readme/UniApp-订单列表.png" title="" alt="订单列表" style="zoom:67%;">
+<img src="doc/images/readme/UniApp-我的.png" title="" alt="我的" style="zoom:67%;">
 
 ---
 
