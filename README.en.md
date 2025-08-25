@@ -89,20 +89,20 @@ Make sure all middleware connection strings are correctly configured in the proj
 
 ## API Endpoints (after deployment)
 
-| Service                                   | Address                 |
-| ---------------------------------------- | ---------------------- |
-| Rex.Shop.WebGateway (Backend Gateway)       | https://localhost:4444 |
-| Rex.Shop.WebPublicGateway (Public Gateway)  | https://localhost:4433 |
-| Rex.BackendAggregationService (Backend Aggregation) | https://localhost:4410 |
-| Rex.FrontAggregationService (Frontend Aggregation) | https://localhost:4420 |
-| Rex.AuthService.HttpApi.Host (Auth Service) | https://localhost:4466 |
-| Rex.BaseService.HttpApi.Host (Base Service) | https://localhost:4455 |
-| Rex.GoodService.HttpApi.Host (Product Service) | https://localhost:4477 |
-| Rex.OrderService.HttpApi.Host (Order Service) | https://localhost:5500 |
-| Rex.PaymentService.HttpApi.Host (Payment Service) | https://localhost:5510 |
+| Service                                               | Address                |
+| ----------------------------------------------------- | ---------------------- |
+| Rex.Shop.WebGateway (Backend Gateway)                 | https://localhost:4444 |
+| Rex.Shop.WebPublicGateway (Public Gateway)            | https://localhost:4433 |
+| Rex.BackendAggregationService (Backend Aggregation)   | https://localhost:4410 |
+| Rex.FrontAggregationService (Frontend Aggregation)    | https://localhost:4420 |
+| Rex.AuthService.HttpApi.Host (Auth Service)           | https://localhost:4466 |
+| Rex.BaseService.HttpApi.Host (Base Service)           | https://localhost:4455 |
+| Rex.GoodService.HttpApi.Host (Product Service)        | https://localhost:4477 |
+| Rex.OrderService.HttpApi.Host (Order Service)         | https://localhost:5500 |
+| Rex.PaymentService.HttpApi.Host (Payment Service)     | https://localhost:5510 |
 | Rex.PromotionService.HttpApi.Host (Promotion Service) | https://localhost:4488 |
-| Rex.App.WebAdmin (Admin Platform)           | http://localhost:5120  |
-| Rex.App.UniApp (H5 / Mini Program)          | http://localhost:5130  |
+| Rex.App.WebAdmin (Admin Platform)                     | http://localhost:5120  |
+| Rex.App.UniApp (H5 / Mini Program)                    | http://localhost:5130  |
 
 ---
 
@@ -125,12 +125,12 @@ Make sure all middleware connection strings are correctly configured in the proj
 
 ### 2. Mini Program
 
-![Home](doc/images/readme/UniApp-首页.png)  
-![Categories](doc/images/readme/UniApp-分类.png)  
-![Product Details](doc/images/readme/UniApp-商品详情.png)  
-![Shopping Cart](doc/images/readme/UniApp-购物车.png)  
+<img title="" src="doc/images/readme/UniApp-首页.png" alt="Home" style="zoom:67%;">  
+<img src="doc/images/readme/UniApp-分类.png" title="" alt="Categories" style="zoom:67%;">  
+<img src="doc/images/readme/UniApp-商品详情.png" title="" alt="Product Details" style="zoom:67%;">  
+<img src="doc/images/readme/UniApp-购物车.png" title="" alt="Shopping Cart" style="zoom:67%;">  
 ![Order List](doc/images/readme/UniApp-订单列表..png)  
-![My Profile](doc/images/readme/UniApp-我的.png)  
+<img src="doc/images/readme/UniApp-我的.png" title="" alt="My Profile" style="zoom:67%;">  
 
 ---
 

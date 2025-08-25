@@ -103,12 +103,12 @@ Redis、MongoDB、RabbitMQ、Minio
 
 ### 2.小程序截图
 
-![首页](doc/images/readme/UniApp-首页.png)
-![分类](doc/images/readme/UniApp-分类.png)
-![商品详情](doc/images/readme/UniApp-商品详情.png)
-![购物车](doc/images/readme/UniApp-购物车.png)
+<img src="doc/images/readme/UniApp-首页.png" title="" alt="首页" style="zoom:67%;">
+<img src="doc/images/readme/UniApp-分类.png" title="" alt="分类" style="zoom:67%;">
+<img src="doc/images/readme/UniApp-商品详情.png" title="" alt="商品详情" style="zoom:67%;">
+<img src="doc/images/readme/UniApp-购物车.png" title="" alt="购物车" style="zoom:67%;">
 ![订单列表.](doc/images/readme/UniApp-订单列表..png)
-![我的](doc/images/readme/UniApp-我的.png)
+<img src="doc/images/readme/UniApp-我的.png" title="" alt="我的" style="zoom:67%;">
 
 ## 支持作者
 
