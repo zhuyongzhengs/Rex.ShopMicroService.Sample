@@ -104,14 +104,38 @@ namespace Rex.OrderService.Orders
         /// <returns></returns>
         public async Task<OrderStatusQuantityDto> GetStatusQuantityAsync()
         {
-            OrderStatusQuantityDto orderStatusQuantity = new OrderStatusQuantityDto();
-            orderStatusQuantity.All = (await _orderRepository.GetQueryableAsync()).Count();
-            orderStatusQuantity.PendingPayment = await GetStatusCountAsync((int)GlobalOrderStatusType.PendingPayment, null);
-            orderStatusQuantity.PendingShipment = await GetStatusCountAsync((int)GlobalOrderStatusType.PendingShipment, null);
-            orderStatusQuantity.PendingDelivery = await GetStatusCountAsync((int)GlobalOrderStatusType.PendingDelivery, null);
-            orderStatusQuantity.PendingEvaluate = await GetStatusCountAsync((int)GlobalOrderStatusType.PendingEvaluate, null);
-            orderStatusQuantity.Cancelled = await GetStatusCountAsync((int)GlobalOrderStatusType.Cancel, null);
-            orderStatusQuantity.Completed = await GetStatusCountAsync((int)GlobalOrderStatusType.Completed, null);
+            var allTask = _orderRepository.GetQueryableAsync();
+
+            // 并发查询各状态数量
+            var pendingPaymentTask = GetStatusCountAsync((int)GlobalOrderStatusType.PendingPayment, null);
+            var pendingShipmentTask = GetStatusCountAsync((int)GlobalOrderStatusType.PendingShipment, null);
+            var pendingDeliveryTask = GetStatusCountAsync((int)GlobalOrderStatusType.PendingDelivery, null);
+            var pendingEvaluateTask = GetStatusCountAsync((int)GlobalOrderStatusType.PendingEvaluate, null);
+            var cancelledTask = GetStatusCountAsync((int)GlobalOrderStatusType.Cancel, null);
+            var completedTask = GetStatusCountAsync((int)GlobalOrderStatusType.Completed, null);
+
+            // 并发等待所有任务完成
+            await Task.WhenAll(
+                allTask,
+                pendingPaymentTask,
+                pendingShipmentTask,
+                pendingDeliveryTask,
+                pendingEvaluateTask,
+                cancelledTask,
+                completedTask
+            );
+
+            var orderStatusQuantity = new OrderStatusQuantityDto
+            {
+                All = allTask.Result.Count(),
+                PendingPayment = pendingPaymentTask.Result,
+                PendingShipment = pendingShipmentTask.Result,
+                PendingDelivery = pendingDeliveryTask.Result,
+                PendingEvaluate = pendingEvaluateTask.Result,
+                Cancelled = cancelledTask.Result,
+                Completed = completedTask.Result
+            };
+
             return orderStatusQuantity;
         }
 

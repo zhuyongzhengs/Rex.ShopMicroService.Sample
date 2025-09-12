@@ -63,30 +63,27 @@ namespace Rex.BackendAggregationService.Controllers
         [HttpGet("waitItemCount")]
         public async Task<IActionResult> GetWaitItemCountAsync()
         {
-            Dictionary<string, int> waitItemDic = new Dictionary<string, int>();
+            // 并发启动所有异步任务
+            var pendingPaymentTask = _orderCommonsAppService.GetPendingPaymentCountAsync();
+            var pendingShipmentTask = _orderCommonsAppService.GetPendingShipmentCountAsync();
+            var pendingAftersalesTask = _orderCommonsAppService.GetPendingAftersalesCountAsync();
 
-            // 待支付数量
-            int pendingPaymentCount = await _orderCommonsAppService.GetPendingPaymentCountAsync();
-            waitItemDic.Add("pendingPaymentCount", pendingPaymentCount);
+            // 等待所有任务完成
+            await Task.WhenAll(pendingPaymentTask, pendingShipmentTask, pendingAftersalesTask);
 
-            // 待发货数量
-            int pendingShipmentCount = await _orderCommonsAppService.GetPendingShipmentCountAsync();
-            waitItemDic.Add("pendingShipmentCount", pendingShipmentCount);
+            Dictionary<string, int> waitItemDic = new Dictionary<string, int>
+            {
+                { "pendingPaymentCount", pendingPaymentTask.Result },
+                { "pendingShipmentCount", pendingShipmentTask.Result },
+                { "pendingAftersalesCount", pendingAftersalesTask.Result }
+            };
 
-            // 待售后数量
-            int pendingAftersalesCount = await _orderCommonsAppService.GetPendingAftersalesCountAsync();
-            waitItemDic.Add("pendingAftersalesCount", pendingAftersalesCount);
+            // 如需并发获取库存报警数量，也可类似处理
+            // int stockWarnNum = ...;
+            // var stockWarnTask = _goodCommonsAppService.GetStockWarnCountAsync(stockWarnNum);
+            // await stockWarnTask;
+            // waitItemDic.Add("stockWarnCount", stockWarnTask.Result);
 
-            // 库存报警数量
-            //int stockWarnNum = 0;
-            //PlatformSettingDto platformSetting = await _platformSettingAppService.GetPlatformSettingAsync();
-            //if (platformSetting != null)
-            //{
-            //    SettingValueDo? settingValue = platformSetting.GoodsSettings.Where(x => x.Name.Equals(BaseServiceSettings.GoodsSetting.GoodsStocksWarn)).FirstOrDefault();
-            //    if (settingValue != null) int.TryParse(settingValue.Value, out stockWarnNum);
-            //}
-            //int stockWarnCount = await _goodCommonsAppService.GetStockWarnCountAsync(stockWarnNum);
-            //waitItemDic.Add("stockWarnCount", stockWarnCount);
             return Ok(waitItemDic);
         }
     }
