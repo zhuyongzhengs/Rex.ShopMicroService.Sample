@@ -1,5 +1,7 @@
 ![输入图片说明](doc/images/readme/rex-shop-memo.png)
 
+简体中文 | [English](./README.en.md)
+
 一个基于ABP Framework 8.x、Mysql、MongoDB、Redis、RabbitMQ、CAP、ElasticSearch、Minio、YARP的微服务电商商城平台，采用主流的互联网技术架构、全新的UI设计、可视化布局、支持集群部署；拥有活动促销、优惠卷、商品秒杀等众多完整的营销功能，代码完全开源，没有任何二次封装，是一个非常适合二次开发的电商平台案例。
 
 ## 前言
