@@ -1155,14 +1155,36 @@ namespace Rex.FrontCommonAggregationService.Controllers
             UserNoticeNumberDto userNoticeNumber = new UserNoticeNumberDto();
             CurrentSysUserEto currentUser = await _baseCommonAppService.GetCurrentUserAsync();
             if (currentUser == null) return Ok(userNoticeNumber);
-            userNoticeNumber.TotalGoodBrowsing = await _goodCommonAppService.GetUserGoodBrowsingCountAsync();
-            userNoticeNumber.TotalCoupon = await _promotionCommonAppService.GetUserCouponCountAsync(false);
-            userNoticeNumber.TotalGoodCollection = await _goodCommonAppService.GetUserGoodCollectionCountAsync();
-            userNoticeNumber.TotalBillAftersale = await _orderCommonAppService.GetUserBillAftersaleCountAsync();
-            userNoticeNumber.TotalPendingPayment = await _orderCommonAppService.GetUserPendingPaymentCountAsync();
-            userNoticeNumber.TotalPendingShipment = await _orderCommonAppService.GetUserPendingShipmentCountAsync();
-            userNoticeNumber.TotalPendingDelivery = await _orderCommonAppService.GetUserPendingDeliveryCountAsync();
-            userNoticeNumber.TotalPendingEvaluate = await _orderCommonAppService.GetUserPendingEvaluateCountAsync();
+
+            var goodBrowsingTask = _goodCommonAppService.GetUserGoodBrowsingCountAsync();
+            var couponTask = _promotionCommonAppService.GetUserCouponCountAsync(false);
+            var goodCollectionTask = _goodCommonAppService.GetUserGoodCollectionCountAsync();
+            var billAftersaleTask = _orderCommonAppService.GetUserBillAftersaleCountAsync();
+            var pendingPaymentTask = _orderCommonAppService.GetUserPendingPaymentCountAsync();
+            var pendingShipmentTask = _orderCommonAppService.GetUserPendingShipmentCountAsync();
+            var pendingDeliveryTask = _orderCommonAppService.GetUserPendingDeliveryCountAsync();
+            var pendingEvaluateTask = _orderCommonAppService.GetUserPendingEvaluateCountAsync();
+
+            await Task.WhenAll(
+                goodBrowsingTask,
+                couponTask,
+                goodCollectionTask,
+                billAftersaleTask,
+                pendingPaymentTask,
+                pendingShipmentTask,
+                pendingDeliveryTask,
+                pendingEvaluateTask
+            );
+
+            userNoticeNumber.TotalGoodBrowsing = goodBrowsingTask.Result;
+            userNoticeNumber.TotalCoupon = couponTask.Result;
+            userNoticeNumber.TotalGoodCollection = goodCollectionTask.Result;
+            userNoticeNumber.TotalBillAftersale = billAftersaleTask.Result;
+            userNoticeNumber.TotalPendingPayment = pendingPaymentTask.Result;
+            userNoticeNumber.TotalPendingShipment = pendingShipmentTask.Result;
+            userNoticeNumber.TotalPendingDelivery = pendingDeliveryTask.Result;
+            userNoticeNumber.TotalPendingEvaluate = pendingEvaluateTask.Result;
+
             return Ok(userNoticeNumber);
         }
 
