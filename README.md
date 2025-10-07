@@ -51,7 +51,7 @@ Rex.ShopMicroService.Sample
 
 ```
 # 克隆项目
-git clone https://gitee.com/zhuyongzhengs/Rex.ShopMicroService.Sample.git
+git clone https://github.com/zhuyongzhengs/Rex.ShopMicroService.Sample.git
 
 # 创建MySQL数据库
 创建数据库：Rex.Shop.BaseService、Rex.Shop.GoodService、Rex.Shop.OrderService、Rex.Shop.PaymentService、Rex.Shop.PromotionService 或通过EF Core进行迁移~
@@ -114,7 +114,7 @@ Redis、MongoDB、RabbitMQ、Minio
 
 ## 支持作者
 
-如果帮助到了你，希望你可以去[Gitee](https://gitee.com/zhuyongzhengs/Rex.ShopMicroService.Sample)  或 [Github](https://github.com/zhuyongzhengs/Rex.ShopMicroService.Sample)帮我点个 ⭐ Star，这将是对我极大的鼓励与支持。
+如果帮助到了你，希望你可以去[Gitee](https://github.com/zhuyongzhengs/Rex.ShopMicroService.Sample)  或 [Github](https://github.com/zhuyongzhengs/Rex.ShopMicroService.Sample)帮我点个 ⭐ Star，这将是对我极大的鼓励与支持。
 
 ## 你的点赞鼓励，是我们前进的动力~
 
