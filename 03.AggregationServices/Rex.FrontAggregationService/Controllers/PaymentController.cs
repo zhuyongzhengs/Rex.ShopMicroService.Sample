@@ -9,7 +9,6 @@ using Rex.Service.Core.Configurations;
 using Rex.Service.Core.Events.Payments;
 using Rex.Service.Core.Models;
 using Volo.Abp;
-using Volo.Abp.EventBus.Distributed;
 using static Rex.Service.Core.Configurations.GlobalEnums;
 using IBaseCommonAppService = Rex.BaseService.Systems.Commons.ICommonAppService;
 using IOrderCommonAppService = Rex.OrderService.Commons.ICommonAppService;
