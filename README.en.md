@@ -66,7 +66,7 @@ Rex.ShopMicroService.Sample
 
 ```
 # Clone project
-git clone https://gitee.com/zhuyongzhengs/Rex.ShopMicroService.Sample.git
+git clone https://github.com/zhuyongzhengs/Rex.ShopMicroService.Sample.git
 
 # Create MySQL databases
 Databases required: Rex.Shop.BaseService, Rex.Shop.GoodService, Rex.Shop.OrderService, Rex.Shop.PaymentService, Rex.Shop.PromotionService  
