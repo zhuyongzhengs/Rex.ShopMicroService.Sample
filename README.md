@@ -128,7 +128,7 @@ git clone https://github.com/zhuyongzhengs/Rex.ShopMicroService.Sample.git
 
 ### ⚡开源项目支持
 
-Rex Shop 是一个完全免费开源的项目，允许商业用途。 如果这个项目帮助到了您，希望你可以去 [Gitee](https://github.com/zhuyongzhengs/Rex.ShopMicroService.Sample)  或 [Github](https://github.com/zhuyongzhengs/Rex.ShopMicroService.Sample) 帮我点个免费的 ⭐ Star，或者通过以下方式支持项目的持续发展，这将是对我极大的鼓励与支持。
+Rex Shop 是一个完全免费开源的项目，允许商业用途。 如果这个项目帮助到了您，希望你可以去 [Gitee](https://gitee.com/zhuyongzhengs/Rex.ShopMicroService.Sample)  或 [Github](https://github.com/zhuyongzhengs/Rex.ShopMicroService.Sample) 帮我点个免费的 ⭐ Star，或者通过以下方式支持项目的持续发展，这将是对我极大的鼓励与支持。
 
 ### 💌赞助方式
 
