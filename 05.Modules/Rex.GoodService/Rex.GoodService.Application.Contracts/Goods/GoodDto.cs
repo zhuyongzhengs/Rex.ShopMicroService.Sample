@@ -10,13 +10,8 @@ namespace Rex.GoodService.Goods
     /// <summary>
     /// 商品Dto
     /// </summary>
-    public partial class GoodDto : EntityDto<Guid>, IMultiTenant
+    public partial class GoodDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 商品条码
         /// </summary>
@@ -55,12 +50,12 @@ namespace Rex.GoodService.Goods
         /// <summary>
         /// 商品分类
         /// </summary>
-        public Guid GoodCategoryId { get; set; }
+        public Guid? GoodCategoryId { get; set; }
 
         /// <summary>
         /// 商品分类数据
         /// </summary>
-        public GoodCategoryDto GoodCategory { get; set; }
+        public GoodCategoryDto? GoodCategory { get; set; }
 
         /// <summary>
         /// 商品类别
@@ -85,7 +80,7 @@ namespace Rex.GoodService.Goods
         /// <summary>
         /// 品牌数据
         /// </summary>
-        public BrandDto Brand { get; set; }
+        public BrandDto? Brand { get; set; }
 
         /// <summary>
         /// 是否虚拟商品
@@ -175,7 +170,7 @@ namespace Rex.GoodService.Goods
         /// <summary>
         /// 货品信息
         /// </summary>
-        public List<ProductDto> Products { get; set; }
+        public List<ProductDto> Products { get; set; } = new();
 
         /// <summary>
         /// 并发(控制)戳

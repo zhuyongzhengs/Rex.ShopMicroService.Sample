@@ -7,13 +7,8 @@ namespace Rex.GoodService.Areas
     /// <summary>
     /// 区域Dto
     /// </summary>
-    public class AreaDto : EntityDto<long>, IMultiTenant
+    public class AreaDto : EntityDto<long>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 父级ID
         /// </summary>

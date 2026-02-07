@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
@@ -20,16 +20,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.mvc\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Mvc.abppkg.analyze.json" />
-    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.mvc\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Mvc.abppkg.json" />
-    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Serilog.abppkg.analyze.json" />
-    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Serilog.abppkg.json" />
-    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.mvc\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Mvc.abppkg.analyze.json" />
-    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.mvc\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Mvc.abppkg.json" />
-    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Serilog.abppkg.analyze.json" />
-    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Serilog.abppkg.json" />
-    <Content Remove="E:\NuGet\.nuget\packages\volo.abp.aspnetcore.mvc\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Mvc.abppkg.analyze.json" />
-    <Content Remove="E:\NuGet\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Serilog.abppkg.analyze.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.mvc\8.1.0\contentFiles\any\net10.0\Volo.Abp.AspNetCore.Mvc.abppkg.analyze.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.mvc\8.1.0\contentFiles\any\net10.0\Volo.Abp.AspNetCore.Mvc.abppkg.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net10.0\Volo.Abp.AspNetCore.Serilog.abppkg.analyze.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net10.0\Volo.Abp.AspNetCore.Serilog.abppkg.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.mvc\8.1.0\contentFiles\any\net10.0\Volo.Abp.AspNetCore.Mvc.abppkg.analyze.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.mvc\8.1.0\contentFiles\any\net10.0\Volo.Abp.AspNetCore.Mvc.abppkg.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net10.0\Volo.Abp.AspNetCore.Serilog.abppkg.analyze.json" />
+    <Content Remove="C:\Users\Rex\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net10.0\Volo.Abp.AspNetCore.Serilog.abppkg.json" />
+    <Content Remove="E:\NuGet\.nuget\packages\volo.abp.aspnetcore.mvc\10.0.2\contentFiles\any\net10.0\Volo.Abp.AspNetCore.Mvc.abppkg.analyze.json" />
+    <Content Remove="E:\NuGet\.nuget\packages\volo.abp.aspnetcore.mvc\8.1.0\contentFiles\any\net10.0\Volo.Abp.AspNetCore.Mvc.abppkg.analyze.json" />
+    <Content Remove="E:\NuGet\.nuget\packages\volo.abp.aspnetcore.serilog\10.0.2\contentFiles\any\net10.0\Volo.Abp.AspNetCore.Serilog.abppkg.analyze.json" />
+    <Content Remove="E:\NuGet\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net10.0\Volo.Abp.AspNetCore.Serilog.abppkg.analyze.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,22 +41,25 @@
   </ItemGroup>
 
   <ItemGroup>
-	<PackageReference Include="AutoMapper" Version="13.0.1" />
+	<PackageReference Include="AutoMapper" Version="16.0.0" />
 	<!--<PackageReference Include="Microsoft.Extensions.Http.Polly" Version="9.0.5" />-->
 	<PackageReference Include="Elastic.Serilog.Sinks" Version="9.0.0" />
-	<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
-	<PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
-	<PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
-	<PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="8.1.0" />
-    <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="8.1.0" />
-	<PackageReference Include="Volo.Abp.Autofac" Version="8.1.0" />
-	<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
-    <PackageReference Include="Volo.Abp.Http.Client.IdentityModel" Version="8.1.0" />
+	<!--<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />-->
+	<PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+	<PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
+	  <PackageReference Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0" />
+	  <PackageReference Include="Volo.Abp.Swashbuckle" Version="10.0.2" />
+	<!--<PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="10.1.1" />-->
+	<PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="10.0.2" />
+	<PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="10.0.2" />
+	<PackageReference Include="Volo.Abp.Autofac" Version="10.0.2" />
+    <PackageReference Include="Volo.Abp.Http.Client.IdentityModel" Version="10.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\00.Core\Rex.Service.AspNetCore\Rex.Service.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\00.Core\Rex.ShopService.ServiceDefaults\Rex.ShopService.ServiceDefaults.csproj" />
     <ProjectReference Include="..\..\05.Modules\Rex.BaseService\Rex.BaseService.HttpApi.Client\Rex.BaseService.HttpApi.Client.csproj" />
     <ProjectReference Include="..\..\05.Modules\Rex.GoodService\Rex.GoodService.HttpApi.Client\Rex.GoodService.HttpApi.Client.csproj" />
     <ProjectReference Include="..\..\05.Modules\Rex.OrderService\Rex.OrderService.HttpApi.Client\Rex.OrderService.HttpApi.Client.csproj" />

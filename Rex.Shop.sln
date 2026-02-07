@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.6.33723.286
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11222.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00.Core", "00.Core", "{213F6E1D-3841-44CC-A03A-7FEE67EB8837}"
 EndProject
@@ -154,6 +154,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rex.Service.AspNetCore", "00.Core\Rex.Service.AspNetCore\Rex.Service.AspNetCore.csproj", "{D26C2B9A-FABC-4B3F-8330-3898E39212D5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rex.Service.Permission", "00.Core\Rex.Service.Permission\Rex.Service.Permission.csproj", "{B6D7A75F-A44E-44D3-BE2D-A2DC6AF7452E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rex.ShopService.AppHost", "04.MicroServices\Rex.ShopService.AppHost\Rex.ShopService.AppHost.csproj", "{204C2F34-5AD2-46F2-9CA4-F6BCE6540567}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rex.ShopService.ServiceDefaults", "00.Core\Rex.ShopService.ServiceDefaults\Rex.ShopService.ServiceDefaults.csproj", "{C5EC39F6-D9AE-1789-1AA6-649124E403DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -417,6 +421,14 @@ Global
 		{B6D7A75F-A44E-44D3-BE2D-A2DC6AF7452E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6D7A75F-A44E-44D3-BE2D-A2DC6AF7452E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6D7A75F-A44E-44D3-BE2D-A2DC6AF7452E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{204C2F34-5AD2-46F2-9CA4-F6BCE6540567}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{204C2F34-5AD2-46F2-9CA4-F6BCE6540567}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{204C2F34-5AD2-46F2-9CA4-F6BCE6540567}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{204C2F34-5AD2-46F2-9CA4-F6BCE6540567}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5EC39F6-D9AE-1789-1AA6-649124E403DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5EC39F6-D9AE-1789-1AA6-649124E403DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5EC39F6-D9AE-1789-1AA6-649124E403DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5EC39F6-D9AE-1789-1AA6-649124E403DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -492,6 +504,8 @@ Global
 		{2EAEA746-F550-4E22-900B-76F078CE212B} = {E47A6FB6-FBF8-4489-98BA-3BBBABDAB948}
 		{D26C2B9A-FABC-4B3F-8330-3898E39212D5} = {213F6E1D-3841-44CC-A03A-7FEE67EB8837}
 		{B6D7A75F-A44E-44D3-BE2D-A2DC6AF7452E} = {213F6E1D-3841-44CC-A03A-7FEE67EB8837}
+		{204C2F34-5AD2-46F2-9CA4-F6BCE6540567} = {7BC5B219-A71F-4514-8CAF-0DFEB39564B4}
+		{C5EC39F6-D9AE-1789-1AA6-649124E403DF} = {213F6E1D-3841-44CC-A03A-7FEE67EB8837}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {180F4F7D-34EA-4CFE-80C9-5038DA42F71B}

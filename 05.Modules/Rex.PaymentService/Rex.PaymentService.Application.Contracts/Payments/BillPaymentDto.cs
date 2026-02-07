@@ -8,13 +8,8 @@ namespace Rex.PaymentService.Payments
     /// <summary>
     /// 支付单Dto
     /// </summary>
-    public class BillPaymentDto : EntityDto<Guid>, IMultiTenant
+    public class BillPaymentDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 支付单号
         /// </summary>

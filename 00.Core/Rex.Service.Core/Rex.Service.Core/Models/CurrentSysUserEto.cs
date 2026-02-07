@@ -7,13 +7,8 @@ namespace Rex.Service.Core.Models
     /// <summary>
     /// 当前用户信息Eto
     /// </summary>
-    public class CurrentSysUserEto : EntityEto<Guid>, IMultiTenant
+    public class CurrentSysUserEto : EntityEto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 登陆账号
         /// </summary>

@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Localization;
+﻿using Microsoft.Extensions.Configuration;
 using OpenIddict.Abstractions;
 using Rex.Service.Permission.AuthServices;
 using Rex.Service.Permission.BaseServices;
@@ -10,16 +8,15 @@ using Rex.Service.Permission.PaymentServices;
 using Rex.Service.Permission.PromotionServices;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Volo.Abp;
-using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
+using Volo.Abp.OpenIddict;
 using Volo.Abp.OpenIddict.Applications;
 using Volo.Abp.OpenIddict.Scopes;
-using Volo.Abp.PermissionManagement;
 using Volo.Abp.Uow;
 
 namespace Rex.AuthService.OpenIddict;
@@ -28,32 +25,27 @@ namespace Rex.AuthService.OpenIddict;
  * and make client-to-server communication possible.
  */
 
-public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDependency
+public class OpenIddictDataSeedContributor : OpenIddictDataSeedContributorBase, IDataSeedContributor, ITransientDependency
 {
     private readonly IConfiguration _configuration;
     private readonly IOpenIddictApplicationRepository _openIddictApplicationRepository;
     private readonly IAbpApplicationManager _applicationManager;
     private readonly IOpenIddictScopeRepository _openIddictScopeRepository;
     private readonly IOpenIddictScopeManager _scopeManager;
-    private readonly IPermissionDataSeeder _permissionDataSeeder;
-    private readonly IStringLocalizer<OpenIddictResponse> L;
 
     public OpenIddictDataSeedContributor(
         IConfiguration configuration,
         IOpenIddictApplicationRepository openIddictApplicationRepository,
         IAbpApplicationManager applicationManager,
         IOpenIddictScopeRepository openIddictScopeRepository,
-        IOpenIddictScopeManager scopeManager,
-        IPermissionDataSeeder permissionDataSeeder,
-        IStringLocalizer<OpenIddictResponse> l)
+        IOpenIddictScopeManager scopeManager)
+        : base(configuration, openIddictApplicationRepository, applicationManager, openIddictScopeRepository, scopeManager)
     {
         _configuration = configuration;
         _openIddictApplicationRepository = openIddictApplicationRepository;
         _applicationManager = applicationManager;
         _openIddictScopeRepository = openIddictScopeRepository;
         _scopeManager = scopeManager;
-        _permissionDataSeeder = permissionDataSeeder;
-        L = l;
     }
 
     [UnitOfWork]
@@ -80,75 +72,57 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
     {
         // 认证授权服务
         string authSysNameScope = AuthServicePermissions.GroupName + "Scope";
-        if (await _openIddictScopeRepository.FindByNameAsync(authSysNameScope) == null)
+        await CreateScopesAsync(new OpenIddictScopeDescriptor
         {
-            await _scopeManager.CreateAsync(new OpenIddictScopeDescriptor
-            {
-                Name = authSysNameScope,
-                DisplayName = $"{authSysNameScope} API 接口服务",
-                Resources = { AuthServicePermissions.GroupName }
-            });
-        }
+            Name = authSysNameScope,
+            DisplayName = $"{authSysNameScope} API 接口服务",
+            Resources = { AuthServicePermissions.GroupName }
+        });
 
         // Base服务
         string baseSysNameScope = BaseServicePermissions.GroupName + "Scope";
-        if (await _openIddictScopeRepository.FindByNameAsync(baseSysNameScope) == null)
+        await CreateScopesAsync(new OpenIddictScopeDescriptor
         {
-            await _scopeManager.CreateAsync(new OpenIddictScopeDescriptor
-            {
-                Name = baseSysNameScope,
-                DisplayName = $"{baseSysNameScope} API 接口服务",
-                Resources = { BaseServicePermissions.GroupName }
-            });
-        }
+            Name = baseSysNameScope,
+            DisplayName = $"{baseSysNameScope} API 接口服务",
+            Resources = { BaseServicePermissions.GroupName }
+        });
 
         // 商品服务
         string goodSysNameScope = GoodServicePermissions.GroupName + "Scope";
-        if (await _openIddictScopeRepository.FindByNameAsync(goodSysNameScope) == null)
+        await CreateScopesAsync(new OpenIddictScopeDescriptor
         {
-            await _scopeManager.CreateAsync(new OpenIddictScopeDescriptor
-            {
-                Name = goodSysNameScope,
-                DisplayName = $"{goodSysNameScope} API 接口服务",
-                Resources = { GoodServicePermissions.GroupName }
-            });
-        }
+            Name = goodSysNameScope,
+            DisplayName = $"{goodSysNameScope} API 接口服务",
+            Resources = { GoodServicePermissions.GroupName }
+        });
 
         // 促销服务
         string promotionSysNameScope = PromotionServicePermissions.GroupName + "Scope";
-        if (await _openIddictScopeRepository.FindByNameAsync(promotionSysNameScope) == null)
+        await CreateScopesAsync(new OpenIddictScopeDescriptor
         {
-            await _scopeManager.CreateAsync(new OpenIddictScopeDescriptor
-            {
-                Name = promotionSysNameScope,
-                DisplayName = $"{promotionSysNameScope} API 接口服务",
-                Resources = { PromotionServicePermissions.GroupName }
-            });
-        }
+            Name = promotionSysNameScope,
+            DisplayName = $"{promotionSysNameScope} API 接口服务",
+            Resources = { PromotionServicePermissions.GroupName }
+        });
 
         // 订单服务
         string orderSysNameScope = OrderServicePermissions.GroupName + "Scope";
-        if (await _openIddictScopeRepository.FindByNameAsync(orderSysNameScope) == null)
+        await CreateScopesAsync(new OpenIddictScopeDescriptor
         {
-            await _scopeManager.CreateAsync(new OpenIddictScopeDescriptor
-            {
-                Name = orderSysNameScope,
-                DisplayName = $"{orderSysNameScope} API 接口服务",
-                Resources = { OrderServicePermissions.GroupName }
-            });
-        }
+            Name = orderSysNameScope,
+            DisplayName = $"{orderSysNameScope} API 接口服务",
+            Resources = { OrderServicePermissions.GroupName }
+        });
 
         // 支付服务
         string paymentSysNameScope = PaymentServicePermissions.GroupName + "Scope";
-        if (await _openIddictScopeRepository.FindByNameAsync(paymentSysNameScope) == null)
+        await CreateScopesAsync(new OpenIddictScopeDescriptor
         {
-            await _scopeManager.CreateAsync(new OpenIddictScopeDescriptor
-            {
-                Name = paymentSysNameScope,
-                DisplayName = $"{paymentSysNameScope} API 接口服务",
-                Resources = { PaymentServicePermissions.GroupName }
-            });
-        }
+            Name = paymentSysNameScope,
+            DisplayName = $"{paymentSysNameScope} API 接口服务",
+            Resources = { PaymentServicePermissions.GroupName }
+        });
     }
 
     /// <summary>
@@ -163,7 +137,7 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
         string promotionSysNameScope = PromotionServicePermissions.GroupName + "Scope";
         string orderSysNameScope = OrderServicePermissions.GroupName + "Scope";
         string paymentSysNameScope = PaymentServicePermissions.GroupName + "Scope";
-        string[] commonScopes = new string[] {
+        string[] commonScopes = {
             OpenIddictConstants.Permissions.Scopes.Address,
             OpenIddictConstants.Permissions.Scopes.Email,
             OpenIddictConstants.Permissions.Scopes.Phone,
@@ -179,18 +153,19 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
         if (!authSwaggerClientId.IsNullOrWhiteSpace())
         {
             var swaggerRootUrl = configurationSection["AuthService_Swagger:RootUrl"]?.TrimEnd('/');
-
             List<string> authScopes = commonScopes.ToList();
             authScopes.Add(authSysNameScope);
-            await CreateApplicationAsync(
+            await CreateOrUpdateApplicationAsync(
+                applicationType: OpenIddictConstants.ApplicationTypes.Web,
                 name: authSwaggerClientId!,
-                clientType: OpenIddictConstants.ClientTypes.Public,
+                type: OpenIddictConstants.ClientTypes.Public,
                 consentType: OpenIddictConstants.ConsentTypes.Implicit,
                 displayName: "AuthSwagger Application",
                 secret: null,
                 grantTypes: new List<string> { OpenIddictConstants.GrantTypes.AuthorizationCode },
                 scopes: authScopes,
-                redirectUri: $"{swaggerRootUrl}/swagger/oauth2-redirect.html",
+                redirectUris: new List<string>() { $"{swaggerRootUrl}/swagger/oauth2-redirect.html" },
+                postLogoutRedirectUris: new List<string>() { $"{swaggerRootUrl}/swagger/oauth2-redirect.html" },
                 clientUri: swaggerRootUrl
             );
         }
@@ -203,18 +178,19 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
         if (!baseSwaggerClientId.IsNullOrWhiteSpace())
         {
             var swaggerRootUrl = configurationSection["BaseService_Swagger:RootUrl"]?.TrimEnd('/');
-
             List<string> authScopes = commonScopes.ToList();
             authScopes.Add(baseSysNameScope);
-            await CreateApplicationAsync(
+            await CreateOrUpdateApplicationAsync(
+                applicationType: OpenIddictConstants.ApplicationTypes.Web,
                 name: baseSwaggerClientId!,
-                clientType: OpenIddictConstants.ClientTypes.Public,
+                type: OpenIddictConstants.ClientTypes.Public,
                 consentType: OpenIddictConstants.ConsentTypes.Implicit,
                 displayName: "BaseSwagger Application",
                 secret: null,
                 grantTypes: new List<string> { OpenIddictConstants.GrantTypes.AuthorizationCode },
                 scopes: authScopes,
-                redirectUri: $"{swaggerRootUrl}/swagger/oauth2-redirect.html",
+                redirectUris: new List<string>() { $"{swaggerRootUrl}/swagger/oauth2-redirect.html" },
+                postLogoutRedirectUris: new List<string>() { $"{swaggerRootUrl}/swagger/oauth2-redirect.html" },
                 clientUri: swaggerRootUrl
             );
         }
@@ -227,18 +203,19 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
         if (!goodSwaggerClientId.IsNullOrWhiteSpace())
         {
             var swaggerRootUrl = configurationSection["GoodService_Swagger:RootUrl"]?.TrimEnd('/');
-
             List<string> authScopes = commonScopes.ToList();
             authScopes.Add(goodSysNameScope);
-            await CreateApplicationAsync(
+            await CreateOrUpdateApplicationAsync(
+                applicationType: OpenIddictConstants.ApplicationTypes.Web,
                 name: goodSwaggerClientId!,
-                clientType: OpenIddictConstants.ClientTypes.Public,
+                type: OpenIddictConstants.ClientTypes.Public,
                 consentType: OpenIddictConstants.ConsentTypes.Implicit,
                 displayName: "GoodSwagger Application",
                 secret: null,
                 grantTypes: new List<string> { OpenIddictConstants.GrantTypes.AuthorizationCode },
                 scopes: authScopes,
-                redirectUri: $"{swaggerRootUrl}/swagger/oauth2-redirect.html",
+                redirectUris: new List<string>() { $"{swaggerRootUrl}/swagger/oauth2-redirect.html" },
+                postLogoutRedirectUris: new List<string>() { $"{swaggerRootUrl}/swagger/oauth2-redirect.html" },
                 clientUri: swaggerRootUrl
             );
         }
@@ -251,18 +228,19 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
         if (!promotionSwaggerClientId.IsNullOrWhiteSpace())
         {
             var swaggerRootUrl = configurationSection["PromotionService_Swagger:RootUrl"]?.TrimEnd('/');
-
             List<string> authScopes = commonScopes.ToList();
             authScopes.Add(promotionSysNameScope);
-            await CreateApplicationAsync(
+            await CreateOrUpdateApplicationAsync(
+                applicationType: OpenIddictConstants.ApplicationTypes.Web,
                 name: promotionSwaggerClientId!,
-                clientType: OpenIddictConstants.ClientTypes.Public,
+                type: OpenIddictConstants.ClientTypes.Public,
                 consentType: OpenIddictConstants.ConsentTypes.Implicit,
                 displayName: "PromotionSwagger Application",
                 secret: null,
                 grantTypes: new List<string> { OpenIddictConstants.GrantTypes.AuthorizationCode },
                 scopes: authScopes,
-                redirectUri: $"{swaggerRootUrl}/swagger/oauth2-redirect.html",
+                redirectUris: new List<string>() { $"{swaggerRootUrl}/swagger/oauth2-redirect.html" },
+                postLogoutRedirectUris: new List<string>() { $"{swaggerRootUrl}/swagger/oauth2-redirect.html" },
                 clientUri: swaggerRootUrl
             );
         }
@@ -275,18 +253,19 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
         if (!orderSwaggerClientId.IsNullOrWhiteSpace())
         {
             var swaggerRootUrl = configurationSection["OrderService_Swagger:RootUrl"]?.TrimEnd('/');
-
             List<string> authScopes = commonScopes.ToList();
             authScopes.Add(orderSysNameScope);
-            await CreateApplicationAsync(
+            await CreateOrUpdateApplicationAsync(
+                applicationType: OpenIddictConstants.ApplicationTypes.Web,
                 name: orderSwaggerClientId!,
-                clientType: OpenIddictConstants.ClientTypes.Public,
+                type: OpenIddictConstants.ClientTypes.Public,
                 consentType: OpenIddictConstants.ConsentTypes.Implicit,
                 displayName: "OrderSwagger Application",
                 secret: null,
                 grantTypes: new List<string> { OpenIddictConstants.GrantTypes.AuthorizationCode },
                 scopes: authScopes,
-                redirectUri: $"{swaggerRootUrl}/swagger/oauth2-redirect.html",
+                redirectUris: new List<string>() { $"{swaggerRootUrl}/swagger/oauth2-redirect.html" },
+                postLogoutRedirectUris: new List<string>() { $"{swaggerRootUrl}/swagger/oauth2-redirect.html" },
                 clientUri: swaggerRootUrl
             );
         }
@@ -302,15 +281,17 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
 
             List<string> authScopes = commonScopes.ToList();
             authScopes.Add(paymentSysNameScope);
-            await CreateApplicationAsync(
+            await CreateOrUpdateApplicationAsync(
+                applicationType: OpenIddictConstants.ApplicationTypes.Web,
                 name: paymentSwaggerClientId!,
-                clientType: OpenIddictConstants.ClientTypes.Public,
+                type: OpenIddictConstants.ClientTypes.Public,
                 consentType: OpenIddictConstants.ConsentTypes.Implicit,
                 displayName: "PaymentSwagger Application",
                 secret: null,
                 grantTypes: new List<string> { OpenIddictConstants.GrantTypes.AuthorizationCode },
                 scopes: authScopes,
-                redirectUri: $"{swaggerRootUrl}/swagger/oauth2-redirect.html",
+                redirectUris: new List<string>() { $"{swaggerRootUrl}/swagger/oauth2-redirect.html" },
+                postLogoutRedirectUris: new List<string>() { $"{swaggerRootUrl}/swagger/oauth2-redirect.html" },
                 clientUri: swaggerRootUrl
             );
         }
@@ -330,15 +311,20 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
             authScopes.Add(promotionSysNameScope);
             authScopes.Add(orderSysNameScope);
             authScopes.Add(paymentSysNameScope);
-            await CreateApplicationAsync(
+            await CreateOrUpdateApplicationAsync(
+                applicationType: OpenIddictConstants.ApplicationTypes.Web,
                 name: shopWebAdminServiceClientId!,
-                clientType: OpenIddictConstants.ClientTypes.Public,
+                type: OpenIddictConstants.ClientTypes.Public,
                 consentType: OpenIddictConstants.ConsentTypes.Implicit,
                 displayName: "Rex商城后台管理客户端",
                 secret: null,
-                grantTypes: new List<string> { OpenIddictConstants.GrantTypes.Password },
+                grantTypes: new List<string> {
+                    OpenIddictConstants.GrantTypes.Password,
+                    OpenIddictConstants.GrantTypes.RefreshToken
+                },
                 scopes: authScopes,
-                redirectUri: null,
+                redirectUris: null,
+                postLogoutRedirectUris: null,
                 clientUri: rootUrl
             );
         }
@@ -358,243 +344,25 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
             authScopes.Add(promotionSysNameScope);
             authScopes.Add(orderSysNameScope);
             authScopes.Add(paymentSysNameScope);
-            await CreateApplicationAsync(
+
+            await CreateOrUpdateApplicationAsync(
+                applicationType: OpenIddictConstants.ApplicationTypes.Web,
                 name: shopMiniProgramWechatCodeClient!,
-                clientType: OpenIddictConstants.ClientTypes.Public,
+                type: OpenIddictConstants.ClientTypes.Public,
                 consentType: OpenIddictConstants.ConsentTypes.Implicit,
                 displayName: "Rex商城微信小程序客户端",
                 secret: null,
-                grantTypes: new List<string> { AuthServiceConsts.GrantTypes.WechatCode },
+                grantTypes: new List<string> {
+                    AuthServiceConsts.GrantTypes.WechatCode,
+                    OpenIddictConstants.GrantTypes.RefreshToken
+                },
                 scopes: authScopes,
-                redirectUri: null,
+                redirectUris: null,
+                postLogoutRedirectUris: null,
                 clientUri: rootUrl
             );
         }
 
         #endregion Rex商品微信小程序客户端
-    }
-
-    private async Task CreateApplicationAsync(
-        [NotNull] string name,
-        [NotNull] string clientType,
-        [NotNull] string consentType,
-        string displayName,
-        string? secret,
-        List<string> grantTypes,
-        List<string> scopes,
-        string? clientUri = null,
-        string? redirectUri = null,
-        string? postLogoutRedirectUri = null,
-        List<string>? permissions = null)
-    {
-        if (!string.IsNullOrEmpty(secret) && string.Equals(clientType, OpenIddictConstants.ClientTypes.Public,
-                StringComparison.OrdinalIgnoreCase))
-        {
-            // 不能给类型为“Public”的设置密钥
-            throw new BusinessException(L["NoClientSecretCanBeSetForPublicApplications"]);
-        }
-
-        if (string.IsNullOrEmpty(secret) && string.Equals(clientType, OpenIddictConstants.ClientTypes.Confidential,
-                StringComparison.OrdinalIgnoreCase))
-        {
-            // 必须给类型为“Confidential”的设置密钥
-            throw new BusinessException(L["TheClientSecretIsRequiredForConfidentialApplications"]);
-        }
-
-        var client = await _openIddictApplicationRepository.FindByClientIdAsync(name);
-        var application = new AbpApplicationDescriptor
-        {
-            ClientId = name,
-            ClientType = clientType,
-            ClientSecret = secret,
-            ConsentType = consentType,
-            DisplayName = displayName,
-            ClientUri = clientUri,
-        };
-
-        Check.NotNullOrEmpty(grantTypes, nameof(grantTypes));
-        Check.NotNullOrEmpty(scopes, nameof(scopes));
-
-        if (new[] { OpenIddictConstants.GrantTypes.AuthorizationCode, OpenIddictConstants.GrantTypes.Implicit }.All(
-                grantTypes.Contains))
-        {
-            application.Permissions.Add(OpenIddictConstants.Permissions.ResponseTypes.CodeIdToken);
-
-            if (string.Equals(clientType, OpenIddictConstants.ClientTypes.Public, StringComparison.OrdinalIgnoreCase))
-            {
-                application.Permissions.Add(OpenIddictConstants.Permissions.ResponseTypes.CodeIdTokenToken);
-                application.Permissions.Add(OpenIddictConstants.Permissions.ResponseTypes.CodeToken);
-            }
-        }
-
-        if (!redirectUri.IsNullOrWhiteSpace() || !postLogoutRedirectUri.IsNullOrWhiteSpace())
-        {
-            application.Permissions.Add(OpenIddictConstants.Permissions.Endpoints.Logout);
-        }
-
-        var buildInGrantTypes = new[] {
-            OpenIddictConstants.GrantTypes.Implicit, OpenIddictConstants.GrantTypes.Password,
-            OpenIddictConstants.GrantTypes.AuthorizationCode, OpenIddictConstants.GrantTypes.ClientCredentials,
-            OpenIddictConstants.GrantTypes.DeviceCode, OpenIddictConstants.GrantTypes.RefreshToken
-        };
-
-        foreach (var grantType in grantTypes)
-        {
-            if (grantType == OpenIddictConstants.GrantTypes.AuthorizationCode)
-            {
-                application.Permissions.Add(OpenIddictConstants.Permissions.GrantTypes.AuthorizationCode);
-                application.Permissions.Add(OpenIddictConstants.Permissions.ResponseTypes.Code);
-            }
-
-            if (grantType == OpenIddictConstants.GrantTypes.AuthorizationCode ||
-                grantType == OpenIddictConstants.GrantTypes.Implicit)
-            {
-                application.Permissions.Add(OpenIddictConstants.Permissions.Endpoints.Authorization);
-            }
-
-            if (grantType == OpenIddictConstants.GrantTypes.AuthorizationCode ||
-                grantType == OpenIddictConstants.GrantTypes.ClientCredentials ||
-                grantType == OpenIddictConstants.GrantTypes.Password ||
-                grantType == AuthServiceConsts.GrantTypes.WechatCode ||
-                grantType == OpenIddictConstants.GrantTypes.RefreshToken ||
-                grantType == OpenIddictConstants.GrantTypes.DeviceCode)
-            {
-                application.Permissions.Add(OpenIddictConstants.Permissions.Endpoints.Token);
-                application.Permissions.Add(OpenIddictConstants.Permissions.Endpoints.Revocation);
-                application.Permissions.Add(OpenIddictConstants.Permissions.Endpoints.Introspection);
-            }
-
-            if (grantType == OpenIddictConstants.GrantTypes.ClientCredentials)
-            {
-                application.Permissions.Add(OpenIddictConstants.Permissions.GrantTypes.ClientCredentials);
-            }
-
-            if (grantType == OpenIddictConstants.GrantTypes.Implicit)
-            {
-                application.Permissions.Add(OpenIddictConstants.Permissions.GrantTypes.Implicit);
-            }
-
-            if (grantType == OpenIddictConstants.GrantTypes.Password)
-            {
-                application.Permissions.Add(OpenIddictConstants.Permissions.GrantTypes.Password);
-            }
-
-            if (grantType == OpenIddictConstants.GrantTypes.RefreshToken)
-            {
-                application.Permissions.Add(OpenIddictConstants.Permissions.GrantTypes.RefreshToken);
-            }
-
-            if (grantType == OpenIddictConstants.GrantTypes.DeviceCode)
-            {
-                application.Permissions.Add(OpenIddictConstants.Permissions.GrantTypes.DeviceCode);
-                application.Permissions.Add(OpenIddictConstants.Permissions.Endpoints.Device);
-            }
-
-            if (grantType == OpenIddictConstants.GrantTypes.Implicit)
-            {
-                application.Permissions.Add(OpenIddictConstants.Permissions.ResponseTypes.IdToken);
-                if (string.Equals(clientType, OpenIddictConstants.ClientTypes.Public, StringComparison.OrdinalIgnoreCase))
-                {
-                    application.Permissions.Add(OpenIddictConstants.Permissions.ResponseTypes.IdTokenToken);
-                    application.Permissions.Add(OpenIddictConstants.Permissions.ResponseTypes.Token);
-                }
-            }
-
-            if (!buildInGrantTypes.Contains(grantType))
-            {
-                application.Permissions.Add(OpenIddictConstants.Permissions.Prefixes.GrantType + grantType);
-            }
-        }
-
-        var buildInScopes = new[] {
-            OpenIddictConstants.Permissions.Scopes.Address, OpenIddictConstants.Permissions.Scopes.Email,
-            OpenIddictConstants.Permissions.Scopes.Phone, OpenIddictConstants.Permissions.Scopes.Profile,
-            OpenIddictConstants.Permissions.Scopes.Roles
-        };
-
-        foreach (var scope in scopes)
-        {
-            if (buildInScopes.Contains(scope))
-            {
-                application.Permissions.Add(scope);
-            }
-            else
-            {
-                application.Permissions.Add(OpenIddictConstants.Permissions.Prefixes.Scope + scope);
-            }
-        }
-
-        if (redirectUri != null)
-        {
-            if (!redirectUri.IsNullOrEmpty())
-            {
-                if (!Uri.TryCreate(redirectUri, UriKind.Absolute, out var uri) || !uri.IsWellFormedOriginalString())
-                {
-                    throw new BusinessException(L["InvalidRedirectUri", redirectUri]);
-                }
-
-                if (application.RedirectUris.All(x => x != uri))
-                {
-                    application.RedirectUris.Add(uri);
-                }
-            }
-        }
-
-        if (postLogoutRedirectUri != null)
-        {
-            if (!postLogoutRedirectUri.IsNullOrEmpty())
-            {
-                if (!Uri.TryCreate(postLogoutRedirectUri, UriKind.Absolute, out var uri) ||
-                    !uri.IsWellFormedOriginalString())
-                {
-                    throw new BusinessException(L["InvalidPostLogoutRedirectUri", postLogoutRedirectUri]);
-                }
-
-                if (application.PostLogoutRedirectUris.All(x => x != uri))
-                {
-                    application.PostLogoutRedirectUris.Add(uri);
-                }
-            }
-        }
-
-        if (permissions != null)
-        {
-            await _permissionDataSeeder.SeedAsync(
-                ClientPermissionValueProvider.ProviderName,
-                name,
-                permissions,
-                null
-            );
-        }
-
-        if (client == null)
-        {
-            await _applicationManager.CreateAsync(application);
-            return;
-        }
-
-        if (!HasSameRedirectUris(client, application))
-        {
-            client.RedirectUris = JsonSerializer.Serialize(application.RedirectUris.Select(q => q.ToString().TrimEnd('/')));
-            client.PostLogoutRedirectUris = JsonSerializer.Serialize(application.PostLogoutRedirectUris.Select(q => q.ToString().TrimEnd('/')));
-
-            await _applicationManager.UpdateAsync(client.ToModel());
-        }
-
-        if (!HasSameScopes(client, application))
-        {
-            client.Permissions = JsonSerializer.Serialize(application.Permissions.Select(q => q.ToString()));
-            await _applicationManager.UpdateAsync(client.ToModel());
-        }
-    }
-
-    private bool HasSameRedirectUris(OpenIddictApplication existingClient, AbpApplicationDescriptor application)
-    {
-        return existingClient.RedirectUris == JsonSerializer.Serialize(application.RedirectUris.Select(q => q.ToString().TrimEnd('/')));
-    }
-
-    private bool HasSameScopes(OpenIddictApplication existingClient, AbpApplicationDescriptor application)
-    {
-        return existingClient.Permissions == JsonSerializer.Serialize(application.Permissions.Select(q => q.ToString().TrimEnd('/')));
     }
 }

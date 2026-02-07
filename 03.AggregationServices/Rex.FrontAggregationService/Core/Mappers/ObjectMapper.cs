@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Rex.FrontAggregationService.Core.Mappers
 {
@@ -15,7 +16,7 @@ namespace Rex.FrontAggregationService.Core.Mappers
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<AutoMapperProfile>();
-            });
+            }, new NullLoggerFactory());
 
             _mapper = config.CreateMapper();
         }

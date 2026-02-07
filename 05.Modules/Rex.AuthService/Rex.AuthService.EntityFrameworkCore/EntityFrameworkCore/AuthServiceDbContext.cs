@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Volo.Abp.AuditLogging;
 using Volo.Abp.Data;
-using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.OpenIddict;
 using Volo.Abp.OpenIddict.Applications;
 using Volo.Abp.OpenIddict.Authorizations;
 using Volo.Abp.OpenIddict.EntityFrameworkCore;
@@ -12,7 +9,6 @@ using Volo.Abp.OpenIddict.Tokens;
 
 namespace Rex.AuthService.EntityFrameworkCore;
 
-[ReplaceDbContext(typeof(IOpenIddictDbContext))]
 [ConnectionStringName(AuthServiceConsts.ConnectionStringName)]
 public class AuthServiceDbContext :
     AbpDbContext<AuthServiceDbContext>,
@@ -43,18 +39,9 @@ public class AuthServiceDbContext :
 
         #region 授权服务OpenIddict
 
-        AbpOpenIddictDbProperties.DbTablePrefix = AuthServiceConsts.DefaultDbTablePrefix;
-        AbpOpenIddictDbProperties.DbSchema = AuthServiceConsts.DefaultDbSchema;
         builder.ConfigureOpenIddict();
 
         #endregion 授权服务OpenIddict
-
-        #region 审计日志
-
-        AbpAuditLoggingDbProperties.DbTablePrefix = AuthServiceConsts.SysDbTablePrefix;
-        AbpAuditLoggingDbProperties.DbSchema = AuthServiceConsts.SysDbSchema;
-
-        #endregion 审计日志
 
         //builder.Entity<YourEntity>(b =>
         //{

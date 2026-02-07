@@ -1,5 +1,4 @@
 ﻿using Volo.Abp.Account;
-using Volo.Abp.AutoMapper;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
@@ -24,11 +23,6 @@ public class PromotionServiceApplicationModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        Configure<AbpAutoMapperOptions>(options =>
-        {
-            options.AddMaps<PromotionServiceApplicationModule>();
-        });
-
         #region 雪花漂移算法
 
         // 创建 IdGeneratorOptions 对象，请在构造函数中输入 WorkerId：

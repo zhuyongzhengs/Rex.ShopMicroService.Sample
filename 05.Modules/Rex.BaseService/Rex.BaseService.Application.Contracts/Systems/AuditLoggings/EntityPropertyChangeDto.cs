@@ -9,11 +9,6 @@ namespace Rex.BaseService.Systems.AuditLoggings
     public class EntityPropertyChangeDto : EntityDto<Guid>
     {
         /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
-        /// <summary>
         /// 实体变更ID
         /// </summary>
         public Guid EntityChangeId { get; set; }

@@ -1,19 +1,13 @@
 ﻿using System;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.MultiTenancy;
 
 namespace Rex.GoodService.Goods
 {
     /// <summary>
     /// 商品类型规格值Dto
     /// </summary>
-    public class GoodTypeSpecValueDto : EntityDto<Guid>, IMultiTenant
+    public class GoodTypeSpecValueDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 属性ID 关联goods_type_spec.id
         /// </summary>

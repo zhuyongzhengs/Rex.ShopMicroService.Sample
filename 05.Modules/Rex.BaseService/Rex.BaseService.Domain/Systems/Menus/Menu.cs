@@ -10,6 +10,15 @@ namespace Rex.BaseService.Systems.Menus
     /// </summary>
     public class Menu : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
+        public Menu()
+        {
+        }
+
+        public Menu(Guid id)
+        {
+            Id = id;
+        }
+
         /// <summary>
         /// 租户ID
         /// </summary>

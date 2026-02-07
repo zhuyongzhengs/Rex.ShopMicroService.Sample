@@ -10,6 +10,15 @@ namespace Rex.GoodService.Products
     /// </summary>
     public partial class Product : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
+        public Product()
+        {
+        }
+
+        public Product(Guid id)
+        {
+            Id = id;
+        }
+
         /// <summary>
         /// 租户ID
         /// </summary>

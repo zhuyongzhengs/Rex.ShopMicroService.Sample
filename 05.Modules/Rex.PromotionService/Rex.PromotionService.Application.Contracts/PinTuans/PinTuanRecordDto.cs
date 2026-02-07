@@ -1,19 +1,13 @@
 ﻿using System;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.MultiTenancy;
 
 namespace Rex.PromotionService.PinTuans
 {
     /// <summary>
     /// 拼团记录Dto
     /// </summary>
-    public partial class PinTuanRecordDto : EntityDto<Guid>, IMultiTenant
+    public partial class PinTuanRecordDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 团序列
         /// </summary>

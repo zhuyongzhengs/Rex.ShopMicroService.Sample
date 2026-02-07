@@ -13,12 +13,15 @@ public class BaseServiceDbContextFactory : IDesignTimeDbContextFactory<BaseServi
 {
     public BaseServiceDbContext CreateDbContext(string[] args)
     {
+        // https://www.npgsql.org/efcore/release-notes/6.0.html#opting-out-of-the-new-timestamp-mapping-logic
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
         BaseServiceEfCoreEntityExtensionMappings.Configure();
 
         var configuration = BuildConfiguration();
 
         var builder = new DbContextOptionsBuilder<BaseServiceDbContext>()
-            .UseMySql(configuration.GetConnectionString(BaseServiceConsts.ConnectionStringName), MySqlServerVersion.LatestSupportedServerVersion);
+            .UseNpgsql(configuration.GetConnectionString(BaseServiceConsts.ConnectionStringName));
 
         return new BaseServiceDbContext(builder.Options);
     }

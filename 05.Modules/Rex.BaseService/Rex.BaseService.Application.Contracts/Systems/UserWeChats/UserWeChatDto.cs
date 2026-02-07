@@ -1,21 +1,14 @@
 ﻿using Rex.BaseService.Systems.SysUsers;
 using System;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.MultiTenancy;
-using static Rex.Service.Core.Configurations.GlobalEnums;
 
 namespace Rex.BaseService.Systems.UserWeChats
 {
     /// <summary>
     /// 微信用户Dto
     /// </summary>
-    public class UserWeChatDto : EntityDto<Guid>, IMultiTenant
+    public class UserWeChatDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 第三方登录类型
         /// </summary>

@@ -1,4 +1,4 @@
-﻿using IdentityModel.Client;
+﻿using Duende.IdentityModel.Client;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Http.Client.Authentication;
 

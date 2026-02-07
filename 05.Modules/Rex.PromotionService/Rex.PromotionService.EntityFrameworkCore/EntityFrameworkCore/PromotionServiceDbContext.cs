@@ -56,9 +56,6 @@ public class PromotionServiceDbContext :
     {
         base.OnModelCreating(builder);
 
-        AbpCommonDbProperties.DbTablePrefix = PromotionServiceConsts.DefaultDbTablePrefix;
-        AbpCommonDbProperties.DbSchema = PromotionServiceConsts.DefaultDbSchema;
-
         /*
 
         #region 事件发/收件箱
@@ -70,13 +67,6 @@ public class PromotionServiceDbContext :
         #endregion 事件发/收件箱
 
         */
-
-        #region 审计日志
-
-        AbpAuditLoggingDbProperties.DbTablePrefix = PromotionServiceConsts.SysDbTablePrefix;
-        AbpAuditLoggingDbProperties.DbSchema = PromotionServiceConsts.SysDbSchema;
-
-        #endregion 审计日志
 
         #region 促销
 

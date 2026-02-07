@@ -7,13 +7,8 @@ namespace Rex.GoodService.Brands
     /// <summary>
     /// 品牌Dto
     /// </summary>
-    public class BrandDto : EntityDto<Guid>, IMultiTenant
+    public class BrandDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 品牌名称
         /// </summary>

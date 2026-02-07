@@ -7,13 +7,8 @@ namespace Rex.BaseService.Systems.UserOrganizationUnits
     /// <summary>
     /// 组织单元【用户】
     /// </summary>
-    public class UserOrganizationUnitDto : EntityDto<Guid>, IMultiTenant
+    public class UserOrganizationUnitDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 用户ID
         /// </summary>

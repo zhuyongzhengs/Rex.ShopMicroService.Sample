@@ -10,6 +10,15 @@ namespace Rex.BaseService.Systems.UserGrades
     /// </summary>
     public class UserGrade : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
+        public UserGrade()
+        {
+        }
+
+        public UserGrade(Guid id)
+        {
+            Id = id;
+        }
+
         /// <summary>
         /// 租户ID
         /// </summary>

@@ -18,8 +18,8 @@
               </div>
             </template>
             <div class="tree-content" :style="'height:' + itemHeight + 'px'">
+              <!-- v-loading="state.treeData.total < 1" -->
               <el-tree
-                v-loading="state.treeData.total < 1"
                 :data="state.treeData.data"
                 :props="state.treeData.props"
                 :expand-on-click-node="false"

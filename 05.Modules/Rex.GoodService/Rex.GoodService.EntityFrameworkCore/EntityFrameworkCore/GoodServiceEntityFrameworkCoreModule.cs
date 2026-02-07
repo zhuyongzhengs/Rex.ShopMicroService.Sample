@@ -1,8 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Driver.Core.Configuration;
+using Npgsql;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.AuditLogging.MongoDB;
+using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore.MySQL;
+using Volo.Abp.EntityFrameworkCore.PostgreSql;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Guids;
@@ -24,7 +27,7 @@ namespace Rex.GoodService.EntityFrameworkCore;
     typeof(AbpIdentityEntityFrameworkCoreModule),
     typeof(AbpPermissionManagementEntityFrameworkCoreModule),
     typeof(AbpSettingManagementEntityFrameworkCoreModule),
-    typeof(AbpEntityFrameworkCoreMySQLModule),
+    typeof(AbpEntityFrameworkCorePostgreSqlModule),
     typeof(AbpMongoDbModule),
     typeof(AbpAuditLoggingMongoDbModule),
     typeof(AbpTenantManagementEntityFrameworkCoreModule),
@@ -52,7 +55,7 @@ public class GoodServiceEntityFrameworkCoreModule : AbpModule
         {
             /* The main point to change your DBMS.
              * See also GoodServiceMigrationsDbContextFactory for EF Core tooling. */
-            options.UseMySQL();
+            options.UseNpgsql();
         });
 
         // 配置有序的Guid生成
@@ -82,6 +85,9 @@ public class GoodServiceEntityFrameworkCoreModule : AbpModule
     /// </summary>
     private void ChangeDbTablePrefix()
     {
+        AbpCommonDbProperties.DbTablePrefix = GoodServiceConsts.DefaultDbTablePrefix;
+        AbpCommonDbProperties.DbSchema = GoodServiceConsts.DefaultDbSchema;
+
         #region TenantManagement
 
         AbpTenantManagementDbProperties.DbTablePrefix = GoodServiceConsts.SysDbTablePrefix;

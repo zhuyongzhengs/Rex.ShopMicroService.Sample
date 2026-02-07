@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.MultiTenancy;
 
 namespace Rex.OrderService.Ships
 {
     /// <summary>
     /// 配送方式Dto
     /// </summary>
-    public class ShipDto : EntityDto<Guid>, IMultiTenant
+    public class ShipDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 配送方式名称
         /// </summary>

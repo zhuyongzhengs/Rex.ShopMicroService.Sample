@@ -361,14 +361,14 @@ namespace Rex.GoodService.Goods
 
             if (input.SetSkuProduct.Products.Any())
             {
-                List<Product> products = ObjectMapper.Map<List<ProductDto>, List<Product>>(input.SetSkuProduct.Products);
+                //List<Product> products = ObjectMapper.Map<List<ProductDto>, List<Product>>(input.SetSkuProduct.Products);
                 List<Product> productDbs = await ProductRepository.GetListAsync(p => p.GoodId == good.Id);
                 foreach (var productDb in productDbs)
                 {
                     // 修改货品
-                    Product product = products.Where(p => p.Id == productDb.Id).FirstOrDefault();
+                    ProductDto product = input.SetSkuProduct.Products.Where(p => p.Id == productDb.Id).FirstOrDefault();
                     if (product == null) continue;
-                    productDb.GoodId = product.GoodId;
+                    productDb.GoodId = product.GoodId.Value;
                     productDb.BarCode = product.BarCode;
                     productDb.Sn = product.Sn;
                     productDb.Price = product.Price;
@@ -393,7 +393,7 @@ namespace Rex.GoodService.Goods
                 }
 
                 // 删除货品
-                List<Guid> editProductIds = products.Where(p => p.Id != Guid.Empty).Select(p => p.Id).ToList();
+                List<Guid> editProductIds = input.SetSkuProduct.Products.Where(p => p.Id != Guid.Empty).Select(p => p.Id).ToList();
                 List<Product> deleteProductDbs = productDbs.Where(p => !editProductIds.Contains(p.Id)).ToList();
                 if (deleteProductDbs.Any())
                 {
@@ -408,7 +408,7 @@ namespace Rex.GoodService.Goods
                 }
 
                 // 新增货品
-                List<Product> addProducts = products.Where(p => p.Id == Guid.Empty).ToList();
+                List<ProductDto> addProducts = input.SetSkuProduct.Products.Where(p => p.Id == Guid.Empty).ToList();
                 if (addProducts.Any())
                 {
                     addProducts.ForEach(product =>
@@ -416,12 +416,13 @@ namespace Rex.GoodService.Goods
                         product.GoodId = good.Id;
                         product.BarCode = good.BarCode;
                     });
-                    await ProductRepository.InsertManyAsync(addProducts);
+                    List<Product> newProducts = ObjectMapper.Map<List<ProductDto>, List<Product>>(addProducts);
+                    await ProductRepository.InsertManyAsync(newProducts);
 
                     #region 货品三级分佣
 
                     List<ProductDistribution> productDistributions = new List<ProductDistribution>();
-                    foreach (var product in addProducts)
+                    foreach (var product in newProducts)
                     {
                         productDistributions.Add(new ProductDistribution()
                         {
@@ -444,20 +445,20 @@ namespace Rex.GoodService.Goods
 
             if (input.GoodGrades.Any())
             {
-                List<GoodGrade> goodGrades = ObjectMapper.Map<List<GoodGradeDto>, List<GoodGrade>>(input.GoodGrades);
+                //List<GoodGrade> goodGrades = ObjectMapper.Map<List<GoodGradeDto>, List<GoodGrade>>(input.GoodGrades);
                 List<GoodGrade> goodGradeDbs = await GoodGradeRepository.GetListAsync(p => p.GoodId == good.Id);
 
                 // 修改
                 foreach (var goodGradeDb in goodGradeDbs)
                 {
-                    GoodGrade goodGrade = goodGrades.Where(p => p.GoodId == goodGradeDb.GoodId && p.Id == goodGradeDb.Id).FirstOrDefault();
+                    GoodGradeDto goodGrade = input.GoodGrades.Where(p => p.GoodId == goodGradeDb.GoodId && p.Id == goodGradeDb.Id).FirstOrDefault();
                     if (goodGrade == null) continue;
                     goodGradeDb.GradeId = goodGrade.GradeId;
                     goodGradeDb.GradePrice = goodGrade.GradePrice;
                 }
 
                 // 删除
-                List<Guid> editGoodGradeIds = goodGrades.Where(p => p.Id != Guid.Empty).Select(p => p.Id).ToList();
+                List<Guid> editGoodGradeIds = input.GoodGrades.Where(p => p.Id != Guid.Empty).Select(p => p.Id).ToList();
                 List<GoodGrade> deleteProductDbs = goodGradeDbs.Where(p => !editGoodGradeIds.Contains(p.Id)).ToList();
                 if (editGoodGradeIds.Any())
                 {
@@ -466,14 +467,15 @@ namespace Rex.GoodService.Goods
                 }
 
                 // 新增
-                List<GoodGrade> addGoodGrades = goodGrades.Where(p => p.Id == Guid.Empty).ToList();
+                List<GoodGradeDto> addGoodGrades = input.GoodGrades.Where(p => p.Id == Guid.Empty).ToList();
                 if (addGoodGrades.Any())
                 {
                     addGoodGrades.ForEach(goodGrade =>
                     {
                         goodGrade.GoodId = good.Id;
                     });
-                    await GoodGradeRepository.InsertManyAsync(addGoodGrades);
+                    List<GoodGrade> newGoodGrades = ObjectMapper.Map<List<GoodGradeDto>, List<GoodGrade>>(addGoodGrades);
+                    await GoodGradeRepository.InsertManyAsync(newGoodGrades);
                 }
             }
 

@@ -9,6 +9,15 @@ namespace Rex.BaseService.Systems.RoleMenus
     /// </summary>
     public class RoleMenu : AggregateRoot<Guid>, IMultiTenant
     {
+        public RoleMenu()
+        {
+        }
+
+        public RoleMenu(Guid id)
+        {
+            Id = id;
+        }
+
         /// <summary>
         /// 租户ID
         /// </summary>

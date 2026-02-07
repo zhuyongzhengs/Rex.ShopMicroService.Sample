@@ -2,8 +2,9 @@
 //using Elastic.Ingest.Elasticsearch;
 //using Elastic.Ingest.Elasticsearch.DataStreams;
 //using Elastic.Serilog.Sinks;
-using Serilog.Events;
+using Rex.FrontAggregationService.EntityFrameworkCore;
 using Serilog;
+using Serilog.Events;
 
 namespace Rex.FrontAggregationService
 {
@@ -25,6 +26,7 @@ namespace Rex.FrontAggregationService
                 .Enrich.FromLogContext()
                 .WriteTo.Async(c => c.File("Logs/logs.log"))
                 .WriteTo.Async(c => c.Console())
+                .WriteTo.Async(c => c.OpenTelemetry())
                 /*
                 .WriteTo.Elasticsearch(new[] { new Uri(elasticUri) }, opts =>
                 {
@@ -48,6 +50,16 @@ namespace Rex.FrontAggregationService
                     .AddAppSettingsSecretsJson()
                     .UseAutofac()
                     .UseSerilog();
+
+                
+                builder.AddServiceDefaults();
+                builder.AddRedisClient("rex-redis");
+                builder.AddNpgsqlDbContext<FrontAggregationServiceDbContext>("Default",
+                    options =>
+                    {
+                        options.DisableRetry = true;
+                    });
+
                 await builder.AddApplicationAsync<FrontAggregationModule>();
                 var app = builder.Build();
                 await app.InitializeApplicationAsync();

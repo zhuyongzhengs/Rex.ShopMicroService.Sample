@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <Import Project="..\..\common.props" />
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <RootNamespace>Rex.AuthService</RootNamespace>
     <PreserveCompilationReferences>true</PreserveCompilationReferences>
@@ -13,23 +13,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<PackageReference Include="Aspire.MongoDB.Driver" Version="13.1.0" />
+	<PackageReference Include="Aspire.Npgsql" Version="13.1.0" />
+    <PackageReference Include="Aspire.StackExchange.Redis" Version="13.1.0" />
     <PackageReference Include="Elastic.Serilog.Sinks" Version="9.0.0" />
-    <PackageReference Include="Lazy.Captcha.Core" Version="2.0.6" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
-    <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
-    <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
-    <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.88.3" />
-	<PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="8.1.0" />
-    <PackageReference Include="Volo.Abp.AspNetCore.MultiTenancy" Version="8.1.0" />
-    <PackageReference Include="Volo.Abp.Autofac" Version="8.1.0" />
-    <PackageReference Include="Volo.Abp.Swashbuckle" Version="8.1.0" />
-    <PackageReference Include="Volo.Abp.Account.Web.OpenIddict" Version="8.1.0" />
-	<PackageReference Include="Volo.Abp.Http.Client.IdentityModel" Version="8.1.0" />
+    <PackageReference Include="Lazy.Captcha.Core" Version="2.2.2" />
+    <PackageReference Include="Serilog.AspNetCore" Version="10.0.0" />
+    <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
+    <PackageReference Include="Serilog.Sinks.OpenTelemetry" Version="4.2.0" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="3.119.1" />
+	<PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="10.0.2" />
+    <PackageReference Include="Volo.Abp.AspNetCore.MultiTenancy" Version="10.0.2" />
+    <PackageReference Include="Volo.Abp.Autofac" Version="10.0.2" />
+    <PackageReference Include="Volo.Abp.Swashbuckle" Version="10.0.2" />
+    <PackageReference Include="Volo.Abp.Account.Web.OpenIddict" Version="10.0.2" />
+	<PackageReference Include="Volo.Abp.Http.Client.IdentityModel" Version="10.0.2" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <!--<PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite" Version="2.3.*-*" />-->
-    <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite" Version="3.1.0" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite" Version="5.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,11 +44,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="E:\NuGet\.nuget\packages\volo.abp.account.web.openiddict\8.1.0\contentFiles\any\net8.0\Volo.Abp.Account.Web.OpenIddict.abppkg.analyze.json" />
-    <Content Remove="E:\NuGet\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net8.0\Volo.Abp.AspNetCore.Serilog.abppkg.analyze.json" />
+    <Content Remove="E:\NuGet\.nuget\packages\volo.abp.account.web.openiddict\10.0.2\contentFiles\any\net10.0\Volo.Abp.Account.Web.OpenIddict.abppkg.analyze.json" />
+    <Content Remove="E:\NuGet\.nuget\packages\volo.abp.account.web.openiddict\8.1.0\contentFiles\any\net10.0\Volo.Abp.Account.Web.OpenIddict.abppkg.analyze.json" />
+    <Content Remove="E:\NuGet\.nuget\packages\volo.abp.aspnetcore.serilog\10.0.2\contentFiles\any\net10.0\Volo.Abp.AspNetCore.Serilog.abppkg.analyze.json" />
+    <Content Remove="E:\NuGet\.nuget\packages\volo.abp.aspnetcore.serilog\8.1.0\contentFiles\any\net10.0\Volo.Abp.AspNetCore.Serilog.abppkg.analyze.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\00.Core\Rex.ShopService.ServiceDefaults\Rex.ShopService.ServiceDefaults.csproj" />
     <ProjectReference Include="..\..\..\..\05.Modules\Rex.AuthService\Rex.AuthService.Application\Rex.AuthService.Application.csproj" />
     <ProjectReference Include="..\..\..\..\05.Modules\Rex.AuthService\Rex.AuthService.EntityFrameworkCore\Rex.AuthService.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\..\..\..\05.Modules\Rex.AuthService\Rex.AuthService.HttpApi\Rex.AuthService.HttpApi.csproj" />

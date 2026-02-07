@@ -10,11 +10,6 @@ namespace Rex.BaseService.Systems.AuditLoggings
     public class AuditLogActionDto : EntityDto<Guid>
     {
         /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
-        /// <summary>
         /// 审计日志ID
         /// </summary>
         public Guid AuditLogId { get; set; }

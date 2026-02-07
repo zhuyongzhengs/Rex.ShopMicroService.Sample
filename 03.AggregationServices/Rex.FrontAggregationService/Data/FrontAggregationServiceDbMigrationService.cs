@@ -128,7 +128,7 @@ public class FrontAggregationServiceDbMigrationService : ITransientDependency
         }
         catch (Exception e)
         {
-            Logger.LogWarning("Couldn't determinate if any migrations exist : " + e.Message);
+            Logger.LogWarning("无法确定是否存在任何迁移操作 : " + e.Message);
             return false;
         }
     }
@@ -148,7 +148,7 @@ public class FrontAggregationServiceDbMigrationService : ITransientDependency
 
     private void AddInitialMigration()
     {
-        Logger.LogInformation("Creating initial migration...");
+        Logger.LogInformation("开始进行迁移操作...");
 
         string argumentPrefix;
         string fileName;
@@ -174,7 +174,7 @@ public class FrontAggregationServiceDbMigrationService : ITransientDependency
         }
         catch (Exception)
         {
-            throw new Exception("Couldn't run ABP CLI...");
+            throw new Exception("无法运行 ABP CLI...");
         }
     }
 
@@ -184,7 +184,7 @@ public class FrontAggregationServiceDbMigrationService : ITransientDependency
 
         if (slnDirectoryPath == null)
         {
-            throw new Exception("Solution folder not found!");
+            throw new Exception("解决方案文件夹未找到!");
         }
 
         var srcDirectoryPath = Path.Combine(slnDirectoryPath, "src");

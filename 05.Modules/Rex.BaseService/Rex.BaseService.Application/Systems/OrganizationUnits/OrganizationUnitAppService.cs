@@ -43,8 +43,9 @@ namespace Rex.BaseService.Systems.OrganizationUnits
         [Authorize(BaseServicePermissions.OrganizationUnits.Create)]
         public async Task CreateAsync(OrganizationUnitCreateDto input)
         {
-            OrganizationUnit organizationUnit = ObjectMapper.Map<OrganizationUnitCreateDto, OrganizationUnit>(input);
-            await OrganizationUnitManagerRepository.CreateAsync(organizationUnit);
+            OrganizationUnit organizationUnit = new OrganizationUnit(GuidGenerator.Create(), input.DisplayName, input.ParentId, CurrentTenant?.Id);
+            OrganizationUnit createOu = ObjectMapper.Map(input, organizationUnit);
+            await OrganizationUnitManagerRepository.CreateAsync(createOu);
         }
 
         /// <summary>

@@ -24,7 +24,6 @@ namespace Rex.BaseService.Systems.SysUsers
             {
                 b.HasBaseType<IdentityUser>();
                 b.HasDiscriminator<string>("Discriminator").HasValue<SysUser>(nameof(SysUser));
-
                 b.ToTable(BaseServiceConsts.DefaultDbTablePrefix + "Users", BaseServiceConsts.DefaultDbSchema);
                 b.ConfigureByConvention();
                 b.ApplyObjectExtensionMappings();

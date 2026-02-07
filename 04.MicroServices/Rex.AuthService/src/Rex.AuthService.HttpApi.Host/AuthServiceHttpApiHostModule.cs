@@ -3,6 +3,7 @@ using Lazy.Captcha.Core.Generator;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +30,7 @@ using System.Text.Json.Serialization;
 using Volo.Abp;
 using Volo.Abp.Account;
 using Volo.Abp.Account.Web;
+using Volo.Abp.AspNetCore.ExceptionHandling;
 using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.AntiForgery;
@@ -44,6 +46,7 @@ using Volo.Abp.Http.Client.IdentityModel;
 using Volo.Abp.Json;
 using Volo.Abp.Modularity;
 using Volo.Abp.OpenIddict.ExtensionGrantTypes;
+using Volo.Abp.Security.Claims;
 using Volo.Abp.SecurityLog;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.Timing;
@@ -68,6 +71,8 @@ public class AuthServiceHttpApiHostModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
+        var configuration = context.Services.GetConfiguration();
+
         PreConfigure<OpenIddictBuilder>(builder =>
         {
             builder.AddValidation(options =>
@@ -85,6 +90,15 @@ public class AuthServiceHttpApiHostModule : AbpModule
                 options.GrantTypes.Add(WeChatTokenExtensionGrant.ExtensionGrantName);
             });
         });
+
+        /*
+        .NET Aspire：默认将 Redis 连接放在 ConnectionStrings 节点下。例如：ConnectionStrings:Redis。
+        ABP Framework：默认将 Redis 连接放在 Redis 节点下。例如：Redis:Configuration。
+        */
+        if(configuration["ConnectionStrings:Redis"] != null)
+        {
+            configuration["Redis:Configuration"] = configuration["ConnectionStrings:Redis"];
+        }
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -104,18 +118,12 @@ public class AuthServiceHttpApiHostModule : AbpModule
 
         Configure<AbpClockOptions>(options =>
         {
-            options.Kind = DateTimeKind.Local;
+            options.Kind = DateTimeKind.Utc;
         });
 
         context.Services.AddMvc(setupAction =>
         {
             setupAction.Filters.Add<CaptchaAuthenticationFilter>();
-        });
-
-        // 配置自定义ITokenExtensionGrant
-        Configure<AbpOpenIddictExtensionGrantsOptions>(options =>
-        {
-            options.Grants.Add(WeChatTokenExtensionGrant.ExtensionGrantName, new WeChatTokenExtensionGrant());
         });
 
         // 配置图片验证码
@@ -163,66 +171,23 @@ public class AuthServiceHttpApiHostModule : AbpModule
         });
 
         /* Redis缓存配置 */
-        // 创建配置选项
-        var redisSection = context.Services.GetConfiguration().GetSection("Redis");
-        var configOptions = new ConfigurationOptions
-        {
-            AbortOnConnectFail = false,
-            ConnectTimeout = redisSection.GetValue<int>("ConnectTimeout", 5000),
-            SyncTimeout = redisSection.GetValue<int>("SyncTimeout", 5000),
-            ConnectRetry = redisSection.GetValue<int>("ConnectRetry", 3),
-            KeepAlive = redisSection.GetValue<int>("KeepAlive", 180),
-            Password = redisSection["Password"],
-            Ssl = redisSection.GetValue<bool>("Ssl", false),
-            DefaultDatabase = redisSection.GetValue<int>("DefaultDatabase", 0)
-        };
+        var configuration = context.Services.GetConfiguration();
+        var redisSection = configuration.GetSection("Redis");
 
-        // 添加端点
-        foreach (var endpoint in redisSection.GetSection("EndPoints").GetChildren())
-        {
-            configOptions.EndPoints.Add(endpoint["Host"], endpoint.GetValue<int>("Port"));
-        }
+        // 1. 自定义参数配置
+        string redisConfiguration = redisSection.GetValue<string>("Configuration");
+        ConfigurationOptions configOptions = ConfigurationOptions.Parse(redisConfiguration);
 
-        // 集群特定配置
-        var isCluster = redisSection.GetValue<bool>("IsCluster", false);
-        if (isCluster)
-        {
-            configOptions.Proxy = Proxy.None;
-            configOptions.DefaultVersion = new Version(7, 0);
-            configOptions.CommandMap = CommandMap.Default;
-        }
-
-        // 创建连接复用器
+        // 2. 创建连接复用器并注册
         var multiplexer = ConnectionMultiplexer.Connect(configOptions);
-
-        // 将 IConnectionMultiplexer 注册为单例
         context.Services.AddSingleton<IConnectionMultiplexer>(multiplexer);
 
-        // 配置分布式缓存
+        // 3. 配置分布式缓存
         context.Services.AddStackExchangeRedisCache(options =>
         {
             options.ConfigurationOptions = configOptions;
             options.InstanceName = $"{typeof(AuthServiceHttpApiHostModule).Namespace}:";
         });
-
-        // 集群事件处理
-        if (isCluster)
-        {
-            multiplexer.ErrorMessage += (_, e) =>
-                Log.Error($"Redis错误: {e.Message}");
-
-            multiplexer.ConnectionFailed += (_, e) =>
-                Log.Warning($"Redis连接失败: {e.EndPoint}, {e.FailureType}");
-
-            multiplexer.InternalError += (_, e) =>
-                Log.Error($"Redis内部错误: {e.Exception.Message}");
-
-            multiplexer.ConfigurationChanged += (_, e) =>
-                Log.Information($"Redis配置变更: {e.EndPoint}");
-
-            multiplexer.HashSlotMoved += (_, e) =>
-                Log.Information($"哈希槽迁移: {e.HashSlot} 从 {e.OldEndPoint} 到 {e.NewEndPoint}");
-        }
     }
 
     /// <summary>
@@ -290,17 +255,35 @@ public class AuthServiceHttpApiHostModule : AbpModule
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)
     {
+        Configure<OpenIddictServerAspNetCoreBuilder>(configure =>
+        {
+            configure.DisableTransportSecurityRequirement();
+        });
         context.Services.ForwardIdentityAuthenticationForBearer(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme)
             .AddOpenIddict()
             .AddServer(options =>
             {
                 // 设置 AccessToken 有效期
-                options.SetAccessTokenLifetime(TimeSpan.FromDays(7)); // 7天
+                options.SetAccessTokenLifetime(TimeSpan.FromHours(12)); // 12小时
 
                 // 设置 RefreshToken 有效期
-                options.SetRefreshTokenLifetime(TimeSpan.FromDays(8)); // 8天
+                options.SetRefreshTokenLifetime(TimeSpan.FromDays(30)); // 30天
+
+                // 启用刷新令牌流
+                options.AllowRefreshTokenFlow();
             })
             .AddValidation();
+
+        // 配置自定义ITokenExtensionGrant
+        Configure<AbpOpenIddictExtensionGrantsOptions>(options =>
+        {
+            options.Grants.Add(WeChatTokenExtensionGrant.ExtensionGrantName, new WeChatTokenExtensionGrant());
+        });
+
+        context.Services.Configure<AbpClaimsPrincipalFactoryOptions>(options =>
+        {
+            options.IsDynamicClaimsEnabled = true;
+        });
     }
 
     private void ConfigureBundles()
@@ -419,7 +402,7 @@ public class AuthServiceHttpApiHostModule : AbpModule
             option.CodeLength = 4; // 验证码长度, 要放在CaptchaType设置后.  当类型为算术表达式时，长度代表操作的个数
             option.ExpirySeconds = 1 * 60; // 验证码过期时间：1分钟
             option.IgnoreCase = true; // 比较时是否忽略大小写
-            option.StoreageKeyPrefix = "CAPTCHA."; // 存储键前缀
+            option.StorageKeyPrefix = "CAPTCHA."; // 存储键前缀
 
             option.ImageOption.Animation = false; // 是否启用动画
             option.ImageOption.FrameDelay = 30; // 每帧延迟,Animation=true时有效, 默认30
@@ -436,13 +419,18 @@ public class AuthServiceHttpApiHostModule : AbpModule
             option.ImageOption.InterferenceLineCount = 2; // 干扰线数量
 
             option.ImageOption.FontSize = 36; // 字体大小
-            option.ImageOption.FontFamily = DefaultFontFamilys.Instance.Actionj; // 字体
+            option.ImageOption.FontFamily = DefaultFontFamilies.Actionj; // 字体
 
             /*
              * 中文使用kaiti，其他字符可根据喜好设置（可能部分转字符会出现绘制不出的情况）。
              * 当验证码类型为“ARITHMETIC”时，不要使用“Ransom”字体。（运算符和等号绘制不出来）
              */
             option.ImageOption.TextBold = true;// 粗体，该配置2.0.3新增
+        });
+
+        Configure<AbpExceptionHttpStatusCodeOptions>(options =>
+        {
+            options.Map("Rex:Captcha:Invalid", System.Net.HttpStatusCode.UnprocessableContent);
         });
 
         // 使用redis分布式缓存

@@ -3,7 +3,7 @@
   <Import Project="..\..\common.props" />
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <RootNamespace>Rex.PaymentService</RootNamespace>
   </PropertyGroup>
@@ -11,11 +11,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\05.Modules\Rex.PaymentService\Rex.PaymentService.EntityFrameworkCore\Rex.PaymentService.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\Rex.PaymentService.TestBase\Rex.PaymentService.TestBase.csproj" />
-    <PackageReference Include="Volo.Abp.EntityFrameworkCore.Sqlite" Version="8.1.0" />
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore.PostgreSql" Version="10.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.0" />
   </ItemGroup>
 
 </Project>

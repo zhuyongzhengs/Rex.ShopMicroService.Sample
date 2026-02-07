@@ -32,6 +32,10 @@ namespace Rex.Shop.WebPublicGateway
                     .AddYarpJson()
                     .UseAutofac()
                     .UseSerilog();
+
+                
+                builder.AddServiceDefaults();
+
                 await builder.AddApplicationAsync<WebPublicGatewayModule>();
                 var app = builder.Build();
                 await app.InitializeApplicationAsync();

@@ -1,19 +1,13 @@
 ﻿using System;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.MultiTenancy;
 
 namespace Rex.BaseService.UserShips
 {
     /// <summary>
     /// 用户(收货)地址Dto
     /// </summary>
-    public class UserShipDto : EntityDto<Guid>, IMultiTenant
+    public class UserShipDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 用户ID
         /// </summary>

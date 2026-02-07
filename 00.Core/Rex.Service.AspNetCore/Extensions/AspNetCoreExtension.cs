@@ -1,14 +1,20 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Rex.Service.AspNetCore.JsonSerializers;
+using System.Net;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Volo.Abp;
+using Volo.Abp.AspNetCore.ExceptionHandling;
+using Volo.Abp.ExceptionHandling;
 using Volo.Abp.Http;
+using Volo.Abp.Logging;
 
 namespace Rex.Service.AspNetCore.Extensions
 {
@@ -29,22 +35,49 @@ namespace Rex.Service.AspNetCore.Extensions
                 {
                     var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
                     var exception = exceptionHandlerPathFeature?.Error;
+
                     if (exception != null)
                     {
                         context.Response.ContentType = "application/json";
+
+                        // --- 1: 获取 ILogger 和 IOptions ---
+                        var logger = context.RequestServices.GetRequiredService<ILogger<IApplicationBuilder>>();
+                        var statusCodeOptions = context.RequestServices.GetRequiredService<IOptions<AbpExceptionHttpStatusCodeOptions>>().Value;
+
                         RemoteServiceErrorInfo? errInfo = null;
-                        if (exception is UserFriendlyException userFriendlyException)
+                        int statusCode = StatusCodes.Status500InternalServerError; // 默认为 500
+
+                        if (exception is IHasErrorCode errorCodeException)
                         {
-                            errInfo = new RemoteServiceErrorInfo(userFriendlyException.Message, userFriendlyException.Details, userFriendlyException.Code, userFriendlyException.Data);
-                        }
-                        else if (exception is BusinessException businessException)
-                        {
-                            errInfo = new RemoteServiceErrorInfo(businessException.Message, businessException.Details, businessException.Code, businessException.Data);
+                            // --- 2: 映射状态码 ---
+                            if (errorCodeException.Code != null && statusCodeOptions.ErrorCodeToHttpStatusCodeMappings.ContainsKey(errorCodeException.Code))
+                            {
+                                statusCode = (int)statusCodeOptions.ErrorCodeToHttpStatusCodeMappings[errorCodeException.Code];
+                            }
+                            // 如果是业务异常，且没有映射，通常也可以设为 403 或 400
+                            else if (exception is UserFriendlyException)
+                            {
+                                statusCode = StatusCodes.Status403Forbidden;
+                            }
+
+                            errInfo = new RemoteServiceErrorInfo(
+                                exception.Message,
+                                (exception as IHasErrorDetails)?.Details,
+                                errorCodeException.Code,
+                                exception.Data);
                         }
                         else
                         {
                             errInfo = new RemoteServiceErrorInfo(exception.Message, null, defaultErrorCode, exception.Data);
                         }
+
+                        // --- 3: 根据异常级别记录日志 ---
+                        var logLevel = (exception as IHasLogLevel)?.LogLevel ?? LogLevel.Error;
+                        logger.Log(logLevel, exception, "Route Error: {Message}", exception.Message);
+
+                        // --- 4: 设置状态码 ---
+                        context.Response.StatusCode = statusCode;
+
                         RemoteServiceErrorResponse errResponse = new RemoteServiceErrorResponse(errInfo);
                         var exceptionJson = JsonSerializer.Serialize(errResponse, options: GetJsonSerializerOptions());
                         await context.Response.WriteAsync(exceptionJson, Encoding.UTF8);

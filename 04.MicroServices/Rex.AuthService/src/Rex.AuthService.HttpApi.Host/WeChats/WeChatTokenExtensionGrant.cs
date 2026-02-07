@@ -7,9 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
+using Polly;
 using Rex.Service.Core.Configurations;
 using System;
 using System.Diagnostics;
+using System.Linq.Dynamic.Core.Tokenizer;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
@@ -44,12 +46,29 @@ namespace Rex.AuthService.WeChats
         public async Task<IActionResult> HandleAsync(ExtensionGrantContext context)
         {
             LazyServiceProvider = context.HttpContext.RequestServices.GetRequiredService<IAbpLazyServiceProvider>();
+            string? code = context.Request?.GetParameter("code")?.ToString();
+
+#if DEBUG
+            if (!code.IsNullOrWhiteSpace() && code.Equals("SIMULATED_LOGIN", StringComparison.OrdinalIgnoreCase))
+            {
+                return await WechatLoginAsync(context, new WxMpLoginDo()
+                {
+                    OpenId = "SIMULATED_OPENID",
+                    SessionKey = "SIMULATED_SESSION_KEY",
+                    Unionid = string.Empty,
+                    InviteCode = string.Empty,
+                    CountryCode = "86",
+                    PhoneNumber = "18888888888",
+                    DefaultBalance = 1000
+                });
+            }
+#endif
 
             string? openId = context.Request?.GetParameter("openid")?.ToString();
             string? sessionKey = context.Request?.GetParameter("session_Key")?.ToString();
             string? unionId = context.Request?.GetParameter("unionid")?.ToString();
             string? inviteCode = context.Request?.GetParameter("invitecode")?.ToString();
-            string? code = context.Request?.GetParameter("code")?.ToString();
+
             if (string.IsNullOrWhiteSpace(openId)) throw new UserFriendlyException($"openid参数不能为空！", SystemStatusCode.Fail.ToAuthServicePrefix()).WithData("openid", openId);
             if (string.IsNullOrWhiteSpace(sessionKey)) throw new UserFriendlyException($"session_Key参数不能为空！", SystemStatusCode.Fail.ToAuthServicePrefix()).WithData("session_Key", sessionKey);
 
@@ -66,7 +85,17 @@ namespace Rex.AuthService.WeChats
             wxMpLogin.InviteCode = inviteCode;
             wxMpLogin.CountryCode = phoneNumberResponse.PhoneInfo.CountryCode;
             wxMpLogin.PhoneNumber = phoneNumberResponse.PhoneInfo.PhoneNumber;
-            ClaimsPrincipal claimsPrincipal = await ServerValidate(context, wxMpLogin);
+            return await WechatLoginAsync(context, wxMpLogin);
+        }
+
+        /// <summary>
+        /// 微信登录
+        /// </summary>
+        /// <param name="wxMpLogin"></param>
+        /// <returns></returns>
+        private async Task<IActionResult> WechatLoginAsync(ExtensionGrantContext context, WxMpLoginDo wxMpLogin)
+        {
+            ClaimsPrincipal claimsPrincipal = await ServerValidateAsync(context, wxMpLogin);
             if (claimsPrincipal == null) throw new UserFriendlyException($"微信未绑定或该用户未激活！", SystemStatusCode.Fail.ToAuthServicePrefix());
             string action = OpenIddictSecurityLogActionConsts.LoginSucceeded;
             try
@@ -119,7 +148,7 @@ namespace Rex.AuthService.WeChats
         /// <param name="context">扩展授权上下文</param>
         /// <param name="wxMpLogin">微信小程序登录信息</param>
         /// <returns></returns>
-        private async Task<ClaimsPrincipal> ServerValidate(ExtensionGrantContext context, WxMpLoginDo wxMpLogin)
+        private async Task<ClaimsPrincipal> ServerValidateAsync(ExtensionGrantContext context, WxMpLoginDo wxMpLogin)
         {
             await IdentityOptions.SetAsync();
 

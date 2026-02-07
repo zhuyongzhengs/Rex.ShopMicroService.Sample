@@ -16,7 +16,6 @@ using Rex.GoodService.Stores;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore.DistributedEvents;
 
 namespace Rex.GoodService.EntityFrameworkCore;
 
@@ -148,9 +147,6 @@ public class GoodServiceDbContext :
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-
-        AbpCommonDbProperties.DbTablePrefix = GoodServiceConsts.DefaultDbTablePrefix;
-        AbpCommonDbProperties.DbSchema = GoodServiceConsts.DefaultDbSchema;
 
         /*
 

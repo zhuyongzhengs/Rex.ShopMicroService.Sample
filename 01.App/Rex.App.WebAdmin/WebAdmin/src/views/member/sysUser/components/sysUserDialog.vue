@@ -213,26 +213,8 @@ const openDialog = (type: string, row: RowSysUserType) => {
     state.dialog.editId = "";
     if (type === "edit") {
       state.dialog.editId = row.id;
+      debugger;
       Object.assign(state.ruleForm, row);
-      /*
-    userName: "", // 账户名称
-    normalizedUserName: null,
-    name: "", // 用户昵称
-    surname: null, // 姓
-    email: "", // 邮箱
-    normalizedEmail: null,
-    phoneNumber: "", // 电话号码
-    avatar: null, // 头像
-    gender: null, // 性别
-    gradeId: "", // 用户等级
-    ParentId: null, // 推荐人
-    isActive: true, // 是否激活
-    lockoutEnabled: true, // 锁定启用
-    roleNames: [], // 角色名称
-    password: "", // 密码
-    concurrencyStamp: "",
-      */
-
       state.dialog.title = "修改用户";
       state.dialog.submitTxt = "修 改";
     } else {

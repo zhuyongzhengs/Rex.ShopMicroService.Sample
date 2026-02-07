@@ -7,13 +7,8 @@ namespace Rex.BaseService.Systems.UserGrades
     /// <summary>
     /// 用户等级Dto
     /// </summary>
-    public class UserGradeDto : EntityDto<Guid>, IMultiTenant
+    public class UserGradeDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 标题
         /// </summary>

@@ -156,7 +156,7 @@ const uZIndex = computed(() => props.zIndex ?? 1075);
 const loadProvinces = async () => {
   const res = await http<AreaTreeType[]>({
     method: "GET",
-    url: `/api/good/area/tree/0`,
+    url: `/api/good/area/tree?parentId=0`
   });
   provinces.value = res || [];
 };
@@ -164,7 +164,7 @@ const loadProvinces = async () => {
 const loadCities = async (provinceId: number) => {
   const res = await http<AreaTreeType[]>({
     method: "GET",
-    url: `/api/good/area/tree/${provinceId}`,
+    url: `/api/good/area/tree?parentId=${provinceId}`,
   });
   citys.value = res || [];
 };
@@ -172,7 +172,7 @@ const loadCities = async (provinceId: number) => {
 const loadAreas = async (cityId: number) => {
   const res = await http<AreaTreeType[]>({
     method: "GET",
-    url: `/api/good/area/tree/${cityId}`,
+    url: `/api/good/area/tree?parentId=${cityId}`,
   });
   areas.value = res || [];
 };

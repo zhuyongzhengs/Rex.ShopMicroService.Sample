@@ -1,19 +1,13 @@
 ﻿using System;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.MultiTenancy;
 
 namespace Rex.PromotionService.Promotions
 {
     /// <summary>
     /// 优惠劵Dto
     /// </summary>
-    public class CouponDto : EntityDto<Guid>, IMultiTenant
+    public class CouponDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 优惠券编码
         /// </summary>

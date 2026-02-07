@@ -17,7 +17,7 @@ public class GoodServiceDbContextFactory : IDesignTimeDbContextFactory<GoodServi
         var configuration = BuildConfiguration();
 
         var builder = new DbContextOptionsBuilder<GoodServiceDbContext>()
-            .UseMySql(configuration.GetConnectionString(GoodServiceConsts.ConnectionStringName), MySqlServerVersion.LatestSupportedServerVersion);
+            .UseNpgsql(configuration.GetConnectionString(GoodServiceConsts.ConnectionStringName));
 
         return new GoodServiceDbContext(builder.Options);
     }

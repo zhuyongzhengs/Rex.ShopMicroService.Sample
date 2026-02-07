@@ -1,5 +1,4 @@
 ﻿using Volo.Abp.Account;
-using Volo.Abp.AutoMapper;
 using Volo.Abp.BackgroundWorkers.Quartz;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
@@ -26,11 +25,6 @@ public class GoodServiceApplicationModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        Configure<AbpAutoMapperOptions>(options =>
-        {
-            options.AddMaps<GoodServiceApplicationModule>();
-        });
-
         #region 雪花漂移算法
 
         // 创建 IdGeneratorOptions 对象，请在构造函数中输入 WorkerId：

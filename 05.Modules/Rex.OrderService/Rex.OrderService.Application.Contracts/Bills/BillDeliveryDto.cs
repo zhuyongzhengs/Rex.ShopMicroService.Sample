@@ -2,20 +2,14 @@
 using System;
 using System.Collections.Generic;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.MultiTenancy;
 
 namespace Rex.OrderService.Bills
 {
     /// <summary>
     /// 发货单Dto
     /// </summary>
-    public class BillDeliveryDto : EntityDto<Guid>, IMultiTenant
+    public class BillDeliveryDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 发货单号
         /// </summary>

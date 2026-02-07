@@ -1,14 +1,12 @@
 ![输入图片说明](doc/images/readme/rex-shop-memo.png)
 
-简体中文 | [English](./README.en.md)
+一个基于ABP Framework、PostgreSQL、MongoDB、Redis、RabbitMQ、CAP、ElasticSearch、Minio、YARP的微服务电商商城平台，采用主流的互联网技术架构、全新的UI设计、可视化布局、支持集群部署；拥有活动促销、优惠卷、商品秒杀等众多完整的营销功能，代码完全开源，没有任何二次封装，是一个非常适合二次开发的电商平台案例。
 
-一个基于ABP Framework 8.x、Mysql、MongoDB、Redis、RabbitMQ、CAP、ElasticSearch、Minio、YARP的微服务电商商城平台，采用主流的互联网技术架构、全新的UI设计、可视化布局、支持集群部署；拥有活动促销、优惠卷、商品秒杀等众多完整的营销功能，代码完全开源，没有任何二次封装，是一个非常适合二次开发的电商平台案例。
-
-## 前言
+## 📚前言
 
 本商城致力于为中大型企业打造一个功能完整、易于维护的微服务电商商城平台，采用主流微服务技术实现；后台管理系统包含系统管理、权限管理、会员管理、商品管理、订单管理、运营管理、促销管理、财务管理等模块。
 
-## 目录结构
+## ⛵目录结构
 
 ```
 Rex.ShopMicroService.Sample
@@ -29,47 +27,58 @@ Rex.ShopMicroService.Sample
 │  ├─Rex.OrderService.HttpApi.Host  -- 订单服务
 │  ├─Rex.PaymentService.HttpApi.Host  -- 支付服务
 │  ├─Rex.PromotionService.HttpApi.Host  -- 活动促销服务
+│  ├─Rex.ShopService.AppHost  -- Aspire🚀启动枢纽(编排中心)
 ├─05.Modules -- 模块层
 │  ├─Rex.AuthService  -- 认证授权模块
-│  ├─Rex.BaseService-- 基础服务模块
-│  ├─Rex.GoodService-- 商品模块
-│  ├─Rex.OrderService-- 订单模块
-│  ├─Rex.PaymentService-- 支付模块
-│  ├─Rex.PromotionService-- 促销模块
+│  ├─Rex.BaseService  -- 基础服务模块
+│  ├─Rex.GoodService  -- 商品模块
+│  ├─Rex.OrderService  -- 订单模块
+│  ├─Rex.PaymentService  -- 支付模块
+│  ├─Rex.PromotionService  -- 促销模块
 
 ```
 
-## 技术选型
+## 🚧技术选型
 
-![技术选型](doc/images/readme/技术选型.png)
+![架构图](doc/images/readme/技术选型.png)
 
-## 系统架构图
+## 🌈系统架构图
 
 ![架构图](doc/images/readme/架构图.png)
 
-## 调试运行
+## 🌐快速开始
+
+### 1.环境准备
+
+- Visual Studio 2026
+
+- Visual Studio Code
+
+- .NET 10 SDK
+
+- Docker Desktop
+  Windows/MacOS 需安装并启动(Windows推荐开启WSL2)
+
+- HBuilder X
+
+- 微信开发者工具
+
+### 2.项目运行
 
 ```
 # 克隆项目
 git clone https://github.com/zhuyongzhengs/Rex.ShopMicroService.Sample.git
 
-# 创建MySQL数据库
-创建数据库：Rex.Shop.BaseService、Rex.Shop.GoodService、Rex.Shop.OrderService、Rex.Shop.PaymentService、Rex.Shop.PromotionService 或通过EF Core进行迁移~
-创建数据库完成之后，导入基础数据进行调试。数据库脚本位于：~/Rex.ShopMicroService.Sample/db目录下。
+# 使用 Visual Studio 2026 打开解决方案
+将所需的NuGet包还原，确保生成不会出错。
 
-# 启动中间件服务
-Redis、MongoDB、RabbitMQ、Minio
+# 将 Rex.ShopService.AppHost 设置为启动项目
+按 F5 运行项目(启动时会拉取PostgreSQL、Redis、RabbitMQ、MongoDB等镜像，如无法拉取，可采取`魔法`或其它方式进行加速)，启动成功之后会自动打开 Aspire Dashboard，您可以看到所需的中间件以及微服务运行状态。
 
-# 运行项目
-启动前确保项目中的中间件连接地址配置正确
-1.项目编译成功之后，启动服务 ---> 双击“start.test.bat”脚本(注：内存低于16GB的慎重 ＞﹏＜ )
-2.服务启动成功之后，再启动：WebAdmin(商城后台管理)、UniApp(微信小程序)
-3.后台管理员账号
-默认账号：admin
-默认密码：1q2w3E*
+提示：小程序(微信)端建议使用 HBuilder X 打开运行。
 ```
 
-## 商城服务部署后 API 地址
+### 3.商城服务访问地址
 
 | 服务                                     | 地址                     |
 | -------------------------------------- | ---------------------- |
@@ -86,7 +95,10 @@ Redis、MongoDB、RabbitMQ、Minio
 | Rex.App.WebAdmin 商城后台管理平台              | http://localhost:5120  |
 | Rex.App.UniApp H5/小程序                  | http://localhost:5130  |
 
-## 代码运行相关截图
+在 Aspire Dashboard 中也能看到哦~
+![后台首页](doc/images/readme/Running.png)
+
+## 👏代码运行相关截图
 
 ### 1.后台截图
 
@@ -112,12 +124,26 @@ Redis、MongoDB、RabbitMQ、Minio
 <img src="doc/images/readme/UniApp-订单列表.png" title="" alt="订单列表" style="zoom:67%;">
 <img src="doc/images/readme/UniApp-我的.png" title="" alt="我的" style="zoom:67%;">
 
-## 支持作者
+## ❤️赞助与技术支持
 
-如果帮助到了你，希望你可以去[Gitee](https://github.com/zhuyongzhengs/Rex.ShopMicroService.Sample)  或 [Github](https://github.com/zhuyongzhengs/Rex.ShopMicroService.Sample)帮我点个 ⭐ Star，这将是对我极大的鼓励与支持。
+### ⚡开源项目支持
 
-## 你的点赞鼓励，是我们前进的动力~
+Rex Shop 是一个完全免费开源的项目，允许商业用途。 如果这个项目帮助到了您，希望你可以去 [Gitee](https://github.com/zhuyongzhengs/Rex.ShopMicroService.Sample)  或 [Github](https://github.com/zhuyongzhengs/Rex.ShopMicroService.Sample) 帮我点个免费的 ⭐ Star，或者通过以下方式支持项目的持续发展，这将是对我极大的鼓励与支持。
 
-## 你的点赞鼓励，是我们前进的动力~
+### 💌赞助方式
 
-## 你的点赞鼓励，是我们前进的动力~
+**个人赞助**
+
+* 支持项目持续更新和维护
+* 推动新功能开发和性能优化
+* 帮助建设更好的开发者社区
+
+<img src="doc/images/PaymentCode.png" title="" alt="审计日志" style="zoom:50%;">
+
+开源不易，可以请作者喝杯奶茶咩~
+
+## 💕特别鸣谢
+
+- <a href="https://github.com/abpframework/abp" target="_blank">ABP Framework</a>
+- <a href="https://gitee.com/lyt-top/vue-next-admin" target="_blank">vue-next-admin</a>
+- <a href="https://github.com/CoreUnion/CoreShop" target="_blank">CoreShop</a>

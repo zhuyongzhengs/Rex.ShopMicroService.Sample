@@ -1,20 +1,14 @@
 ﻿using Rex.GoodService.Stores;
 using System;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.MultiTenancy;
 
 namespace Rex.GoodService.StoreClerks
 {
     /// <summary>
     /// 店铺店员关联Dto
     /// </summary>
-    public partial class StoreClerkDto : EntityDto<Guid>, IMultiTenant
+    public partial class StoreClerkDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 店铺ID
         /// </summary>

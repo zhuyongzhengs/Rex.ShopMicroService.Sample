@@ -102,7 +102,7 @@ namespace Rex.GoodService.BackgroundWorkers
                     if (!Guid.TryParse(productIdStr, out Guid productId)) continue;
 
                     var fStockValue = redisDatabase.HashGet(new RedisKey(productStocckKey), new RedisValue("FreezeStock"));
-                    if (!int.TryParse(fStockValue, out int fStock)) continue;
+                    if (!int.TryParse(fStockValue.ToString(), out int fStock)) continue;
                     freezeStockDic.Add(productId, fStock);
 
                     // 移除数据

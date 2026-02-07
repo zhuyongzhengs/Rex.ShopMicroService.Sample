@@ -108,7 +108,7 @@
         "HealthCheck": {
           "Active": {
             "Enabled": true,
-            "Interval": "00:00:03",
+            "Interval": "00:00:10",
             "Timeout": "00:00:05",
             "Policy": "ConsecutiveFailures",
             "Path": "/HealthCheck"
@@ -116,7 +116,7 @@
           "Passive": {
             "Enabled": true,
             "Policy": "TransportFailureRate",
-            "ReactivationPeriod": "00:00:30",
+            "ReactivationPeriod": "00:00:10",
             "Options": {
               "FailureRateLimit": 0.05, // 5% 的请求失败率认为不健康
               "MinimumRequestCount": 5 // 至少 5 次请求后开始评估
@@ -133,7 +133,7 @@
         "HealthCheck": {
           "Active": {
             "Enabled": true,
-            "Interval": "00:00:03",
+            "Interval": "00:00:10",
             "Timeout": "00:00:05",
             "Policy": "ConsecutiveFailures",
             "Path": "/HealthCheck"
@@ -141,7 +141,7 @@
           "Passive": {
             "Enabled": true,
             "Policy": "TransportFailureRate",
-            "ReactivationPeriod": "00:00:30",
+            "ReactivationPeriod": "00:00:10",
             "Options": {
               "FailureRateLimit": 0.05, // 5% 的请求失败率认为不健康
               "MinimumRequestCount": 5 // 至少 5 次请求后开始评估
@@ -158,7 +158,7 @@
         "HealthCheck": {
           "Active": {
             "Enabled": true,
-            "Interval": "00:00:03",
+            "Interval": "00:00:10",
             "Timeout": "00:00:05",
             "Policy": "ConsecutiveFailures",
             "Path": "/HealthCheck"
@@ -166,7 +166,7 @@
           "Passive": {
             "Enabled": true,
             "Policy": "TransportFailureRate",
-            "ReactivationPeriod": "00:00:30",
+            "ReactivationPeriod": "00:00:10",
             "Options": {
               "FailureRateLimit": 0.05, // 5% 的请求失败率认为不健康
               "MinimumRequestCount": 5 // 至少 5 次请求后开始评估
@@ -183,7 +183,7 @@
         "HealthCheck": {
           "Active": {
             "Enabled": true,
-            "Interval": "00:00:03",
+            "Interval": "00:00:10",
             "Timeout": "00:00:05",
             "Policy": "ConsecutiveFailures",
             "Path": "/HealthCheck"
@@ -191,7 +191,7 @@
           "Passive": {
             "Enabled": true,
             "Policy": "TransportFailureRate",
-            "ReactivationPeriod": "00:00:30",
+            "ReactivationPeriod": "00:00:10",
             "Options": {
               "FailureRateLimit": 0.05, // 5% 的请求失败率认为不健康
               "MinimumRequestCount": 5 // 至少 5 次请求后开始评估
@@ -208,7 +208,7 @@
         "HealthCheck": {
           "Active": {
             "Enabled": true,
-            "Interval": "00:00:03",
+            "Interval": "00:00:10",
             "Timeout": "00:00:05",
             "Policy": "ConsecutiveFailures",
             "Path": "/HealthCheck"
@@ -216,7 +216,7 @@
           "Passive": {
             "Enabled": true,
             "Policy": "TransportFailureRate",
-            "ReactivationPeriod": "00:00:30",
+            "ReactivationPeriod": "00:00:10",
             "Options": {
               "FailureRateLimit": 0.05, // 5% 的请求失败率认为不健康
               "MinimumRequestCount": 5 // 至少 5 次请求后开始评估
@@ -233,7 +233,7 @@
         "HealthCheck": {
           "Active": {
             "Enabled": true,
-            "Interval": "00:00:03",
+            "Interval": "00:00:10",
             "Timeout": "00:00:05",
             "Policy": "ConsecutiveFailures",
             "Path": "/HealthCheck"
@@ -241,7 +241,7 @@
           "Passive": {
             "Enabled": true,
             "Policy": "TransportFailureRate",
-            "ReactivationPeriod": "00:00:30",
+            "ReactivationPeriod": "00:00:10",
             "Options": {
               "FailureRateLimit": 0.05, // 5% 的请求失败率认为不健康
               "MinimumRequestCount": 5 // 至少 5 次请求后开始评估
@@ -258,7 +258,7 @@
         "HealthCheck": {
           "Active": {
             "Enabled": true,
-            "Interval": "00:00:03",
+            "Interval": "00:00:10",
             "Timeout": "00:00:05",
             "Policy": "ConsecutiveFailures",
             "Path": "/HealthCheck"
@@ -266,7 +266,7 @@
           "Passive": {
             "Enabled": true,
             "Policy": "TransportFailureRate",
-            "ReactivationPeriod": "00:00:30",
+            "ReactivationPeriod": "00:00:10",
             "Options": {
               "FailureRateLimit": 0.05, // 5% 的请求失败率认为不健康
               "MinimumRequestCount": 5 // 至少 5 次请求后开始评估

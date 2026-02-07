@@ -7,13 +7,8 @@ namespace Rex.BaseService.Systems.OrganizationUnitRoles
     /// <summary>
     /// 组织单元【角色】
     /// </summary>
-    public class OrganizationUnitRoleDto : EntityDto<Guid>, IMultiTenant
+    public class OrganizationUnitRoleDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 角色ID
         /// </summary>

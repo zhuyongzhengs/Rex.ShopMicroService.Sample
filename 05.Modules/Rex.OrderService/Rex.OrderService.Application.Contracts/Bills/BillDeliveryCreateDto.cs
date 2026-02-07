@@ -41,7 +41,7 @@ namespace Rex.OrderService.Bills
         /// <summary>
         /// 收货地区ID
         /// </summary>
-        public Guid ShipAreaId { get; set; }
+        public long ShipAreaId { get; set; }
 
         /// <summary>
         /// 收货详细地址

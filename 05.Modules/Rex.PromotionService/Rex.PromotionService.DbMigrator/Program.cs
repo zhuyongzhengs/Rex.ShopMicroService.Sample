@@ -1,18 +1,20 @@
-﻿using System.IO;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
+using System;
+using System.Threading.Tasks;
 
 namespace Rex.PromotionService.DbMigrator;
 
-class Program
+internal class Program
 {
-    static async Task Main(string[] args)
+    private static async Task Main(string[] args)
     {
+        Console.Title = "【Rex商城】促销服务";
+
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Information()
             .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
@@ -25,6 +27,7 @@ class Program
                 .Enrich.FromLogContext()
             .WriteTo.Async(c => c.File("Logs/logs.log"))
             .WriteTo.Async(c => c.Console())
+            .WriteTo.Async(c => c.OpenTelemetry())
             .CreateLogger();
 
         await CreateHostBuilder(args).RunConsoleAsync();

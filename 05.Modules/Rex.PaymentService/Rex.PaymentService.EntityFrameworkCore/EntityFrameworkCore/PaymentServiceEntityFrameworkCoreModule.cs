@@ -4,8 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Rex.PaymentService.EntityFrameworkCore.Events;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.AuditLogging.MongoDB;
+using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore.MySQL;
+using Volo.Abp.EntityFrameworkCore.PostgreSql;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Guids;
@@ -27,7 +28,7 @@ namespace Rex.PaymentService.EntityFrameworkCore;
     typeof(AbpIdentityEntityFrameworkCoreModule),
     typeof(AbpPermissionManagementEntityFrameworkCoreModule),
     typeof(AbpSettingManagementEntityFrameworkCoreModule),
-    typeof(AbpEntityFrameworkCoreMySQLModule),
+    typeof(AbpEntityFrameworkCorePostgreSqlModule),
     typeof(AbpMongoDbModule),
     typeof(AbpAuditLoggingMongoDbModule),
     typeof(AbpTenantManagementEntityFrameworkCoreModule),
@@ -55,7 +56,7 @@ public class PaymentServiceEntityFrameworkCoreModule : AbpModule
         {
             /* The main point to change your DBMS.
              * See also PaymentServiceMigrationsDbContextFactory for EF Core tooling. */
-            options.UseMySQL();
+            options.UseNpgsql();
         });
 
         // 配置有序的Guid生成
@@ -88,6 +89,9 @@ public class PaymentServiceEntityFrameworkCoreModule : AbpModule
     /// </summary>
     private void ChangeDbTablePrefix()
     {
+        AbpCommonDbProperties.DbTablePrefix = PaymentServiceConsts.DefaultDbTablePrefix;
+        AbpCommonDbProperties.DbSchema = PaymentServiceConsts.DefaultDbSchema;
+
         #region TenantManagement
 
         AbpTenantManagementDbProperties.DbTablePrefix = PaymentServiceConsts.SysDbTablePrefix;

@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.AuditLogging.MongoDB;
+using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore.MySQL;
+using Volo.Abp.EntityFrameworkCore.PostgreSql;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Guids;
@@ -15,6 +17,7 @@ using Volo.Abp.PermissionManagement;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
+using Volo.Abp.Studio;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 
@@ -25,7 +28,7 @@ namespace Rex.BaseService.EntityFrameworkCore;
     typeof(AbpIdentityEntityFrameworkCoreModule),
     typeof(AbpPermissionManagementEntityFrameworkCoreModule),
     typeof(AbpSettingManagementEntityFrameworkCoreModule),
-    typeof(AbpEntityFrameworkCoreMySQLModule),
+    typeof(AbpEntityFrameworkCorePostgreSqlModule),
     typeof(AbpMongoDbModule),
     typeof(AbpAuditLoggingMongoDbModule),
     typeof(AbpTenantManagementEntityFrameworkCoreModule),
@@ -36,6 +39,9 @@ public class BaseServiceEntityFrameworkCoreModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
+        // https://www.npgsql.org/efcore/release-notes/6.0.html#opting-out-of-the-new-timestamp-mapping-logic
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
         BaseServiceEfCoreEntityExtensionMappings.Configure();
     }
 
@@ -49,11 +55,16 @@ public class BaseServiceEntityFrameworkCoreModule : AbpModule
             options.AddDefaultRepositories(includeAllEntities: true);
         });
 
+        if (AbpStudioAnalyzeHelper.IsInAnalyzeMode)
+        {
+            return;
+        }
+
         Configure<AbpDbContextOptions>(options =>
         {
             /* The main point to change your DBMS.
              * See also BaseServiceMigrationsDbContextFactory for EF Core tooling. */
-            options.UseMySQL();
+            options.UseNpgsql();
         });
 
         // 配置有序的Guid生成
@@ -83,6 +94,9 @@ public class BaseServiceEntityFrameworkCoreModule : AbpModule
     /// </summary>
     private void ChangeDbTablePrefix()
     {
+        AbpCommonDbProperties.DbTablePrefix = BaseServiceConsts.DefaultDbTablePrefix;
+        AbpCommonDbProperties.DbSchema = BaseServiceConsts.DefaultDbSchema;
+
         #region 租户管理
 
         AbpTenantManagementDbProperties.DbTablePrefix = BaseServiceConsts.DefaultDbTablePrefix;

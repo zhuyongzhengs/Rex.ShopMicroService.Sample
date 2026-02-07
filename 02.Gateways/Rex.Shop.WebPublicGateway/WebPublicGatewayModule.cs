@@ -36,7 +36,16 @@ namespace Rex.Shop.WebPublicGateway
 
             #region 反向代理
 
-            context.Services.AddReverseProxy().LoadFromConfig(configuration.GetSection("ReverseProxy"));
+            context.Services.AddReverseProxy()
+                .LoadFromConfig(configuration.GetSection("ReverseProxy"))
+                .ConfigureHttpClient((context, handler) =>
+                {
+                    if (handler is SocketsHttpHandler socketsHandler)
+                    {
+                        socketsHandler.SslOptions.RemoteCertificateValidationCallback =
+                            (sender, certificate, chain, sslPolicyErrors) => true;
+                    }
+                });
 
             #endregion 反向代理
 

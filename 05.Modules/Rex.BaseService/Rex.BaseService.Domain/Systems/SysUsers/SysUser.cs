@@ -1,8 +1,10 @@
 ﻿using Rex.BaseService.Systems.UserGrades;
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Volo.Abp.Identity;
+using static Rex.Service.Permission.BaseServices.BaseServicePermissions;
 
 namespace Rex.BaseService.Systems.SysUsers
 {
@@ -11,10 +13,26 @@ namespace Rex.BaseService.Systems.SysUsers
     /// </summary>
     public class SysUser : IdentityUser
     {
+        public SysUser()
+        {
+        }
+
+        public SysUser(Guid id, string userName, string email, bool isActive)
+        {
+            Id = id;
+            UserName = userName;
+            NormalizedUserName = userName.ToUpperInvariant();
+            Email = email;
+            NormalizedEmail = email.ToUpperInvariant();
+            IsActive = isActive;
+            SecurityStamp = Guid.NewGuid().ToString();
+            ConcurrencyStamp = Guid.NewGuid().ToString("N");
+        }
+
         /// <summary>
         /// 鉴别器
         /// </summary>
-        [StringLength(50)]
+        [StringLength(50), DefaultValue("")]
         public string? Discriminator { get; set; } = nameof(SysUser);
 
         /// <summary>
@@ -53,25 +71,6 @@ namespace Rex.BaseService.Systems.SysUsers
         /// 推荐人
         /// </summary>
         public Guid? ParentId { get; set; }
-
-        /// <summary>
-        /// 设置规范化值
-        /// </summary>
-        /// <param name="tenantId">租户ID</param>
-        public void SetNormalized(Guid? tenantId = null)
-        {
-            TenantId = tenantId;
-            if (!UserName.IsNullOrWhiteSpace())
-            {
-                NormalizedUserName = UserName.ToUpperInvariant();
-            }
-            if (!Email.IsNullOrWhiteSpace())
-            {
-                NormalizedEmail = Email.ToUpperInvariant();
-            }
-            ConcurrencyStamp = Guid.NewGuid().ToString("N");
-            SecurityStamp = Guid.NewGuid().ToString();
-        }
 
         /// <summary>
         /// 生日

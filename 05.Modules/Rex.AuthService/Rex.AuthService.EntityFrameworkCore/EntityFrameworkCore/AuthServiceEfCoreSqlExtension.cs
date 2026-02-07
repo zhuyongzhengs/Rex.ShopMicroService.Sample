@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MySqlConnector;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -273,6 +273,6 @@ namespace Rex.AuthService.EntityFrameworkCore
         /// <summary>
         /// 格式化参数集合
         /// </summary>
-        public List<MySqlParameter> Parameters { get; set; }
+        public List<NpgsqlParameter> Parameters { get; set; }
     }
 }

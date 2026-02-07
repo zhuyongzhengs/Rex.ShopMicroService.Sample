@@ -2,13 +2,15 @@
 //using Elastic.Ingest.Elasticsearch;
 //using Elastic.Ingest.Elasticsearch.DataStreams;
 //using Elastic.Serilog.Sinks;
-using System;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Rex.PromotionService.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
+using System;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Rex.PromotionService;
 
@@ -16,6 +18,8 @@ public class Program
 {
     public static async Task<int> Main(string[] args)
     {
+        Console.OutputEncoding = Encoding.UTF8;
+
         var builder = WebApplication.CreateBuilder(args);
         // var elasticUri = builder.Configuration["Elasticsearch:Uri"] ?? "http://localhost:9200";
 
@@ -30,6 +34,7 @@ public class Program
             .Enrich.FromLogContext()
             .WriteTo.Async(c => c.File("Logs/logs.log"))
             .WriteTo.Async(c => c.Console())
+            .WriteTo.Async(c => c.OpenTelemetry())
             /*
             .WriteTo.Elasticsearch(new[] { new Uri(elasticUri) }, opts =>
             {
@@ -54,6 +59,13 @@ public class Program
             builder.Host.AddAppSettingsSecretsJson()
                 .UseAutofac()
                 .UseSerilog();
+
+            builder.AddServiceDefaults();
+            builder.AddRedisClient("rex-redis");
+            builder.AddNpgsqlDataSource("Default");
+            builder.AddNpgsqlDataSource("Promotions");
+            builder.AddMongoDBClient("AbpAuditLogging");
+
             await builder.AddApplicationAsync<PromotionServiceHttpApiHostModule>();
             var app = builder.Build();
             await app.InitializeApplicationAsync();

@@ -9,13 +9,8 @@ namespace Rex.BaseService.Systems.OrganizationUnits
     /// <summary>
     /// 组织单元Dto
     /// </summary>
-    public class OrganizationUnitDto : EntityDto<Guid>, IMultiTenant
+    public class OrganizationUnitDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 父ID
         /// </summary>
@@ -44,6 +39,6 @@ namespace Rex.BaseService.Systems.OrganizationUnits
         /// <summary>
         /// 组织单元角色
         /// </summary>
-        public List<OrganizationUnitRoleDto> Roles { get; set; }
+        public List<OrganizationUnitRoleDto> Roles { get; set; } = new();
     }
 }

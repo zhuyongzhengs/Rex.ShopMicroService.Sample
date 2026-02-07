@@ -30,7 +30,7 @@ namespace Rex.GoodService.Goods
         /// 获取树形商品分类
         /// </summary>
         /// <returns></returns>
-        Task<List<GoodCategoryTreeDto>> GetTreeAsync();
+        //Task<List<GoodCategoryTreeDto>> GetTreeAsync();
 
         /// <summary>
         /// 获取树形商品分类

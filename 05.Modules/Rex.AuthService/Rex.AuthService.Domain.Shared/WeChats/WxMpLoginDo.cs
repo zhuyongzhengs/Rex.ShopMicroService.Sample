@@ -37,5 +37,10 @@ namespace Rex.AuthService.WeChats
         /// 手机号码
         /// </summary>
         public string PhoneNumber { get; set; }
+
+        /// <summary>
+        /// 默认余额
+        /// </summary>
+        public decimal DefaultBalance { get; set; }
     }
 }

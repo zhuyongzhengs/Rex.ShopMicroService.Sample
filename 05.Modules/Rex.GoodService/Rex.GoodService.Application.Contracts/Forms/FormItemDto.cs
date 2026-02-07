@@ -1,19 +1,13 @@
 ﻿using System;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.MultiTenancy;
 
 namespace Rex.GoodService.Forms
 {
     /// <summary>
     /// 表单项Dto
     /// </summary>
-    public class FormItemDto : EntityDto<Guid>, IMultiTenant
+    public class FormItemDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 字段名称
         /// </summary>

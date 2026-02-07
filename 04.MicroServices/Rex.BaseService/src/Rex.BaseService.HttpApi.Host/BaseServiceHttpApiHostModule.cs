@@ -1,19 +1,19 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Minio;
+using Minio.DataModel.Args;
 using Rex.BaseService.BlobStorings;
 using Rex.BaseService.EntityFrameworkCore;
 using Rex.BaseService.MultiTenancy;
 using Rex.Service.AspNetCore.Extensions;
 using Rex.Service.Core.Configurations;
-using Serilog;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -22,8 +22,10 @@ using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Account;
+using Volo.Abp.AspNetCore.Authentication.JwtBearer;
 using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.AntiForgery;
@@ -55,21 +57,22 @@ namespace Rex.BaseService;
     typeof(BaseServiceEntityFrameworkCoreModule),
     typeof(AbpAspNetCoreMvcUiLeptonXLiteThemeModule),
     typeof(AbpAspNetCoreSerilogModule),
-    typeof(AbpSwashbuckleModule)
+    typeof(AbpSwashbuckleModule),
+    typeof(AbpAspNetCoreAuthenticationJwtBearerModule)
 )]
 public class BaseServiceHttpApiHostModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
-        //PreConfigure<OpenIddictBuilder>(builder =>
-        //{
-        //    builder.AddValidation(options =>
-        //    {
-        //        options.AddAudiences("BaseService");
-        //        options.UseLocalServer();
-        //        options.UseAspNetCore();
-        //    });
-        //});
+        /*
+        .NET Aspire：默认将 Redis 连接放在 ConnectionStrings 节点下。例如：ConnectionStrings:Redis。
+        ABP Framework：默认将 Redis 连接放在 Redis 节点下。例如：Redis:Configuration。
+        */
+        var configuration = context.Services.GetConfiguration();
+        if (configuration["ConnectionStrings:Redis"] != null)
+        {
+            configuration["Redis:Configuration"] = configuration["ConnectionStrings:Redis"];
+        }
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -87,7 +90,7 @@ public class BaseServiceHttpApiHostModule : AbpModule
 
         Configure<AbpClockOptions>(options =>
         {
-            options.Kind = DateTimeKind.Local;
+            options.Kind = DateTimeKind.Utc;
         });
 
         // 日期Json(数据)配置
@@ -106,10 +109,9 @@ public class BaseServiceHttpApiHostModule : AbpModule
         ConfigureDistributedCacheOption(context);
 
         // 配置Minio文件存储
-        ConfigureMinioOptions(configuration);
+        ConfigureMinioOptions(context, configuration);
 
         // 配置RabbitMQ
-        //ConfigureRabbitMqOptions(context);
         ConfigureCapRabbitMqOptions(context, configuration);
 
         // 心跳检测
@@ -130,15 +132,15 @@ public class BaseServiceHttpApiHostModule : AbpModule
                 rb.HostName = configuration.GetSection("CapRabbitMQ").GetValue<string>("HostName");
                 rb.UserName = configuration.GetSection("CapRabbitMQ").GetValue<string>("UserName");
                 rb.Password = configuration.GetSection("CapRabbitMQ").GetValue<string>("Password");
-                rb.Port = configuration.GetSection("CapRabbitMQ").GetValue<int>("Port");
+                rb.Port = configuration.GetSection("CapRabbitMQ").GetValue<int>("Port", 5672);
                 rb.VirtualHost = configuration.GetSection("CapRabbitMQ").GetValue<string>("VirtualHost");
                 rb.ExchangeName = configuration.GetSection("CapRabbitMQ").GetValue<string>("ExchangeName");
             });
             x.DefaultGroupName = configuration.GetSection("CapRabbitMQ").GetValue<string>("GroupName");
 
             // 2、存储消息
-            x.UseEntityFramework<BaseServiceDbContext>();
-            x.UseMySql(configuration.GetConnectionString("Default"));
+            //x.UseEntityFramework<BaseServiceDbContext>();
+            x.UsePostgreSql(configuration.GetConnectionString("Default"));
 
             // 3、消息重试
             x.FailedRetryInterval = configuration.GetSection("CapRabbitMQ").GetValue<int>("FailedRetryInterval");
@@ -149,41 +151,14 @@ public class BaseServiceHttpApiHostModule : AbpModule
         });
     }
 
-    /*
-    /// <summary>
-    /// 配置事件总线RabbitMQ
-    /// </summary>
-    /// <param name="context"></param>
-    private void ConfigureRabbitMqOptions(ServiceConfigurationContext context)
-    {
-        var connections = context.Services.GetConfiguration().GetSection("RabbitMQ").GetSection("Connections").GetSection("Default");
-        Configure<AbpRabbitMqOptions>(options =>
-        {
-            options.Connections.Default.HostName = connections.GetValue<string>("HostName");
-            options.Connections.Default.Port = connections.GetValue<int>("Port");
-            options.Connections.Default.UserName = connections.GetValue<string>("UserName");
-            options.Connections.Default.Password = connections.GetValue<string>("Password");
-            options.Connections.Default.VirtualHost = connections.GetValue<string>("VirtualHost");
-        });
-
-        var eventBus = context.Services.GetConfiguration().GetSection("RabbitMQ").GetSection("EventBus");
-        Configure<AbpRabbitMqEventBusOptions>(options =>
-        {
-            options.ClientName = eventBus.GetValue<string>("ClientName");
-            options.ExchangeName = eventBus.GetValue<string>("ExchangeName");
-        });
-    }
-    */
-
     /// <summary>
     /// 配置Minio文件存储
     /// </summary>
     /// <param name="configuration">Configuration</param>
-    private void ConfigureMinioOptions(IConfiguration configuration)
+    private void ConfigureMinioOptions(ServiceConfigurationContext context, IConfiguration configuration)
     {
         Configure<AbpBlobStoringOptions>(options =>
         {
-            // options.Containers.ConfigureDefault(container =>
             options.Containers.Configure<BlobBaseServiceContainer>(container =>
             {
                 var blobStoringProvider = configuration.GetSection("BlobStoringProvider");
@@ -193,6 +168,7 @@ public class BaseServiceHttpApiHostModule : AbpModule
                     minio.EndPoint = blobStoringProvider.GetValue<string>("Endpoint");
                     minio.AccessKey = blobStoringProvider.GetValue<string>("AccessKey");
                     minio.SecretKey = blobStoringProvider.GetValue<string>("SecretKey");
+                    minio.WithSSL = blobStoringProvider.GetValue<bool>("Ssl");
                 });
             });
         });
@@ -220,66 +196,23 @@ public class BaseServiceHttpApiHostModule : AbpModule
         });
 
         /* Redis缓存配置 */
-        // 创建配置选项
-        var redisSection = context.Services.GetConfiguration().GetSection("Redis");
-        var configOptions = new ConfigurationOptions
-        {
-            AbortOnConnectFail = false,
-            ConnectTimeout = redisSection.GetValue<int>("ConnectTimeout", 5000),
-            SyncTimeout = redisSection.GetValue<int>("SyncTimeout", 5000),
-            ConnectRetry = redisSection.GetValue<int>("ConnectRetry", 3),
-            KeepAlive = redisSection.GetValue<int>("KeepAlive", 180),
-            Password = redisSection["Password"],
-            Ssl = redisSection.GetValue<bool>("Ssl", false),
-            DefaultDatabase = redisSection.GetValue<int>("DefaultDatabase", 0)
-        };
+        var configuration = context.Services.GetConfiguration();
+        var redisSection = configuration.GetSection("Redis");
 
-        // 添加端点
-        foreach (var endpoint in redisSection.GetSection("EndPoints").GetChildren())
-        {
-            configOptions.EndPoints.Add(endpoint["Host"], endpoint.GetValue<int>("Port"));
-        }
+        // 1. 自定义参数配置
+        string redisConfiguration = redisSection.GetValue<string>("Configuration");
+        ConfigurationOptions configOptions = ConfigurationOptions.Parse(redisConfiguration);
 
-        // 集群特定配置
-        var isCluster = redisSection.GetValue<bool>("IsCluster", false);
-        if (isCluster)
-        {
-            configOptions.Proxy = Proxy.None;
-            configOptions.DefaultVersion = new Version(7, 0);
-            configOptions.CommandMap = CommandMap.Default;
-        }
-
-        // 创建连接复用器
+        // 2. 创建连接复用器并注册
         var multiplexer = ConnectionMultiplexer.Connect(configOptions);
-
-        // 将 IConnectionMultiplexer 注册为单例
         context.Services.AddSingleton<IConnectionMultiplexer>(multiplexer);
 
-        // 配置分布式缓存
+        // 3. 配置分布式缓存
         context.Services.AddStackExchangeRedisCache(options =>
         {
             options.ConfigurationOptions = configOptions;
             options.InstanceName = $"{typeof(BaseServiceHttpApiHostModule).Namespace}:";
         });
-
-        // 集群事件处理
-        if (isCluster)
-        {
-            multiplexer.ErrorMessage += (_, e) =>
-                Log.Error($"Redis错误: {e.Message}");
-
-            multiplexer.ConnectionFailed += (_, e) =>
-                Log.Warning($"Redis连接失败: {e.EndPoint}, {e.FailureType}");
-
-            multiplexer.InternalError += (_, e) =>
-                Log.Error($"Redis内部错误: {e.Exception.Message}");
-
-            multiplexer.ConfigurationChanged += (_, e) =>
-                Log.Information($"Redis配置变更: {e.EndPoint}");
-
-            multiplexer.HashSlotMoved += (_, e) =>
-                Log.Information($"哈希槽迁移: {e.HashSlot} 从 {e.OldEndPoint} 到 {e.NewEndPoint}");
-        }
     }
 
     /// <summary>
@@ -347,23 +280,12 @@ public class BaseServiceHttpApiHostModule : AbpModule
 
     private void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
     {
-        // context.Services.ForwardIdentityAuthenticationForBearer(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
-        context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+        context.Services.AddAuthentication().AddAbpJwtBearer(options =>
         {
-            string authority = configuration.GetSection("AuthServer").GetValue<string>("Authority");
-            options.Authority = authority;
+            options.Authority = configuration.GetSection("AuthServer").GetValue<string>("Authority");
             options.RequireHttpsMetadata = configuration.GetSection("AuthServer").GetValue<bool>("RequireHttpsMetadata");
             options.Audience = configuration.GetSection("AuthServer").GetValue<string>("Audience");
-
-            // Token验证参数
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuer = false
-                //ValidIssuers = new List<string>
-                //{
-                //    "https://localhost:4400/"
-                //}
-            };
+            options.TokenValidationParameters.ValidateIssuer = false;
         });
     }
 
@@ -518,5 +440,22 @@ public class BaseServiceHttpApiHostModule : AbpModule
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
         app.UseConfiguredEndpoints();
+    }
+
+    public override async Task OnPostApplicationInitializationAsync(ApplicationInitializationContext context)
+    {
+        var minioClient = context.ServiceProvider.GetRequiredService<IMinioClient>();
+        var configuration = context.ServiceProvider.GetRequiredService<IConfiguration>();
+        try
+        {
+            string bucketName = configuration["BlobStoringProvider:BucketName"] ?? "rex.shop";
+            bool exists = await minioClient.BucketExistsAsync(new BucketExistsArgs().WithBucket(bucketName));
+            if (!exists) await minioClient.MakeBucketAsync(new MakeBucketArgs().WithBucket(bucketName));
+        }
+        catch (Exception ex)
+        {
+            var logger = context.ServiceProvider.GetRequiredService<ILogger<BaseServiceHttpApiHostModule>>();
+            logger.LogError(ex, "MinIO 自动初始化 Bucket 失败！");
+        }
     }
 }

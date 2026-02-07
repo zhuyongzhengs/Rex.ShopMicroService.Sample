@@ -9,7 +9,6 @@ using Rex.BaseService.UserShips;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore.DistributedEvents;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
@@ -74,11 +73,14 @@ public class BaseServiceDbContext :
     public DbSet<IdentityRole> Roles { get; set; }
     public DbSet<IdentityClaimType> ClaimTypes { get; set; }
     public DbSet<OrganizationUnit> OrganizationUnits { get; set; }
+    public DbSet<OrganizationUnitRole> OrganizationUnitRoles { get; set; }
+    public DbSet<IdentityUserOrganizationUnit> IdentityUserOrganizationUnits { get; set; }
     public DbSet<IdentitySecurityLog> SecurityLogs { get; set; }
     public DbSet<IdentityLinkUser> LinkUsers { get; set; }
     public DbSet<IdentityUserDelegation> UserDelegations { get; set; }
     public DbSet<SysUser> SysUsers { get; set; }
     public DbSet<UserPointLog> UserPointLogs { get; set; }
+    public DbSet<IdentitySession> Sessions { get; set; }
 
     #endregion 用户身份
 
@@ -148,9 +150,6 @@ public class BaseServiceDbContext :
     {
         base.OnModelCreating(builder);
 
-        AbpCommonDbProperties.DbTablePrefix = BaseServiceConsts.DefaultDbTablePrefix;
-        AbpCommonDbProperties.DbSchema = BaseServiceConsts.DefaultDbSchema;
-
         /*
 
         #region 事件发/收件箱
@@ -165,16 +164,12 @@ public class BaseServiceDbContext :
 
         #region 租户管理
 
-        AbpTenantManagementDbProperties.DbTablePrefix = BaseServiceConsts.DefaultDbTablePrefix;
-        AbpTenantManagementDbProperties.DbSchema = BaseServiceConsts.DefaultDbSchema;
         builder.ConfigureTenantManagement();
 
         #endregion 租户管理
 
         #region 身份(用户)
 
-        AbpIdentityDbProperties.DbTablePrefix = BaseServiceConsts.DefaultDbTablePrefix;
-        AbpIdentityDbProperties.DbSchema = BaseServiceConsts.DefaultDbSchema;
         builder.ConfigureIdentity();
         builder.ConfigureSysUserManagement();
 
@@ -182,34 +177,21 @@ public class BaseServiceDbContext :
 
         #region 权限管理
 
-        AbpPermissionManagementDbProperties.DbTablePrefix = BaseServiceConsts.DefaultDbTablePrefix;
-        AbpPermissionManagementDbProperties.DbSchema = BaseServiceConsts.DefaultDbSchema;
         builder.ConfigurePermissionManagement();
 
         #endregion 权限管理
 
         #region 设置管理
 
-        AbpSettingManagementDbProperties.DbTablePrefix = BaseServiceConsts.DefaultDbTablePrefix;
-        AbpSettingManagementDbProperties.DbSchema = BaseServiceConsts.DefaultDbSchema;
         builder.ConfigureSettingManagement();
 
         #endregion 设置管理
 
         #region 特征管理
 
-        AbpFeatureManagementDbProperties.DbTablePrefix = BaseServiceConsts.DefaultDbTablePrefix;
-        AbpFeatureManagementDbProperties.DbSchema = BaseServiceConsts.DefaultDbSchema;
         builder.ConfigureFeatureManagement();
 
         #endregion 特征管理
-
-        #region 审计日志
-
-        AbpAuditLoggingDbProperties.DbTablePrefix = BaseServiceConsts.DefaultDbTablePrefix;
-        AbpAuditLoggingDbProperties.DbSchema = BaseServiceConsts.DefaultDbSchema;
-
-        #endregion 审计日志
 
         #region 菜单管理
 

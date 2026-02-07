@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp.ObjectMapping;
 using Volo.Abp.SettingManagement;
 
 namespace Rex.BaseService.Systems.SysUsers
@@ -60,9 +61,24 @@ namespace Rex.BaseService.Systems.SysUsers
         [Authorize(BaseServicePermissions.SysUsers.Create)]
         public override async Task<SysUserDto> CreateAsync(SysUserCreateDto input)
         {
-            SysUser sysUser = ObjectMapper.Map<SysUserCreateDto, SysUser>(input);
-            sysUser.SetNormalized(CurrentTenant.Id);
-            sysUser = await _sysUserRepository.InsertAsync(sysUser);
+            SysUser sysUser = new SysUser(GuidGenerator.Create(), input.UserName, input.Email, input.IsActive);
+            ObjectMapper.Map<SysUserCreateDto, SysUser>(input, sysUser);
+            await _sysUserRepository.InsertAsync(sysUser);
+            return ObjectMapper.Map<SysUser, SysUserDto>(sysUser);
+        }
+
+        /// <summary>
+        /// 修改系统[注册]用户
+        /// </summary>
+        /// <param name="id">用户ID</param>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [Authorize(BaseServicePermissions.SysUsers.Update)]
+        public override async Task<SysUserDto> UpdateAsync(Guid id, SysUserUpdateDto input)
+        {
+            SysUser sysUser = new SysUser(id, input.UserName, input.Email, input.IsActive);
+            ObjectMapper.Map<SysUserUpdateDto, SysUser>(input, sysUser);
+            await _sysUserRepository.UpdateAsync(sysUser);
             return ObjectMapper.Map<SysUser, SysUserDto>(sysUser);
         }
 

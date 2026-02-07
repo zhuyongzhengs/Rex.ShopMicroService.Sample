@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Rex.BaseService.Systems.Menus;
+using Rex.Service.Core.Models;
 using Volo.Abp.Application.Dtos;
 
 namespace Rex.BaseService.Systems.RoleMenus
@@ -48,6 +49,6 @@ namespace Rex.BaseService.Systems.RoleMenus
         /// <summary>
         /// 子菜单
         /// </summary>
-        public List<MenuTreeDto> Children { get; set; }
+        public List<MenuTreeDto> Children { get; set; } = new();
     }
 }

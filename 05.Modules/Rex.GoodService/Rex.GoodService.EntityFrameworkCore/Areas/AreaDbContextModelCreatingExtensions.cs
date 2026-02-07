@@ -18,7 +18,7 @@ namespace Rex.GoodService.Areas
             {
                 b.ToTable(GoodServiceConsts.DefaultDbTablePrefix + "Areas", GoodServiceConsts.DefaultDbSchema);
                 b.HasKey(e => e.Id);
-                b.Property(e => e.Id).UseMySqlIdentityColumn();
+                b.Property(e => e.Id).UseIdentityColumn();
 
                 b.ConfigureByConvention();
                 b.ApplyObjectExtensionMappings();

@@ -1,19 +1,13 @@
 ﻿using System;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.MultiTenancy;
 
 namespace Rex.GoodService.Stores
 {
     /// <summary>
     /// 门店Dto
     /// </summary>
-    public class StoreDto : EntityDto<Guid>, IMultiTenant
+    public class StoreDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 门店名称
         /// </summary>

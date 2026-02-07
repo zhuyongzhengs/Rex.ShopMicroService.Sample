@@ -1,19 +1,13 @@
 ﻿using System;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.MultiTenancy;
 
 namespace Rex.GoodService.Labels
 {
     /// <summary>
     /// 标签Dto
     /// </summary>
-    public partial class LabelDto : EntityDto<Guid>, IMultiTenant
+    public partial class LabelDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 标签名称
         /// </summary>

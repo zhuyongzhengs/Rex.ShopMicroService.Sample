@@ -17,7 +17,7 @@ public class PromotionServiceDbContextFactory : IDesignTimeDbContextFactory<Prom
         var configuration = BuildConfiguration();
 
         var builder = new DbContextOptionsBuilder<PromotionServiceDbContext>()
-            .UseMySql(configuration.GetConnectionString(PromotionServiceConsts.ConnectionStringName), MySqlServerVersion.LatestSupportedServerVersion);
+            .UseNpgsql(configuration.GetConnectionString(PromotionServiceConsts.ConnectionStringName));
 
         return new PromotionServiceDbContext(builder.Options);
     }

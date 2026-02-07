@@ -6,5 +6,5 @@ public static class MultiTenancyConsts
      * If you will never need to multi-tenancy, you can remove
      * related modules and code parts, including this file.
      */
-    public const bool IsEnabled = true;
+    public const bool IsEnabled = false;
 }

@@ -80,9 +80,7 @@ namespace Rex.GoodService.Brands
         {
             Brand brand = await _brandRepository.FindAsync(p => p.Name.Equals(input.Name) && p.Id != id);
             if (brand != null)
-            {
                 throw new UserFriendlyException($"品牌名称[{input.Name}]已存在，请重新输入！", SystemStatusCode.Fail.ToGoodServicePrefix(), "品牌名称唯一，不允许重复。").WithData("Name", input.Name);
-            }
             return await base.UpdateAsync(id, input);
         }
 

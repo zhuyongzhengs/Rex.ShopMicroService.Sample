@@ -1,4 +1,6 @@
-﻿namespace Rex.AuthService;
+﻿using Volo.Abp.Identity;
+
+namespace Rex.AuthService;
 
 public static class AuthServiceConsts
 {
@@ -29,4 +31,7 @@ public static class AuthServiceConsts
     {
         public const string WechatCode = "wechat_code";
     }
+
+    public const string AdminEmailDefaultValue = IdentityDataSeedContributor.AdminEmailDefaultValue;
+    public const string AdminPasswordDefaultValue = IdentityDataSeedContributor.AdminPasswordDefaultValue;
 }

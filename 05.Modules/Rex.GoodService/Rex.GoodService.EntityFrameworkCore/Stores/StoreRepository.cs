@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MySqlConnector;
+using Npgsql;
+using NpgsqlTypes;
 using Rex.GoodService.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -28,102 +29,137 @@ namespace Rex.GoodService.Stores
         /// </summary>
         /// <param name="storeName">门店名称</param>
         /// <param name="latitude">纬度</param>
-        /// <param name="longitude">精度</param>
-        /// <returns></returns>
-        public async Task<long> GetStoreByCoordinateCountAsync(string? storeName, decimal latitude = 0, decimal longitude = 0, CancellationToken cancellationToken = default)
+        /// <param name="longitude">经度</param>
+        /// <param name="cancellationToken">取消令牌</param>
+        /// <returns>门店数量</returns>
+        public async Task<long> GetStoreByCoordinateCountAsync(string? storeName,
+            decimal latitude = 0,
+            decimal longitude = 0,
+            CancellationToken cancellationToken = default)
         {
-            long totalCount = 0;
+            var ct = GetCancellationToken(cancellationToken);
             if (latitude > 0 && longitude > 0)
             {
-                string sqrt = "SQRT(power(SIN((" + latitude + "*PI()/180-(Gd_Stores.Latitude)*PI()/180)/2),2)+COS(" + latitude + "*PI()/180)*COS((Gd_Stores.Latitude)*PI()/180)*power(SIN((" + longitude + "*PI()/180-(Gd_Stores.Longitude)*PI()/180)/2),2))";
-                string sql = "SELECT Id, StoreName, Mobile, LinkMan, LogoImage, AreaId, Address, Coordinate, Latitude, Longitude, IsDefault, CreationTime, LastModificationTime, ROUND(6378.138*2*ASIN(" + sqrt + ")*1000,2)  AS Distance FROM Gd_Stores WHERE IsDeleted = 0;";
-                List<MySqlParameter> parameters = new List<MySqlParameter>();
+                var sqrtPart = @"SQRT(POWER(SIN( (@Lat * PI()/180 - ""Gd_Stores"".""Latitude"" * PI()/180)/2 ),2) " +
+                               @"+ COS(@Lat * PI()/180) * COS(""Gd_Stores"".""Latitude"" * PI()/180) " +
+                               @"* POWER(SIN( (@Lng * PI()/180 - ""Gd_Stores"".""Longitude"" * PI()/180)/2 ),2))";
+
+                var sql = $@"SELECT ""Id"", ""StoreName"", ""Mobile"", ""LinkMan"", ""LogoImage"", ""AreaId"", ""Address"", ""Coordinate"",
+                     ""Latitude"", ""Longitude"", ""IsDefault"", ""CreationTime"", ""LastModificationTime"",
+                     ROUND(6378.138 * 2 * ASIN({sqrtPart}) * 1000, 2) AS Distance
+                     FROM ""Gd_Stores""
+                     WHERE ""IsDeleted"" = '0'";
+
+                var parameters = new List<NpgsqlParameter>
+                {
+                    new NpgsqlParameter("@Lat", NpgsqlDbType.Numeric) { Value = latitude },
+                    new NpgsqlParameter("@Lng", NpgsqlDbType.Numeric) { Value = longitude }
+                };
+
                 if (!storeName.IsNullOrWhiteSpace())
                 {
-                    sql += " AND StoreName LIKE CONCAT('%',@StoreName,'%') ";
-                    parameters.Add(new MySqlParameter("@StoreName", storeName));
+                    sql += @" AND ""StoreName"" LIKE '%' || @StoreName || '%'";
+                    parameters.Add(new NpgsqlParameter("@StoreName", NpgsqlDbType.Varchar) { Value = storeName });
                 }
-                totalCount = await Task.Run(() =>
-                {
-                    var totalCount = gServiceDbContext.ExecuteScalar($"SELECT COUNT(*) FROM ({sql})", CommandType.Text, parameters.ToArray());
-                    if (totalCount != null)
-                    {
-                        return Convert.ToInt64(totalCount);
-                    }
-                    return 0;
-                });
+                var countSql = $"SELECT COUNT(*) FROM ({sql}) t";
+
+                var totalCountObj = gServiceDbContext.ExecuteScalar(countSql, CommandType.Text, parameters.ToArray());
+                return totalCountObj is not null ? Convert.ToInt64(totalCountObj) : 0;
             }
             else
             {
-                totalCount = await (await GetDbSetAsync())
-                .WhereIf(!storeName.IsNullOrWhiteSpace(), p => p.StoreName.Contains(storeName))
-                .LongCountAsync(GetCancellationToken(cancellationToken));
+                return await (await GetDbSetAsync())
+                    .WhereIf(!storeName.IsNullOrWhiteSpace(), p => p.StoreName.Contains(storeName))
+                    .LongCountAsync(ct);
             }
-            return totalCount;
         }
 
         /// <summary>
-        /// 根据坐标获取门店
+        /// 根据坐标获取门店（分页）
         /// </summary>
         /// <param name="storeName">门店名称</param>
         /// <param name="skipCount">跳过数</param>
         /// <param name="maxResultCount">最大结果数</param>
-        /// <param name="sorting">排序</param>
+        /// <param name="sorting">排序（如Distance ASC/Id DESC）</param>
         /// <param name="latitude">纬度</param>
-        /// <param name="longitude">精度</param>
-        /// <returns></returns>
-        public async Task<List<Store>> GetStoreByCoordinateListAsync(string? storeName, int skipCount, int maxResultCount, string sorting, decimal latitude = 0, decimal longitude = 0, CancellationToken cancellationToken = default)
+        /// <param name="longitude">经度</param>
+        /// <param name="cancellationToken">取消令牌</param>
+        /// <returns>门店列表（含距离Distance字段）</returns>
+        public async Task<List<Store>> GetStoreByCoordinateListAsync(string? storeName,
+            int skipCount,
+            int maxResultCount,
+            string sorting,
+            decimal latitude = 0,
+            decimal longitude = 0,
+            CancellationToken cancellationToken = default)
         {
-            List<Store> storeList = new List<Store>();
+            var ct = GetCancellationToken(cancellationToken);
+            var storeList = new List<Store>();
             if (latitude > 0 && longitude > 0)
             {
-                string sqrt = "SQRT(power(SIN((" + latitude + " * PI()/180-(Gd_Stores.Latitude) * PI()/180)/2),2)+COS(" + latitude + " * PI()/180) * COS((Gd_Stores.Latitude) * PI()/180) * power(SIN((" + longitude + " * PI()/180-(Gd_Stores.Longitude) * PI()/180)/2),2))";
-                string sql = "SELECT Id, StoreName, Mobile, LinkMan, LogoImage, AreaId, Address, Coordinate, Latitude, Longitude, IsDefault, CreationTime, LastModificationTime, ROUND(6378.138 * 2 * ASIN(" + sqrt + ") * 1000,2)  AS Distance FROM Gd_Stores WHERE IsDeleted = 0;";
-                List<MySqlParameter> parameters = new List<MySqlParameter>()
+                var sqrtPart = @"SQRT(POWER(SIN( (@Lat * PI()/180 - ""Gd_Stores"".""Latitude"" * PI()/180)/2 ),2) " +
+                               @"+ COS(@Lat * PI()/180) * COS(""Gd_Stores"".""Latitude"" * PI()/180) " +
+                               @"* POWER(SIN( (@Lng * PI()/180 - ""Gd_Stores"".""Longitude"" * PI()/180)/2 ),2))";
+
+                var sql = $@"SELECT ""Id"", ""StoreName"", ""Mobile"", ""LinkMan"", ""LogoImage"", ""AreaId"", ""Address"", ""Coordinate"",
+                     ""Latitude"", ""Longitude"", ""IsDefault"", ""CreationTime"", ""LastModificationTime"",
+                     ROUND(6378.138 * 2 * ASIN({sqrtPart}) * 1000, 2) AS Distance
+                     FROM ""Gd_Stores""
+                     WHERE ""IsDeleted"" = '0'";
+
+                var parameters = new List<NpgsqlParameter>
                 {
-                    new MySqlParameter("@Limit", maxResultCount),
-                    new MySqlParameter("@Offset", skipCount)
+                    new NpgsqlParameter("@Lat", NpgsqlDbType.Numeric) { Value = latitude },
+                    new NpgsqlParameter("@Lng", NpgsqlDbType.Numeric) { Value = longitude },
+                    new NpgsqlParameter("@Limit", NpgsqlDbType.Integer) { Value = maxResultCount },
+                    new NpgsqlParameter("@Offset", NpgsqlDbType.Integer) { Value = skipCount }
                 };
+
                 if (!storeName.IsNullOrWhiteSpace())
                 {
-                    sql += " AND StoreName LIKE CONCAT('%',@StoreName,'%') ";
-                    parameters.Add(new MySqlParameter("@StoreName", storeName));
+                    sql += @" AND ""StoreName"" LIKE '%' || @StoreName || '%'";
+                    parameters.Add(new NpgsqlParameter("@StoreName", NpgsqlDbType.Varchar) { Value = storeName });
                 }
                 if (!sorting.IsNullOrWhiteSpace())
                 {
                     sql += $" ORDER BY {sorting} ";
                 }
-                sql += " LIMIT @Offset,@Limit ";
-                storeList = await Task.Run(() =>
+                sql += " LIMIT @Limit OFFSET @Offset";
+
+                DataTable dataTable = gServiceDbContext.ExecuteQuery(sql, CommandType.Text, parameters.ToArray());
+                foreach (DataRow row in dataTable.Rows)
                 {
-                    DataTable dataTable = gServiceDbContext.ExecuteQuery(sql, CommandType.Text, parameters.ToArray());
-                    List<DataRow> dataRowList = dataTable.AsEnumerable().ToList();
-                    foreach (DataRow dataRow in dataRowList)
+                    var store = new Store(row.Field<Guid>("Id"))
                     {
-                        Store store = new Store(dataRow.Field<Guid>("Id"));
-                        store.StoreName = dataRow.Field<string>("StoreName");
-                        store.Mobile = dataRow.Field<string>("Mobile");
-                        store.LinkMan = dataRow.Field<string>("LinkMan");
-                        store.LogoImage = dataRow.Field<string>("LogoImage");
-                        store.AreaId = dataRow.Field<long>("AreaId");
-                        store.Address = dataRow.Field<string>("Address");
-                        store.Coordinate = dataRow.Field<string>("Coordinate");
-                        store.Latitude = dataRow.Field<string>("Latitude");
-                        store.Longitude = dataRow.Field<string>("Longitude");
-                        store.IsDefault = dataRow.Field<bool>("IsDefault");
-                        store.Distance = dataRow.Field<decimal>("Distance");
-                        storeList.Add(store);
-                    }
-                    return storeList;
-                });
+                        StoreName = row.Field<string?>("StoreName"),
+                        Mobile = row.Field<string?>("Mobile"),
+                        LinkMan = row.Field<string?>("LinkMan"),
+                        LogoImage = row.Field<string?>("LogoImage"),
+                        AreaId = row.Field<long>("AreaId"),
+                        Address = row.Field<string?>("Address"),
+                        Coordinate = row.Field<string?>("Coordinate"),
+                        Latitude = row.Field<string?>("Latitude"),
+                        Longitude = row.Field<string?>("Longitude"),
+                        IsDefault = row.Field<bool>("IsDefault"),
+                        CreationTime = row.Field<DateTime>("CreationTime"),
+                        LastModificationTime = row.Field<DateTime?>("LastModificationTime"),
+                        Distance = row.Field<decimal>("Distance") // 地理距离（米，保留2位）
+                    };
+                    storeList.Add(store);
+                }
             }
             else
             {
+                // 无坐标时，使用原有EF Linq分页排序逻辑，保持不变
                 IQueryable<Store> queryable = (await GetDbSetAsync())
-                .WhereIf(!storeName.IsNullOrWhiteSpace(), p => p.StoreName.Contains(storeName))
-                .OrderByIf<Store, IQueryable<Store>>(!sorting.IsNullOrWhiteSpace(), sorting);
-                storeList = await queryable.PageBy(skipCount, maxResultCount).ToListAsync(GetCancellationToken(cancellationToken));
+                    .WhereIf(!storeName.IsNullOrWhiteSpace(), p => p.StoreName.Contains(storeName))
+                    .OrderByIf<Store, IQueryable<Store>>(!sorting.IsNullOrWhiteSpace(), sorting);
+
+                storeList = await queryable
+                    .PageBy(skipCount, maxResultCount)
+                    .ToListAsync(ct);
             }
+
             return storeList;
         }
     }

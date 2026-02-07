@@ -167,6 +167,6 @@ namespace Rex.OrderService.Orders
         /// <summary>
         /// 售后单
         /// </summary>
-        public List<BillAftersalesDto>? Aftersales { get; set; }
+        public List<BillAftersalesDto>? Aftersales { get; set; } = new();
     }
 }

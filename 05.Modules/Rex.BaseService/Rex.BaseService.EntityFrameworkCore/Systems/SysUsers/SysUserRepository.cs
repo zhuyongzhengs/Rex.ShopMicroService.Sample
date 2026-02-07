@@ -123,7 +123,6 @@ namespace Rex.BaseService.Systems.SysUsers
                 if (sysUser != null)
                 {
                     currSysUserEto.Id = sysUser.Id;
-                    currSysUserEto.TenantId = sysUser.TenantId;
                     currSysUserEto.UserName = sysUser.UserName;
                     currSysUserEto.Name = sysUser.Name;
                     currSysUserEto.Email = sysUser.Email;

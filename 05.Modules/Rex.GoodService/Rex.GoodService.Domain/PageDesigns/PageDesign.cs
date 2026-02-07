@@ -10,6 +10,14 @@ namespace Rex.GoodService.PageDesigns
     /// </summary>
     public class PageDesign : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
+        public PageDesign()
+        { }
+
+        public PageDesign(Guid id)
+        {
+            this.Id = id;
+        }
+
         /// <summary>
         /// 租户ID
         /// </summary>

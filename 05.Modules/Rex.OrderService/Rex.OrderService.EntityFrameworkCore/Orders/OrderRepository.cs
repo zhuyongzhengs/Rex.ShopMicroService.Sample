@@ -666,7 +666,6 @@ namespace Rex.OrderService.Orders
             if (userId.HasValue) orderWhere = orderWhere.And(p => p.UserId == userId.Value);
             return orderWhere;
         }
-
         /// <summary>
         /// 获取本周订单销售总额
         /// </summary>
@@ -677,20 +676,20 @@ namespace Rex.OrderService.Orders
             string sql = @"
                 WITH RECURSIVE DateSeries AS (
                     SELECT
-                        CURDATE() - INTERVAL WEEKDAY(CURDATE()) DAY AS dt
+                        CURRENT_DATE - (EXTRACT(DOW FROM CURRENT_DATE)::INTEGER - 1) * INTERVAL '1 day' AS dt
                     UNION ALL
-                    SELECT dt + INTERVAL 1 DAY
+                    SELECT dt + INTERVAL '1 day'
                     FROM DateSeries
-                    WHERE dt < CURDATE() - INTERVAL WEEKDAY(CURDATE()) DAY + INTERVAL 6 DAY
+                    WHERE dt < CURRENT_DATE - (EXTRACT(DOW FROM CURRENT_DATE)::INTEGER - 1) * INTERVAL '1 day' + INTERVAL '6 day'
                 )
                 SELECT
-                    ds.dt AS OrderDate,
-                    COALESCE(SUM(o.OrderAmount), 0) AS TotalAmount
+                    ds.dt::DATE AS OrderDate,
+                    COALESCE(SUM(o.""OrderAmount""), 0) AS TotalAmount
                 FROM
                     DateSeries ds
                 LEFT JOIN
-                    od_orders o
-                    ON (DATE(o.CreationTime) = ds.dt AND o.IsDeleted = 0 {0})
+                    ""Od_Orders"" o
+                    ON(o.""CreationTime""::DATE = ds.dt::DATE AND o.""IsDeleted"" = '0' {0})
                 GROUP BY
                     ds.dt
                 ORDER BY
@@ -698,57 +697,58 @@ namespace Rex.OrderService.Orders
             ";
 
             #region 全部
-
             string sqlAll = string.Format(sql, "");
             DataTable dataTableAll = oServiceDbContext.ExecuteQuery(sqlAll, CommandType.Text);
-            List<DataRow> dataRowAllList = dataTableAll.AsEnumerable().ToList();
-            List<OrderAmountStatisticsDto> orderAmountStatisticsAllList = new List<OrderAmountStatisticsDto>();
-            foreach (DataRow dataRow in dataRowAllList)
-            {
-                OrderAmountStatisticsDto orderAmountStatistics = new OrderAmountStatisticsDto();
-                orderAmountStatistics.OrderDate = dataRow.Field<DateTime>("OrderDate");
-                orderAmountStatistics.TotalAmount = dataRow.Field<decimal>("TotalAmount");
-                orderAmountStatisticsAllList.Add(orderAmountStatistics);
-            }
+            List<OrderAmountStatisticsDto> orderAmountStatisticsAllList = ConvertDataTableToDtoList(dataTableAll);
             orderAmountStatisticsDic.Add("全部", orderAmountStatisticsAllList);
-
             #endregion 全部
 
             #region 待付款
-
-            string sqlPendingPay = string.Format(sql, " AND o.Status = 1 AND o.PayStatus = 1 ");
+            string sqlPendingPay = string.Format(sql, @" AND o.""Status"" = 1 AND o.""PayStatus"" = 1 ");
             DataTable dataTablePendingPay = oServiceDbContext.ExecuteQuery(sqlPendingPay, CommandType.Text);
-            List<DataRow> dataRowPendingPayList = dataTablePendingPay.AsEnumerable().ToList();
-            List<OrderAmountStatisticsDto> orderAmountStatisticsPendingPayList = new List<OrderAmountStatisticsDto>();
-            foreach (DataRow dataRow in dataRowPendingPayList)
-            {
-                OrderAmountStatisticsDto orderAmountStatistics = new OrderAmountStatisticsDto();
-                orderAmountStatistics.OrderDate = dataRow.Field<DateTime>("OrderDate");
-                orderAmountStatistics.TotalAmount = dataRow.Field<decimal>("TotalAmount");
-                orderAmountStatisticsPendingPayList.Add(orderAmountStatistics);
-            }
+            List<OrderAmountStatisticsDto> orderAmountStatisticsPendingPayList = ConvertDataTableToDtoList(dataTablePendingPay);
             orderAmountStatisticsDic.Add("待付款", orderAmountStatisticsPendingPayList);
-
             #endregion 待付款
 
             #region 已付款
-
-            string sqlPaidPay = string.Format(sql, " AND o.Status = 1 AND o.PayStatus = 2 ");
+            string sqlPaidPay = string.Format(sql, @" AND o.""Status"" = 1 AND o.""PayStatus"" = 2 ");
             DataTable dataTablePaidPay = oServiceDbContext.ExecuteQuery(sqlPaidPay, CommandType.Text);
-            List<DataRow> dataRowPaidPayList = dataTablePaidPay.AsEnumerable().ToList();
-            List<OrderAmountStatisticsDto> orderAmountStatisticsPaidPayList = new List<OrderAmountStatisticsDto>();
-            foreach (DataRow dataRow in dataRowPaidPayList)
-            {
-                OrderAmountStatisticsDto orderAmountStatistics = new OrderAmountStatisticsDto();
-                orderAmountStatistics.OrderDate = dataRow.Field<DateTime>("OrderDate");
-                orderAmountStatistics.TotalAmount = dataRow.Field<decimal>("TotalAmount");
-                orderAmountStatisticsPaidPayList.Add(orderAmountStatistics);
-            }
+            List<OrderAmountStatisticsDto> orderAmountStatisticsPaidPayList = ConvertDataTableToDtoList(dataTablePaidPay);
             orderAmountStatisticsDic.Add("已付款", orderAmountStatisticsPaidPayList);
-
             #endregion 已付款
 
             return orderAmountStatisticsDic;
+        }
+
+        /// <summary>
+        /// 通用转换方法：将DataTable转换为OrderAmountStatisticsDto列表（处理DateOnly转DateTime）
+        /// </summary>
+        /// <param name="dataTable">查询结果DataTable</param>
+        /// <returns>转换后的Dto列表</returns>
+        private List<OrderAmountStatisticsDto> ConvertDataTableToDtoList(DataTable dataTable)
+        {
+            List<OrderAmountStatisticsDto> dtoList = new List<OrderAmountStatisticsDto>();
+            foreach (DataRow dataRow in dataTable.AsEnumerable())
+            {
+                OrderAmountStatisticsDto dto = new OrderAmountStatisticsDto();
+
+                // 核心修复：先读取DateOnly，再转换为DateTime（时间部分默认00:00:00）
+                if (dataRow["OrderDate"] is DateOnly dateOnly)
+                {
+                    dto.OrderDate = dateOnly.ToDateTime(TimeOnly.MinValue);
+                }
+                // 兼容旧版本/其他情况的兜底处理
+                else if (dataRow["OrderDate"] is DateTime dateTime)
+                {
+                    dto.OrderDate = dateTime;
+                }
+
+                // 读取金额（确保空值处理）
+                dto.TotalAmount = dataRow.Field<decimal>("TotalAmount");
+
+                dtoList.Add(dto);
+            }
+            return dtoList;
         }
 
         /// <summary>
@@ -767,7 +767,7 @@ namespace Rex.OrderService.Orders
             if (orders == null || !orders.Any()) throw new UserFriendlyException("更新订单ID[" + string.Join('、', orderIds) + "]状态失败或该订单已失效！", SystemStatusCode.Fail.ToOrderServicePrefix());
 
             // 定义要修改的订单信息
-            Dictionary<Guid, Expression<Func<SetPropertyCalls<Order>, SetPropertyCalls<Order>>>> setOrderPropertyDic = new Dictionary<Guid, Expression<Func<SetPropertyCalls<Order>, SetPropertyCalls<Order>>>>();
+            Dictionary<Guid, Action<UpdateSettersBuilder<Order>>> setOrderPropertyDic = new Dictionary<Guid, Action<UpdateSettersBuilder<Order>>>();
             foreach (Order order in orders)
             {
                 if (order.PayStatus == (int)OrderPayStatus.Yes || order.PayStatus == (int)OrderPayStatus.PartialNo || order.PayStatus == (int)OrderPayStatus.Refunded)
@@ -779,7 +779,7 @@ namespace Rex.OrderService.Orders
                 order.PaymentTime = DateTime.Now;
                 order.PaymentCode = paymentCode;
                 order.PayStatus = (int)OrderPayStatus.Yes;
-                Expression<Func<SetPropertyCalls<Order>, SetPropertyCalls<Order>>> setOrderProperty = x => x
+                Action<UpdateSettersBuilder<Order>> setOrderProperty = x => x
                     .SetProperty(e => e.PayedAmount, order.PayedAmount)
                     .SetProperty(e => e.PaymentTime, order.PaymentTime)
                     .SetProperty(e => e.PaymentCode, order.PaymentCode)

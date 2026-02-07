@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
 using System;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Rex.AuthService;
@@ -16,6 +17,8 @@ public class Program
 {
     public static async Task<int> Main(string[] args)
     {
+        Console.OutputEncoding = Encoding.UTF8;
+
         var builder = WebApplication.CreateBuilder(args);
         // var elasticUri = builder.Configuration["Elasticsearch:Uri"] ?? "http://localhost:9200";
 
@@ -30,6 +33,7 @@ public class Program
             .Enrich.FromLogContext()
             .WriteTo.Async(c => c.File("Logs/logs.log"))
             .WriteTo.Async(c => c.Console())
+            .WriteTo.Async(c => c.OpenTelemetry())
             /*
             .WriteTo.Elasticsearch(new[] { new Uri(elasticUri) }, opts =>
             {
@@ -54,6 +58,12 @@ public class Program
             builder.Host.AddAppSettingsSecretsJson()
                 .UseAutofac()
                 .UseSerilog();
+
+            builder.AddServiceDefaults();
+            builder.AddRedisClient("rex-redis");
+            builder.AddNpgsqlDataSource("Default");
+            builder.AddMongoDBClient("AbpAuditLogging");
+
             await builder.AddApplicationAsync<AuthServiceHttpApiHostModule>();
             var app = builder.Build();
             await app.InitializeApplicationAsync();

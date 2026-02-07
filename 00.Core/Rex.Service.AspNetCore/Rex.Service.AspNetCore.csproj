@@ -1,12 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.3.1" />
-		<PackageReference Include="Volo.Abp.ExceptionHandling" Version="8.1.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="9.0.4" />
+		<!--<PackageReference Include="Volo.Abp.ExceptionHandling" Version="10.0.2" />-->
+		<PackageReference Include="Volo.Abp.AspNetCore" Version="10.0.2" />
 	</ItemGroup>
 </Project>

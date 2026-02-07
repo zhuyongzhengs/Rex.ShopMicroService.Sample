@@ -7,13 +7,8 @@ namespace Rex.GoodService.Products
     /// <summary>
     /// 货品Dto
     /// </summary>
-    public partial class ProductDto : EntityDto<Guid>, IMultiTenant
+    public partial class ProductDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 商品ID
         /// </summary>

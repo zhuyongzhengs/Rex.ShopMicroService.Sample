@@ -23,6 +23,10 @@
             <view class="login-btn">
               <u-button type="info" size="mini" @click="goLogin">立即登录</u-button>
             </view>
+			<view class="login-btn" style="margin-left: 20rpx;">
+				<!-- 模拟调试 -->
+			  <u-button type="info" size="mini" @click="goSimulatedLogin">模拟登录</u-button>
+			</view>
           </view>
         </view>
         <!-- 已登录 -->
@@ -413,6 +417,7 @@
     <!-- #ifdef MP-WEIXIN -->
     <rexshop-login-mp v-if="useUserLoginStore().showMpLoginTip" />
     <!-- #endif -->
+	<rexshop-simulated-login ref="rexshopSimulatedLoginRef" />
   </view>
 </template>
 
@@ -426,6 +431,7 @@ import { getApplicationConfigurationAsync } from "@/utils/other";
 // 定义变量
 const uToastRef = ref();
 const showStore = ref(false);
+const rexshopSimulatedLoginRef = ref();
 const userNoticeNumber = ref<UserNoticeNumberType>({
   totalGoodBrowsing: 0,
   totalCoupon: 0,
@@ -462,6 +468,11 @@ const goMyOrder = (orderTypeName: string) => {
 // 打开登录框
 const goLogin = () => {
   useUserLoginStore().showAuthLogin();
+};
+
+// 打开模拟登录框
+const goSimulatedLogin = () => {
+	rexshopSimulatedLoginRef.value.openAuth();
 };
 
 // 刷新用户信息

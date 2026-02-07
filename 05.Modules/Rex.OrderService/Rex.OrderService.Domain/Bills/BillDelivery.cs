@@ -34,7 +34,7 @@ namespace Rex.OrderService.Bills
         /// 订单
         /// </summary>
         [ForeignKey(nameof(OrderId))]
-        public Order Order { get; set; }
+        public Order? Order { get; set; }
 
         /// <summary>
         /// 物流公司编码

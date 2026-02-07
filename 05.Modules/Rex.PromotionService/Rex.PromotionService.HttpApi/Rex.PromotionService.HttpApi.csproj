@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<Import Project="..\..\..\04.MicroServices\Rex.PromotionService\common.props" />
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <RootNamespace>Rex.PromotionService</RootNamespace>
   </PropertyGroup>
@@ -13,16 +13,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="E:\NuGet\.nuget\packages\volo.abp.identity.httpapi\10.0.2\contentFiles\any\net10.0\Volo.Abp.Identity.HttpApi.abppkg.analyze.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Rex.PromotionService.Application.Contracts\Rex.PromotionService.Application.Contracts.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-	  <PackageReference Include="Volo.Abp.Account.HttpApi" Version="8.1.0" />
-	  <PackageReference Include="Volo.Abp.Identity.HttpApi" Version="8.1.0" />
-	  <PackageReference Include="Volo.Abp.PermissionManagement.HttpApi" Version="8.1.0" />
-	  <PackageReference Include="Volo.Abp.TenantManagement.HttpApi" Version="8.1.0" />
-	  <PackageReference Include="Volo.Abp.FeatureManagement.HttpApi" Version="8.1.0" />
-	  <PackageReference Include="Volo.Abp.SettingManagement.HttpApi" Version="8.1.0" />
+	  <PackageReference Include="Volo.Abp.Account.HttpApi" Version="10.0.2" />
+	  <PackageReference Include="Volo.Abp.Identity.HttpApi" Version="10.0.2" />
+	  <PackageReference Include="Volo.Abp.PermissionManagement.HttpApi" Version="10.0.2" />
+	  <PackageReference Include="Volo.Abp.TenantManagement.HttpApi" Version="10.0.2" />
+	  <PackageReference Include="Volo.Abp.FeatureManagement.HttpApi" Version="10.0.2" />
+	  <PackageReference Include="Volo.Abp.SettingManagement.HttpApi" Version="10.0.2" />
   </ItemGroup>
 
 </Project>

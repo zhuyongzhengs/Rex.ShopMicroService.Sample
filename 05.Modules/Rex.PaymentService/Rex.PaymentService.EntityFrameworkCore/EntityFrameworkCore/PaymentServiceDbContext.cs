@@ -55,9 +55,6 @@ public class PaymentServiceDbContext :
     {
         base.OnModelCreating(builder);
 
-        AbpCommonDbProperties.DbTablePrefix = PaymentServiceConsts.DefaultDbTablePrefix;
-        AbpCommonDbProperties.DbSchema = PaymentServiceConsts.DefaultDbSchema;
-
         /*
 
         #region 事件发/收件箱

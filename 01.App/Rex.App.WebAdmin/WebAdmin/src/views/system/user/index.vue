@@ -145,7 +145,7 @@ const state = reactive<SysUserState>({
     currentPage: 1,
     param: {
       userName: null,
-      sorting: "userName",
+      sorting: '"UserName"',
       skipCount: 0,
       maxResultCount: 10,
     },

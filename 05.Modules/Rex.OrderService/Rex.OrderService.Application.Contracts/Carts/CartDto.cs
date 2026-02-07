@@ -1,19 +1,13 @@
 ﻿using System;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.MultiTenancy;
 
 namespace Rex.OrderService.Carts
 {
     /// <summary>
     /// 购物车Dto
     /// </summary>
-    public class CartDto : EntityDto<Guid>, IMultiTenant
+    public class CartDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 用户ID
         /// </summary>

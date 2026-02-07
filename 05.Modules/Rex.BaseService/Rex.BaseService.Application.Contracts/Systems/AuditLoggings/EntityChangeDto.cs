@@ -17,11 +17,6 @@ namespace Rex.BaseService.Systems.AuditLoggings
         public Guid AuditLogId { get; set; }
 
         /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
-        /// <summary>
         /// 变更时间
         /// </summary>
         public DateTime ChangeTime { get; set; }
@@ -49,11 +44,11 @@ namespace Rex.BaseService.Systems.AuditLoggings
         /// <summary>
         /// 实体属性变更
         /// </summary>
-        public Collection<EntityPropertyChangeDto> PropertyChanges { get; set; }
+        public List<EntityPropertyChangeDto> PropertyChanges { get; set; } = new();
 
         /// <summary>
         /// 属性扩展
         /// </summary>
-        public Dictionary<string, object> ExtraProperties { get; set; }
+        public Dictionary<string, object> ExtraProperties { get; set; } = new();
     }
 }

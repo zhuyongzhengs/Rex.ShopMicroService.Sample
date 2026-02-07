@@ -8,10 +8,8 @@ using Rex.OrderService.Carts;
 using Rex.OrderService.Logisticss;
 using Rex.OrderService.Orders;
 using Rex.OrderService.Ships;
-using Volo.Abp.AuditLogging;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore.DistributedEvents;
 
 namespace Rex.OrderService.EntityFrameworkCore;
 
@@ -96,9 +94,6 @@ public class OrderServiceDbContext :
 
         /* Include modules to your migration db context */
 
-        AbpCommonDbProperties.DbTablePrefix = OrderServiceConsts.DefaultDbTablePrefix;
-        AbpCommonDbProperties.DbSchema = OrderServiceConsts.DefaultDbSchema;
-
         /*
 
         #region 事件发/收件箱
@@ -110,13 +105,6 @@ public class OrderServiceDbContext :
         #endregion 事件发/收件箱
 
         */
-
-        #region 审计日志
-
-        AbpAuditLoggingDbProperties.DbTablePrefix = OrderServiceConsts.SysDbTablePrefix;
-        AbpAuditLoggingDbProperties.DbSchema = OrderServiceConsts.SysDbSchema;
-
-        #endregion 审计日志
 
         #region 购物车
 

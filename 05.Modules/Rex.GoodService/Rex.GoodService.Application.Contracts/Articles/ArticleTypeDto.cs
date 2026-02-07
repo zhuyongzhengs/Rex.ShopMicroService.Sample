@@ -7,13 +7,8 @@ namespace Rex.GoodService.Articles
     /// <summary>
     /// 文章分类Dto
     /// </summary>
-    public class ArticleTypeDto : EntityDto<Guid>, IMultiTenant
+    public class ArticleTypeDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 分类名称
         /// </summary>

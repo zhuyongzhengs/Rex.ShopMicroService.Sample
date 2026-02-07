@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using Volo.Abp.Application.Dtos;
 
 namespace Rex.BaseService.Systems.AuditLoggings
@@ -119,11 +118,11 @@ namespace Rex.BaseService.Systems.AuditLoggings
         /// <summary>
         /// 实体变更
         /// </summary>
-        public Collection<EntityChangeDto> EntityChanges { get; protected set; }
+        public List<EntityChangeDto> EntityChanges { get; set; } = new();
 
         /// <summary>
         /// 审计日志操作
         /// </summary>
-        public Collection<AuditLogActionDto> Actions { get; protected set; }
+        public List<AuditLogActionDto> Actions { get; set; } = new();
     }
 }

@@ -7,13 +7,8 @@ namespace Rex.BaseService.Systems.RoleMenus
     /// <summary>
     /// 角色菜单
     /// </summary>
-    public class RoleMenuDto : EntityDto<Guid>, IMultiTenant
+    public class RoleMenuDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 角色ID
         /// </summary>

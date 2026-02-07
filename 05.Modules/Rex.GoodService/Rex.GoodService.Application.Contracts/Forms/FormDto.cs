@@ -9,13 +9,8 @@ namespace Rex.GoodService.Forms
     /// <summary>
     /// 表单Dto
     /// </summary>
-    public class FormDto : EntityDto<Guid>, IMultiTenant
+    public class FormDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 表单名称
         /// </summary>
@@ -115,6 +110,6 @@ namespace Rex.GoodService.Forms
         /// <summary>
         /// (子集)表单项
         /// </summary>
-        public List<FormItemDto> FormItems { get; set; }
+        public List<FormItemDto> FormItems { get; set; } = new();
     }
 }

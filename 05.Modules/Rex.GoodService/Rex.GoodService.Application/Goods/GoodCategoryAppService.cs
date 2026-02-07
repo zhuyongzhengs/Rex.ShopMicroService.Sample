@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Rex.Service.Permission.GoodServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,6 @@ namespace Rex.GoodService.Goods
     /// 商品分类服务
     /// </summary>
     [RemoteService]
-    [Authorize]
     public class GoodCategoryAppService : CrudAppService<GoodCategory, GoodCategoryDto, Guid, PagedAndSortedResultRequestDto, GoodCategoryCreateDto, GoodCategoryUpdateDto>, IGoodCategoryAppService
     {
         private readonly IGoodCategoryRepository _goodCategoryRepository;
@@ -29,6 +29,7 @@ namespace Rex.GoodService.Goods
         /// </summary>
         /// <param name="input">查询条件</param>
         /// <returns></returns>
+        [Authorize(GoodServicePermissions.GoodCategorys.Default)]
         public async Task<List<GoodCategoryDto>> GetManyAsync(GetGoodCategoryInput input)
         {
             List<GoodCategory> goodCategoryList = (await _goodCategoryRepository.GetQueryableAsync())
@@ -59,6 +60,7 @@ namespace Rex.GoodService.Goods
         /// <param name="id">ID</param>
         /// <param name="isShow">是否显示</param>
         /// <returns></returns>
+        [Authorize(GoodServicePermissions.GoodCategorys.Update)]
         public async Task UpdateIsShowAsync(Guid id, bool isShow)
         {
             GoodCategory goodCategory = await _goodCategoryRepository.GetAsync(id);
@@ -66,15 +68,6 @@ namespace Rex.GoodService.Goods
             {
                 goodCategory.IsShow = isShow;
             }
-        }
-
-        /// <summary>
-        /// 获取树形商品分类
-        /// </summary>
-        /// <returns></returns>
-        public async Task<List<GoodCategoryTreeDto>> GetTreeAsync()
-        {
-            return await GetTreeAsync(null);
         }
 
         /// <summary>

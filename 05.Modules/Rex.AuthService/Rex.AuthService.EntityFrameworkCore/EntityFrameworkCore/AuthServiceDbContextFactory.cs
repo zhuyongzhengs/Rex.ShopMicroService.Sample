@@ -13,12 +13,15 @@ public class AuthServiceDbContextFactory : IDesignTimeDbContextFactory<AuthServi
 {
     public AuthServiceDbContext CreateDbContext(string[] args)
     {
+        // https://www.npgsql.org/efcore/release-notes/6.0.html#opting-out-of-the-new-timestamp-mapping-logic
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
         AuthServiceEfCoreEntityExtensionMappings.Configure();
 
         var configuration = BuildConfiguration();
 
         var builder = new DbContextOptionsBuilder<AuthServiceDbContext>()
-            .UseMySql(configuration.GetConnectionString(AuthServiceConsts.ConnectionStringName), MySqlServerVersion.LatestSupportedServerVersion);
+            .UseNpgsql(configuration.GetConnectionString(AuthServiceConsts.ConnectionStringName));
 
         return new AuthServiceDbContext(builder.Options);
     }

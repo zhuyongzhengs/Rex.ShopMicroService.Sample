@@ -8,13 +8,8 @@ namespace Rex.GoodService.Areas
     /// <summary>
     /// 区域树形Dto
     /// </summary>
-    public class AreaTreeDto : EntityDto<long>, IMultiTenant
+    public class AreaTreeDto : EntityDto<long>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 父级ID
         /// </summary>
@@ -59,6 +54,6 @@ namespace Rex.GoodService.Areas
         /// <summary>
         /// 区域下级
         /// </summary>
-        public List<AreaTreeDto> Children { get; set; }
+        public List<AreaTreeDto> Children { get; set; } = new();
     }
 }

@@ -25,6 +25,7 @@ namespace Rex.BackendAggregationService
                 .Enrich.FromLogContext()
                 .WriteTo.Async(c => c.File("Logs/logs.log"))
                 .WriteTo.Async(c => c.Console())
+                .WriteTo.Async(c => c.OpenTelemetry())
                 /*
                 .WriteTo.Elasticsearch(new[] { new Uri(elasticUri) }, opts =>
                 {
@@ -48,6 +49,9 @@ namespace Rex.BackendAggregationService
                     .AddAppSettingsSecretsJson()
                     .UseAutofac()
                     .UseSerilog();
+
+                
+                builder.AddServiceDefaults();
                 await builder.AddApplicationAsync<BackendAggregationModule>();
                 var app = builder.Build();
                 await app.InitializeApplicationAsync();

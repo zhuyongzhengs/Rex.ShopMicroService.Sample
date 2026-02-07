@@ -140,12 +140,6 @@ namespace Rex.GoodService.Commons
         /// <summary>
         /// 获取树形商品分类
         /// </summary>
-        /// <returns></returns>
-        Task<List<GoodCategoryTreeDto>> GetGoodCategorysTreeAsync();
-
-        /// <summary>
-        /// 获取树形商品分类
-        /// </summary>
         /// <param name="parentId">上级分类ID</param>
         /// <returns></returns>
         Task<List<GoodCategoryTreeDto>> GetGoodCategorysTreeAsync(Guid? parentId = null);

@@ -1,5 +1,4 @@
 ﻿using Localization.Resources.AbpUi;
-using Microsoft.Extensions.DependencyInjection;
 using Rex.AuthService.Localization;
 using Volo.Abp.Account;
 using Volo.Abp.FeatureManagement;

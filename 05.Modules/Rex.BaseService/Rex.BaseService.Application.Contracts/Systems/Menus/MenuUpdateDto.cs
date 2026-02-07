@@ -1,4 +1,5 @@
 ﻿using Rex.BaseService.Menus;
+using Rex.Service.Core.Models;
 using System;
 using Volo.Abp.Application.Dtos;
 

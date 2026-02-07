@@ -57,6 +57,7 @@ service.interceptors.response.use(
 				window.location.href = '/';
 			}, 3 * 1000);
 			*/
+			Session.clear();
 			ElMessageBox.alert('401：你还未登录系统(或已失效)，请重新登录！', '提示');
 		} else {			
 			let errMsg = error.response.data?.error?.message;

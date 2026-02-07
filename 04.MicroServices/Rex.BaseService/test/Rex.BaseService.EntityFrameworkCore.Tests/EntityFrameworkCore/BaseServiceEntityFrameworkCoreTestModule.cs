@@ -1,11 +1,11 @@
-﻿using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
+using Npgsql;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore.Sqlite;
+using Volo.Abp.EntityFrameworkCore.PostgreSql;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
@@ -16,11 +16,11 @@ namespace Rex.BaseService.EntityFrameworkCore;
 [DependsOn(
     typeof(BaseServiceEntityFrameworkCoreModule),
     typeof(BaseServiceTestBaseModule),
-    typeof(AbpEntityFrameworkCoreSqliteModule)
+    typeof(AbpEntityFrameworkCorePostgreSqlModule)
     )]
 public class BaseServiceEntityFrameworkCoreTestModule : AbpModule
 {
-    private SqliteConnection? _sqliteConnection;
+    private NpgsqlConnection? _npgsqlConnection;
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
@@ -36,34 +36,34 @@ public class BaseServiceEntityFrameworkCoreTestModule : AbpModule
         });
         context.Services.AddAlwaysDisableUnitOfWorkTransaction();
 
-        ConfigureInMemorySqlite(context.Services);
+        ConfigureInMemoryPostgreSql(context.Services);
     }
 
-    private void ConfigureInMemorySqlite(IServiceCollection services)
+    private void ConfigureInMemoryPostgreSql(IServiceCollection services)
     {
-        _sqliteConnection = CreateDatabaseAndGetConnection();
+        _npgsqlConnection = CreateDatabaseAndGetConnection();
 
         services.Configure<AbpDbContextOptions>(options =>
         {
             options.Configure(context =>
             {
-                context.DbContextOptions.UseSqlite(_sqliteConnection);
+                context.DbContextOptions.UseNpgsql(_npgsqlConnection);
             });
         });
     }
 
     public override void OnApplicationShutdown(ApplicationShutdownContext context)
     {
-        _sqliteConnection?.Dispose();
+        _npgsqlConnection?.Dispose();
     }
 
-    private static SqliteConnection CreateDatabaseAndGetConnection()
+    private static NpgsqlConnection CreateDatabaseAndGetConnection()
     {
-        var connection = new SqliteConnection("Data Source=:memory:");
+        var connection = new NpgsqlConnection("Data Source=:memory:");
         connection.Open();
 
         var options = new DbContextOptionsBuilder<BaseServiceDbContext>()
-            .UseSqlite(connection)
+            .UseNpgsql(connection)
             .Options;
 
         using (var context = new BaseServiceDbContext(options))

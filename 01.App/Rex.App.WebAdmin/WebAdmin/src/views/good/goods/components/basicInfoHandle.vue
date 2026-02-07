@@ -156,7 +156,7 @@
 </template>
 
 <script setup lang="ts" name="basicInfoHandleDialog">
-import { reactive, ref, defineEmits, onMounted, defineProps } from "vue";
+import { reactive, ref, onMounted } from "vue";
 import { FormInstance, FormRules } from "element-plus";
 import _ from "lodash";
 import { getCode, getGuidEmpty } from "/@/utils/other";

@@ -7,13 +7,8 @@ namespace Rex.BaseService.Systems.SecurityLogs
     /// <summary>
     /// 安全日志Dto
     /// </summary>
-    public class SecurityLogDto : EntityDto<Guid>, IMultiTenant
+    public class SecurityLogDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 应用程序名称
         /// </summary>

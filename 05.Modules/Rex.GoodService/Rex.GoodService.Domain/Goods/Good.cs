@@ -14,6 +14,15 @@ namespace Rex.GoodService.Goods
     /// </summary>
     public partial class Good : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
+        public Good()
+        {
+        }
+
+        public Good(Guid id)
+        {
+            Id = id;
+        }
+
         /// <summary>
         /// 租户ID
         /// </summary>
@@ -72,7 +81,7 @@ namespace Rex.GoodService.Goods
         /// 商品分类数据
         /// </summary>
         [ForeignKey(nameof(GoodCategoryId))]
-        public GoodCategory GoodCategory { get; set; }
+        public GoodCategory? GoodCategory { get; set; }
 
         /// <summary>
         /// 商品类别
@@ -100,7 +109,7 @@ namespace Rex.GoodService.Goods
         /// 品牌数据
         /// </summary>
         [ForeignKey(nameof(BrandId))]
-        public Brand Brand { get; set; }
+        public Brand? Brand { get; set; }
 
         /// <summary>
         /// 是否虚拟商品

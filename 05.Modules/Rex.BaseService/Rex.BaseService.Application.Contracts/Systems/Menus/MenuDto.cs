@@ -1,4 +1,5 @@
 ﻿using Rex.BaseService.Menus;
+using Rex.Service.Core.Models;
 using System;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.MultiTenancy;
@@ -8,13 +9,8 @@ namespace Rex.BaseService.Systems.Menus
     /// <summary>
     /// 菜单Dto
     /// </summary>
-    public class MenuDto : EntityDto<Guid>, IMultiTenant
+    public class MenuDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 上级菜单
         /// </summary>
@@ -74,46 +70,5 @@ namespace Rex.BaseService.Systems.Menus
         /// 元信息
         /// </summary>
         public MenuMeta Meta { get; set; }
-    }
-
-    /// <summary>
-    /// 元信息
-    /// </summary>
-    public class MenuMeta
-    {
-        /// <summary>
-        /// 标题
-        /// </summary>
-        public string Title { get; set; }
-
-        /// <summary>
-        /// 图标
-        /// </summary>
-        public string Icon { get; set; }
-
-        /// <summary>
-        /// 是否隐藏
-        /// </summary>
-        public bool IsHide { get; set; }
-
-        /// <summary>
-        /// 是否缓存
-        /// </summary>
-        public bool IsKeepAlive { get; set; }
-
-        /// <summary>
-        /// 是否固定
-        /// </summary>
-        public bool IsAffix { get; set; }
-
-        /// <summary>
-        /// 外链地址
-        /// </summary>
-        public string Link { get; set; }
-
-        /// <summary>
-        /// 是否内嵌
-        /// </summary>
-        public bool IsIframe { get; set; }
     }
 }

@@ -33,11 +33,11 @@ namespace Rex.BaseService.Systems.OrganizationUnits
         /// <summary>
         /// 组织单元角色
         /// </summary>
-        public List<OrganizationUnitRoleDto> Roles { get; set; }
+        public List<OrganizationUnitRoleDto> Roles { get; set; } = new();
 
         /// <summary>
         /// 组织单元角色
         /// </summary>
-        public List<OrganizationUnitTreeDto> Children { get; set; }
+        public List<OrganizationUnitTreeDto> Children { get; set; } = new();
     }
 }

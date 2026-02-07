@@ -1,19 +1,13 @@
 ﻿using System;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.MultiTenancy;
 
 namespace Rex.GoodService.PageDesigns
 {
     /// <summary>
     /// 页面设计项Dto
     /// </summary>
-    public class PageDesignItemDto : EntityDto<Guid>, IMultiTenant
+    public class PageDesignItemDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 组件编码
         /// </summary>

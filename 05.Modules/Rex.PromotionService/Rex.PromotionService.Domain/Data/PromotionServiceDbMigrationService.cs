@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using Rex.PromotionService.MultiTenancy;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Identity;
@@ -47,48 +48,50 @@ public class PromotionServiceDbMigrationService : ITransientDependency
             return;
         }
 
-        Logger.LogInformation("Started database migrations...");
+        Logger.LogInformation("开始进行数据库迁移操作...");
 
         await MigrateDatabaseSchemaAsync();
         await SeedDataAsync();
 
-        Logger.LogInformation($"Successfully completed host database migrations.");
+        Logger.LogInformation($"成功完成了数据库迁移工作。");
 
-        var tenants = await _tenantRepository.GetListAsync(includeDetails: true);
-
-        var migratedDatabaseSchemas = new HashSet<string>();
-        foreach (var tenant in tenants)
+        if (MultiTenancyConsts.IsEnabled)
         {
-            using (_currentTenant.Change(tenant.Id))
+            var tenants = await _tenantRepository.GetListAsync(includeDetails: true);
+
+            var migratedDatabaseSchemas = new HashSet<string>();
+            foreach (var tenant in tenants)
             {
-                if (tenant.ConnectionStrings.Any())
+                using (_currentTenant.Change(tenant.Id))
                 {
-                    var tenantConnectionStrings = tenant.ConnectionStrings
-                        .Select(x => x.Value)
-                        .ToList();
-
-                    if (!migratedDatabaseSchemas.IsSupersetOf(tenantConnectionStrings))
+                    if (tenant.ConnectionStrings.Any())
                     {
-                        await MigrateDatabaseSchemaAsync(tenant);
+                        var tenantConnectionStrings = tenant.ConnectionStrings
+                            .Select(x => x.Value)
+                            .ToList();
 
-                        migratedDatabaseSchemas.AddIfNotContains(tenantConnectionStrings);
+                        if (!migratedDatabaseSchemas.IsSupersetOf(tenantConnectionStrings))
+                        {
+                            await MigrateDatabaseSchemaAsync(tenant);
+
+                            migratedDatabaseSchemas.AddIfNotContains(tenantConnectionStrings);
+                        }
                     }
+
+                    await SeedDataAsync(tenant);
                 }
-
-                await SeedDataAsync(tenant);
+                Logger.LogInformation($"成功完成了 {tenant.Name} 租户数据库迁移工作。");
             }
-
-            Logger.LogInformation($"Successfully completed {tenant.Name} tenant database migrations.");
         }
 
-        Logger.LogInformation("Successfully completed all database migrations.");
-        Logger.LogInformation("You can safely end this process...");
+        Logger.LogInformation("成功完成了所有数据库迁移工作。");
+        Logger.LogInformation("您可以放心地结束这个程序了...");
     }
 
     private async Task MigrateDatabaseSchemaAsync(Tenant? tenant = null)
     {
         Logger.LogInformation(
-            $"Migrating schema for {(tenant == null ? "host" : tenant.Name + " tenant")} database...");
+            $"针对租户【{(tenant == null ? "host" : tenant.Name)}】的数据库迁移方案...");
 
         foreach (var migrator in _dbSchemaMigrators)
         {
@@ -98,12 +101,13 @@ public class PromotionServiceDbMigrationService : ITransientDependency
 
     private async Task SeedDataAsync(Tenant? tenant = null)
     {
-        Logger.LogInformation($"Executing {(tenant == null ? "host" : tenant.Name + " tenant")} database seed...");
+        Logger.LogInformation($"正在执行租户【{(tenant == null ? "host" : tenant.Name)}】数据填充操作...");
 
         await _dataSeeder.SeedAsync(new DataSeedContext(tenant?.Id)
             .WithProperty(IdentityDataSeedContributor.AdminEmailPropertyName, IdentityDataSeedContributor.AdminEmailDefaultValue)
             .WithProperty(IdentityDataSeedContributor.AdminPasswordPropertyName, IdentityDataSeedContributor.AdminPasswordDefaultValue)
         );
+        Logger.LogInformation($"租户【{(tenant == null ? "host" : tenant.Name)}】数据操作完成。");
     }
 
     private bool AddInitialMigrationIfNotExist()
@@ -134,7 +138,7 @@ public class PromotionServiceDbMigrationService : ITransientDependency
         }
         catch (Exception e)
         {
-            Logger.LogWarning("Couldn't determinate if any migrations exist : " + e.Message);
+            Logger.LogWarning("无法确定是否存在任何迁移操作 : " + e.Message);
             return false;
         }
     }
@@ -154,7 +158,7 @@ public class PromotionServiceDbMigrationService : ITransientDependency
 
     private void AddInitialMigration()
     {
-        Logger.LogInformation("Creating initial migration...");
+        Logger.LogInformation("开始进行迁移操作...");
 
         string argumentPrefix;
         string fileName;
@@ -180,7 +184,7 @@ public class PromotionServiceDbMigrationService : ITransientDependency
         }
         catch (Exception)
         {
-            throw new Exception("Couldn't run ABP CLI...");
+            throw new Exception("无法运行 ABP CLI...");
         }
     }
 
@@ -190,7 +194,7 @@ public class PromotionServiceDbMigrationService : ITransientDependency
 
         if (slnDirectoryPath == null)
         {
-            throw new Exception("Solution folder not found!");
+            throw new Exception("解决方案文件夹未找到!");
         }
 
         var srcDirectoryPath = Path.Combine(slnDirectoryPath, "src");

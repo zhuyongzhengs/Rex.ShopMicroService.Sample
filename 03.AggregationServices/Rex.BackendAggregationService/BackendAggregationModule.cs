@@ -65,7 +65,7 @@ namespace Rex.BackendAggregationService
 
             Configure<AbpClockOptions>(options =>
             {
-                options.Kind = DateTimeKind.Local;
+                options.Kind = DateTimeKind.Utc;
             });
 
             // 日期Json(数据)配置

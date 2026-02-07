@@ -15,7 +15,7 @@ public class FrontAggregationServiceDbContextFactory : IDesignTimeDbContextFacto
         var configuration = BuildConfiguration();
 
         var builder = new DbContextOptionsBuilder<FrontAggregationServiceDbContext>()
-            .UseMySql(configuration.GetConnectionString(FrontAggregationServiceConsts.ConnectionStringName), MySqlServerVersion.LatestSupportedServerVersion);
+            .UseNpgsql(configuration.GetConnectionString(FrontAggregationServiceConsts.ConnectionStringName));
 
         return new FrontAggregationServiceDbContext(builder.Options);
     }

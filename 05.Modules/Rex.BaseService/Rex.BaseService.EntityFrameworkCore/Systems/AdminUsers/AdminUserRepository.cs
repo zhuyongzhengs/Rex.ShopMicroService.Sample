@@ -1,4 +1,4 @@
-﻿using MySqlConnector;
+﻿using Npgsql;
 using Rex.BaseService.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -30,12 +30,12 @@ namespace Rex.BaseService.Systems.AdminUsers
         /// <returns></returns>
         public async Task<long> GetPageCountAsync(string? userName = null, CancellationToken cancellationToken = default)
         {
-            string userSql = "SELECT COUNT(*) FROM sys_users WHERE IsDeleted = 0 AND (Discriminator IS NULL OR Discriminator='')";
-            List<MySqlParameter> parameters = new List<MySqlParameter>();
+            string userSql = "SELECT COUNT(*) FROM \"Sys_Users\" WHERE \"IsDeleted\" = '0' AND (\"Discriminator\" IS NULL OR \"Discriminator\"='')";
+            List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
             if (!userName.IsNullOrWhiteSpace())
             {
-                userSql += " AND UserName LIKE CONCAT('%',@UserName,'%') ";
-                parameters.Add(new MySqlParameter("@UserName", userName));
+                userSql += " AND \"UserName\" LIKE CONCAT('%',@UserName,'%') ";
+                parameters.Add(new NpgsqlParameter("@UserName", userName));
             }
             return await Task.Run(() =>
             {
@@ -58,23 +58,22 @@ namespace Rex.BaseService.Systems.AdminUsers
         /// <returns></returns>
         public async Task<List<IdentityUser>> GetPageListAsync(string? userName = null, string? sorting = null, int maxResultCount = int.MaxValue, int skipCount = 0, CancellationToken cancellationToken = default)
         {
-            var userSql = $"SELECT Id, TenantId, UserName, NormalizedUserName, Name, Surname, Email, NormalizedEmail, EmailConfirmed, PasswordHash, SecurityStamp, IsExternal, PhoneNumber, PhoneNumberConfirmed, IsActive, TwoFactorEnabled, LockoutEnd, LockoutEnabled, AccessFailedCount, ShouldChangePasswordOnNextLogin, EntityVersion, LastPasswordChangeTime, ExtraProperties, ConcurrencyStamp, CreationTime, CreatorId, LastModificationTime, LastModifierId, IsDeleted, DeleterId, DeletionTime FROM sys_users WHERE IsDeleted = 0 AND (Discriminator IS NULL OR Discriminator='') ";
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            var userSql = $"SELECT \"Id\", \"TenantId\", \"UserName\", \"NormalizedUserName\", \"Name\", \"Surname\", \"Email\", \"NormalizedEmail\", \"EmailConfirmed\", \"PasswordHash\", \"SecurityStamp\", \"IsExternal\", \"PhoneNumber\", \"PhoneNumberConfirmed\", \"IsActive\", \"TwoFactorEnabled\", \"LockoutEnd\", \"LockoutEnabled\", \"AccessFailedCount\", \"ShouldChangePasswordOnNextLogin\", \"EntityVersion\", \"LastPasswordChangeTime\", \"ExtraProperties\", \"ConcurrencyStamp\", \"CreationTime\", \"CreatorId\", \"LastModificationTime\", \"LastModifierId\", \"IsDeleted\", \"DeleterId\", \"DeletionTime\" FROM \"Sys_Users\" WHERE \"IsDeleted\" = '0' AND (\"Discriminator\" IS NULL OR \"Discriminator\"='') ";
+            List<NpgsqlParameter> parameters = new List<NpgsqlParameter>()
             {
-                new MySqlParameter("@Limit", maxResultCount),
-                new MySqlParameter("@Offset", skipCount)
+                new NpgsqlParameter("@Limit", maxResultCount),
+                new NpgsqlParameter("@Offset", skipCount)
             };
             if (!userName.IsNullOrWhiteSpace())
             {
-                userSql += " AND UserName LIKE CONCAT('%',@UserName,'%') ";
-                parameters.Add(new MySqlParameter("@UserName", userName));
+                userSql += " AND \"UserName\" LIKE CONCAT('%',@UserName,'%') ";
+                parameters.Add(new NpgsqlParameter("@UserName", userName));
             }
             if (!sorting.IsNullOrWhiteSpace())
             {
                 userSql += $" ORDER BY {sorting} ";
             }
-            //userSql += " LIMIT @Limit OFFSET @Offset ";
-            userSql += " LIMIT @Offset,@Limit ";
+            userSql += " LIMIT @Limit OFFSET @Offset ";
             return await Task.Run(() =>
             {
                 DataTable dataTable = bServiceDbContext.ExecuteQuery(userSql, CommandType.Text, parameters.ToArray());

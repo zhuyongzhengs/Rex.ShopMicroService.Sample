@@ -147,6 +147,7 @@ const openDialog = (type: string, row: RowRoleType) => {
         if (type === "edit") {
           state.dialog.editId = row.id;
           state.ruleForm.name = row.name;
+          state.ruleForm.isDefault = row.isDefault;
           getRoleMenuList(row.id);
           state.dialog.title = "修改角色";
           state.dialog.submitTxt = "修 改";
@@ -253,6 +254,7 @@ const onSubmit = () => {
 // 保存权限
 const savePermission = async () => {
   return new Promise((resolve, reject) => {
+    debugger;
     permissionApi
       .updatePermissions(
         { providerName: "R", providerKey: state.ruleForm.name },

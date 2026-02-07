@@ -4,7 +4,6 @@ using Rex.BaseService.Systems.Menus;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
@@ -134,7 +133,7 @@ namespace Rex.BaseService.Systems.RoleMenus
             foreach (var mRoot in menuRoot)
             {
                 MenuTreeDto menuTree = ObjectMapper.Map<Menu, MenuTreeDto>(mRoot);
-                if (!string.IsNullOrEmpty(mRoot.MetaInfo)) menuTree.Meta = JsonSerializer.Deserialize<MenuMeta>(mRoot.MetaInfo);
+                //if (!string.IsNullOrEmpty(mRoot.MetaInfo)) menuTree.Meta = JsonSerializer.Deserialize<MenuMeta>(mRoot.MetaInfo);
                 if (menuList.Where(p => p.PId == mRoot.Id).Any())
                 {
                     menuTree.Children = LoadRoleMenusTree(menuList.Where(m => m.PId == mRoot.Id).OrderBy(o => o.MenuSort).ToList(), menuList);

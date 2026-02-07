@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MySqlConnector;
+using Npgsql;
 using Rex.BaseService.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -90,16 +90,16 @@ namespace Rex.BaseService.Systems.UserOrganizationUnits
         /// <returns></returns>
         public async Task<List<IdentityUser>> GetSelectUserListAsync(List<Guid> notUserIds = null, string sorting = null, int maxResultCount = int.MaxValue, int skipCount = 0, string filter = null)
         {
-            var userSql = $"SELECT Id, TenantId, UserName, NormalizedUserName, Name, Surname, Email, NormalizedEmail, EmailConfirmed, PasswordHash, SecurityStamp, IsExternal, PhoneNumber, PhoneNumberConfirmed, IsActive, TwoFactorEnabled, LockoutEnd, LockoutEnabled, AccessFailedCount, ShouldChangePasswordOnNextLogin, EntityVersion, LastPasswordChangeTime, ExtraProperties, ConcurrencyStamp, CreationTime, CreatorId, LastModificationTime, LastModifierId, IsDeleted, DeleterId, DeletionTime FROM sys_users WHERE IsDeleted = 0 AND (Discriminator IS NULL OR Discriminator='') ";
-            List<MySqlParameter> parameters = new List<MySqlParameter>()
+            var userSql = $"SELECT \"Id\", \"TenantId\", \"UserName\", \"NormalizedUserName\", \"Name\", \"Surname\", \"Email\", \"NormalizedEmail\", \"EmailConfirmed\", \"PasswordHash\", \"SecurityStamp\", \"IsExternal\", \"PhoneNumber\", \"PhoneNumberConfirmed\", \"IsActive\", \"TwoFactorEnabled\", \"LockoutEnd\", \"LockoutEnabled\", \"AccessFailedCount\", \"ShouldChangePasswordOnNextLogin\", \"EntityVersion\", \"LastPasswordChangeTime\", \"ExtraProperties\", \"ConcurrencyStamp\", \"CreationTime\", \"CreatorId\", \"LastModificationTime\", \"LastModifierId\", \"IsDeleted\", \"DeleterId\", \"DeletionTime\" FROM \"Sys_Users\" WHERE \"IsDeleted\" = '0' AND (\"Discriminator\" IS NULL OR \"Discriminator\"='') ";
+            List<NpgsqlParameter> parameters = new List<NpgsqlParameter>()
             {
-                new MySqlParameter("@Limit", maxResultCount),
-                new MySqlParameter("@Offset", skipCount)
+                new NpgsqlParameter("@Limit", maxResultCount),
+                new NpgsqlParameter("@Offset", skipCount)
             };
             if (!filter.IsNullOrWhiteSpace())
             {
-                userSql += " AND (UserName LIKE CONCAT('%',@Filter,'%') OR Email LIKE CONCAT('%',@Filter,'%') OR Name LIKE CONCAT('%',@Filter,'%') OR Surname LIKE CONCAT('%',@Filter,'%') OR PhoneNumber LIKE CONCAT('%',@Filter,'%') ) ";
-                parameters.Add(new MySqlParameter("@Filter", filter));
+                userSql += " AND (\"UserName\" LIKE CONCAT('%',@Filter,'%') OR \"Email\" LIKE CONCAT('%',@Filter,'%') OR \"Name\" LIKE CONCAT('%',@Filter,'%') OR \"Surname\" LIKE CONCAT('%',@Filter,'%') OR \"PhoneNumber\" LIKE CONCAT('%',@Filter,'%') ) ";
+                parameters.Add(new NpgsqlParameter("@Filter", filter));
             }
             if (notUserIds != null && notUserIds.Count > 0)
             {
@@ -108,14 +108,14 @@ namespace Rex.BaseService.Systems.UserOrganizationUnits
                 {
                     userIds.Add($"'{nUser}'");
                 }
-                userSql += $" AND Id NOT IN({string.Join(",", userIds)})";
+                userSql += $" AND \"Id\" NOT IN({string.Join(",", userIds)})";
             }
             if (!sorting.IsNullOrWhiteSpace())
             {
                 userSql += $" ORDER BY {sorting} ";
             }
-            //userSql += " LIMIT @Limit OFFSET @Offset ";
-            userSql += " LIMIT @Offset,@Limit ";
+            userSql += " LIMIT @Limit OFFSET @Offset ";
+            //userSql += " LIMIT @Offset,@Limit ";
             return await Task.Run(() =>
             {
                 DataTable dataTable = bServiceDbContext.ExecuteQuery(userSql, CommandType.Text, parameters.ToArray());
@@ -169,12 +169,12 @@ namespace Rex.BaseService.Systems.UserOrganizationUnits
         /// <returns></returns>
         public async Task<long> GetSelectUserCountAsync(List<Guid> notUserIds = null, string filter = null)
         {
-            string userSql = "SELECT COUNT(*) FROM sys_users WHERE IsDeleted = 0 AND (Discriminator IS NULL OR Discriminator='')";
-            List<MySqlParameter> parameters = new List<MySqlParameter>();
+            string userSql = "SELECT COUNT(*) FROM \"Sys_Users\" WHERE \"IsDeleted\" = '0' AND (\"Discriminator\" IS NULL OR \"Discriminator\"='')";
+            List<NpgsqlParameter> parameters = new List<NpgsqlParameter>();
             if (!filter.IsNullOrWhiteSpace())
             {
-                userSql += " AND (UserName LIKE CONCAT('%',@Filter,'%') OR Email LIKE CONCAT('%',@Filter,'%') OR Name LIKE CONCAT('%',@Filter,'%') OR Surname LIKE CONCAT('%',@Filter,'%') OR PhoneNumber LIKE CONCAT('%',@Filter,'%') ) ";
-                parameters.Add(new MySqlParameter("@Filter", filter));
+                userSql += " AND (\"UserName\" LIKE CONCAT('%',@Filter,'%') OR \"Email\" LIKE CONCAT('%',@Filter,'%') OR \"Name\" LIKE CONCAT('%',@Filter,'%') OR \"Surname\" LIKE CONCAT('%',@Filter,'%') OR \"PhoneNumber\" LIKE CONCAT('%',@Filter,'%') ) ";
+                parameters.Add(new NpgsqlParameter("@Filter", filter));
             }
             if (notUserIds != null && notUserIds.Count > 0)
             {
@@ -183,7 +183,7 @@ namespace Rex.BaseService.Systems.UserOrganizationUnits
                 {
                     userIds.Add($"'{nUser}'");
                 }
-                userSql += $" AND Id NOT IN({string.Join(",", userIds)})";
+                userSql += $" AND \"Id\" NOT IN({string.Join(",", userIds)})";
             }
 
             return await Task.Run(() =>

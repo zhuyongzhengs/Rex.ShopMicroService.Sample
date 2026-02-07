@@ -6,7 +6,7 @@ namespace Rex.OrderService.Logisticss
     /// <summary>
     /// 创建物流Dto
     /// </summary>
-    public class LogisticsCreateDto : EntityDto<Guid>
+    public class LogisticsCreateDto : EntityDto
     {
         /// <summary>
         /// 租户ID

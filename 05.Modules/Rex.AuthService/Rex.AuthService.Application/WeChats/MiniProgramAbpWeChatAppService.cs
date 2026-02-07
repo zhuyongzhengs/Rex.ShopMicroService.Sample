@@ -105,9 +105,8 @@ namespace Rex.AuthService.WeChats
                     string productStocckKey = productStocckKeyVal.ToString();
                     var productIdStr = productStocckKey.Split(':').Last().Replace("{", "").Replace("}", "");
                     if (!Guid.TryParse(productIdStr, out Guid productId)) continue;
-
-                    var fStockValue = await redisDatabase.HashGetAsync(new RedisKey(productStocckKey), new RedisValue("FreezeStock"));
-                    if (!int.TryParse(fStockValue, out int fStock)) continue;
+                    RedisValue fStockValue = await redisDatabase.HashGetAsync(new RedisKey(productStocckKey), new RedisValue("FreezeStock"));
+                    if (!int.TryParse(fStockValue.ToString(), out int fStock)) continue;
                     freezeStockDic.Add(productId, fStock);
                 }
             }

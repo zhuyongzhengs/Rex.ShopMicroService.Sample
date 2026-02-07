@@ -7,13 +7,8 @@ namespace Rex.GoodService.Goods
     /// <summary>
     /// 商品分类Dto
     /// </summary>
-    public class GoodCategoryDto : EntityDto<Guid>, IMultiTenant
+    public class GoodCategoryDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 上级分类id
         /// </summary>

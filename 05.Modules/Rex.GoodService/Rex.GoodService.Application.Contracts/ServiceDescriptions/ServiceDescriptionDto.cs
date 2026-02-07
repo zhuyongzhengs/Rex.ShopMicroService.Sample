@@ -1,19 +1,13 @@
 ﻿using System;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.MultiTenancy;
 
 namespace Rex.GoodService.ServiceDescriptions
 {
     /// <summary>
     /// 商城服务描述Dto
     /// </summary>
-    public class ServiceDescriptionDto : EntityDto<Guid>, IMultiTenant
+    public class ServiceDescriptionDto : EntityDto<Guid>
     {
-        /// <summary>
-        /// 租户ID
-        /// </summary>
-        public Guid? TenantId { get; set; }
-
         /// <summary>
         /// 名称
         /// </summary>
