@@ -56,8 +56,11 @@ Rex.ShopMicroService.Sample
 
 - .NET 10 SDK
 
-- Docker Desktop
-  Windows/MacOS 需安装并启动(Windows推荐开启WSL2)
+- Docker
+  
+  ```
+    Windows/MacOS 推荐安装Docker Desktop并启动，Windows推荐开启WSL2。
+  ```
 
 - HBuilder X
 
@@ -147,3 +150,5 @@ Rex Shop 是一个完全免费开源的项目，允许商业用途。 如果这
 - <a href="https://github.com/abpframework/abp" target="_blank">ABP Framework</a>
 - <a href="https://gitee.com/lyt-top/vue-next-admin" target="_blank">vue-next-admin</a>
 - <a href="https://github.com/CoreUnion/CoreShop" target="_blank">CoreShop</a>
+
+
