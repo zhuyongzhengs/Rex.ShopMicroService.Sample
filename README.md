@@ -120,12 +120,12 @@ git clone https://github.com/zhuyongzhengs/Rex.ShopMicroService.Sample.git
 
 ### 2.小程序截图
 
-<img src="doc/images/readme/UniApp-首页.png" title="" alt="首页" style="zoom:67%;">
-<img src="doc/images/readme/UniApp-分类.png" title="" alt="分类" style="zoom:67%;">
-<img src="doc/images/readme/UniApp-商品详情.png" title="" alt="商品详情" style="zoom:67%;">
-<img src="doc/images/readme/UniApp-购物车.png" title="" alt="购物车" style="zoom:67%;">
-<img src="doc/images/readme/UniApp-订单列表.png" title="" alt="订单列表" style="zoom:67%;">
-<img src="doc/images/readme/UniApp-我的.png" title="" alt="我的" style="zoom:67%;">
+<img src="doc/images/readme/UniApp-首页.png" title="" alt="首页" style="zoom:30%;">
+<img src="doc/images/readme/UniApp-分类.png" title="" alt="分类" style="zoom:30%;">
+<img src="doc/images/readme/UniApp-商品详情.png" title="" alt="商品详情" style="zoom:30%;">
+<img src="doc/images/readme/UniApp-购物车.png" title="" alt="购物车" style="zoom:30%;">
+<img src="doc/images/readme/UniApp-订单列表.png" title="" alt="订单列表" style="zoom:30%;">
+<img src="doc/images/readme/UniApp-我的.png" title="" alt="我的" style="zoom:30%;">
 
 ## ❤️赞助与技术支持
 
@@ -148,5 +148,5 @@ Rex Shop 是一个完全免费开源的项目，允许商业用途。 如果这
 ## 💕特别鸣谢
 
 - <a href="https://github.com/abpframework/abp" target="_blank">ABP Framework</a>
-- <a href="https://gitee.com/lyt-top/vue-next-admin" target="_blank">vue-next-admin</a>
+- <a href="https://github.com/lyt-Top/vue-next-admin" target="_blank">vue-next-admin</a>
 - <a href="https://github.com/CoreUnion/CoreShop" target="_blank">CoreShop</a>
