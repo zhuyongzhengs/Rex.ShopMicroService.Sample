@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../../00.Core/Rex.ShopService.ServiceDefaults/Rex.ShopService.ServiceDefaults.csproj" />
+  <Project Path="src/Rex.ShopService.AppHost.csproj" />
+</Solution>

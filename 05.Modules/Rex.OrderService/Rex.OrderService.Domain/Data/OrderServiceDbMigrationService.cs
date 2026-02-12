@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 using Rex.OrderService.MultiTenancy;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Identity;
 using Volo.Abp.MultiTenancy;
+using Volo.Abp.PermissionManagement;
 using Volo.Abp.TenantManagement;
 
 namespace Rex.OrderService.Data;
@@ -20,6 +22,7 @@ public class OrderServiceDbMigrationService : ITransientDependency
 {
     public ILogger<OrderServiceDbMigrationService> Logger { get; set; }
 
+    private readonly AbpDataSeedOptions _options;
     private readonly IDataSeeder _dataSeeder;
     private readonly IEnumerable<IOrderServiceDbSchemaMigrator> _dbSchemaMigrators;
     private readonly ITenantRepository _tenantRepository;
@@ -29,7 +32,8 @@ public class OrderServiceDbMigrationService : ITransientDependency
         IDataSeeder dataSeeder,
         IEnumerable<IOrderServiceDbSchemaMigrator> dbSchemaMigrators,
         ITenantRepository tenantRepository,
-        ICurrentTenant currentTenant)
+        ICurrentTenant currentTenant,
+        IOptions<AbpDataSeedOptions> options)
     {
         _dataSeeder = dataSeeder;
         _dbSchemaMigrators = dbSchemaMigrators;
@@ -37,6 +41,7 @@ public class OrderServiceDbMigrationService : ITransientDependency
         _currentTenant = currentTenant;
 
         Logger = NullLogger<OrderServiceDbMigrationService>.Instance;
+        _options = options.Value;
     }
 
     public async Task MigrateAsync()
@@ -101,6 +106,17 @@ public class OrderServiceDbMigrationService : ITransientDependency
 
     private async Task SeedDataAsync(Tenant? tenant = null)
     {
+        #region 移除默认的身份数据填充
+
+        /*
+        var identityDataSeed = _options.Contributors.FirstOrDefault(x => x.Name == nameof(IdentityDataSeedContributor));
+        if (identityDataSeed != null) _options.Contributors.Remove(identityDataSeed);
+        var permissionDataSeed = _options.Contributors.FirstOrDefault(x => x.Name == nameof(PermissionDataSeedContributor));
+        if (permissionDataSeed != null) _options.Contributors.Remove(permissionDataSeed);
+        */
+
+        #endregion 移除默认的身份数据填充
+
         Logger.LogInformation($"正在执行租户【{(tenant == null ? "host" : tenant.Name)}】数据填充操作...");
 
         await _dataSeeder.SeedAsync(new DataSeedContext(tenant?.Id)

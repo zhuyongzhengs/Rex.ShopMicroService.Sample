@@ -1,0 +1,26 @@
+<Solution>
+  <Folder Name="/core/">
+    <Project Path="../../00.Core/Rex.Service.AspNetCore/Rex.Service.AspNetCore.csproj" />
+    <Project Path="../../00.Core/Rex.Service.Core/Rex.Service.Core.csproj" />
+    <Project Path="../../00.Core/Rex.Service.Permission/Rex.Service.Permission.csproj" />
+    <Project Path="../../00.Core/Rex.Service.Setting/Rex.Service.Setting.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="../../05.Modules/Rex.BaseService/Rex.BaseService.Application.Contracts/Rex.BaseService.Application.Contracts.csproj" />
+    <Project Path="../../05.Modules/Rex.BaseService/Rex.BaseService.Application/Rex.BaseService.Application.csproj" />
+    <Project Path="../../05.Modules/Rex.BaseService/Rex.BaseService.DbMigrator/Rex.BaseService.DbMigrator.csproj" />
+    <Project Path="../../05.Modules/Rex.BaseService/Rex.BaseService.Domain.Shared/Rex.BaseService.Domain.Shared.csproj" />
+    <Project Path="../../05.Modules/Rex.BaseService/Rex.BaseService.Domain/Rex.BaseService.Domain.csproj" />
+    <Project Path="../../05.Modules/Rex.BaseService/Rex.BaseService.EntityFrameworkCore/Rex.BaseService.EntityFrameworkCore.csproj" />
+    <Project Path="../../05.Modules/Rex.BaseService/Rex.BaseService.HttpApi.Client/Rex.BaseService.HttpApi.Client.csproj" />
+    <Project Path="../../05.Modules/Rex.BaseService/Rex.BaseService.HttpApi/Rex.BaseService.HttpApi.csproj" />
+    <Project Path="src/Rex.BaseService.HttpApi.Host/Rex.BaseService.HttpApi.Host.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Rex.BaseService.Application.Tests/Rex.BaseService.Application.Tests.csproj" />
+    <Project Path="test/Rex.BaseService.Domain.Tests/Rex.BaseService.Domain.Tests.csproj" />
+    <Project Path="test/Rex.BaseService.EntityFrameworkCore.Tests/Rex.BaseService.EntityFrameworkCore.Tests.csproj" />
+    <Project Path="test/Rex.BaseService.HttpApi.Client.ConsoleTestApp/Rex.BaseService.HttpApi.Client.ConsoleTestApp.csproj" />
+    <Project Path="test/Rex.BaseService.TestBase/Rex.BaseService.TestBase.csproj" />
+  </Folder>
+</Solution>

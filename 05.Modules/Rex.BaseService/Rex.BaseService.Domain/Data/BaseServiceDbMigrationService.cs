@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 using Rex.BaseService.Menus;
 using Rex.BaseService.MultiTenancy;
 using Rex.BaseService.Systems.Menus;

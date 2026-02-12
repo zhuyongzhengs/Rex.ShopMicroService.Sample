@@ -1,0 +1,26 @@
+<Solution>
+  <Folder Name="/core/">
+    <Project Path="../../00.Core/Rex.Service.AspNetCore/Rex.Service.AspNetCore.csproj" />
+    <Project Path="../../00.Core/Rex.Service.Core/Rex.Service.Core.csproj" />
+    <Project Path="../../00.Core/Rex.Service.Permission/Rex.Service.Permission.csproj" />
+    <Project Path="../../00.Core/Rex.Service.Setting/Rex.Service.Setting.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="../../05.Modules/Rex.GoodService/Rex.GoodService.Application.Contracts/Rex.GoodService.Application.Contracts.csproj" />
+    <Project Path="../../05.Modules/Rex.GoodService/Rex.GoodService.Application/Rex.GoodService.Application.csproj" />
+    <Project Path="../../05.Modules/Rex.GoodService/Rex.GoodService.DbMigrator/Rex.GoodService.DbMigrator.csproj" />
+    <Project Path="../../05.Modules/Rex.GoodService/Rex.GoodService.Domain.Shared/Rex.GoodService.Domain.Shared.csproj" />
+    <Project Path="../../05.Modules/Rex.GoodService/Rex.GoodService.Domain/Rex.GoodService.Domain.csproj" />
+    <Project Path="../../05.Modules/Rex.GoodService/Rex.GoodService.EntityFrameworkCore/Rex.GoodService.EntityFrameworkCore.csproj" />
+    <Project Path="../../05.Modules/Rex.GoodService/Rex.GoodService.HttpApi.Client/Rex.GoodService.HttpApi.Client.csproj" />
+    <Project Path="../../05.Modules/Rex.GoodService/Rex.GoodService.HttpApi/Rex.GoodService.HttpApi.csproj" />
+    <Project Path="src/Rex.GoodService.HttpApi.Host/Rex.GoodService.HttpApi.Host.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Rex.GoodService.Application.Tests/Rex.GoodService.Application.Tests.csproj" />
+    <Project Path="test/Rex.GoodService.Domain.Tests/Rex.GoodService.Domain.Tests.csproj" />
+    <Project Path="test/Rex.GoodService.EntityFrameworkCore.Tests/Rex.GoodService.EntityFrameworkCore.Tests.csproj" />
+    <Project Path="test/Rex.GoodService.HttpApi.Client.ConsoleTestApp/Rex.GoodService.HttpApi.Client.ConsoleTestApp.csproj" />
+    <Project Path="test/Rex.GoodService.TestBase/Rex.GoodService.TestBase.csproj" />
+  </Folder>
+</Solution>

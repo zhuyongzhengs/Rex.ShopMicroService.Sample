@@ -1,0 +1,91 @@
+<Solution>
+  <Folder Name="/00.Core/">
+    <Project Path="00.Core/Rex.Service.AspNetCore/Rex.Service.AspNetCore.csproj" />
+    <Project Path="00.Core/Rex.Service.Core/Rex.Service.Core.csproj" />
+    <Project Path="00.Core/Rex.Service.Permission/Rex.Service.Permission.csproj" />
+    <Project Path="00.Core/Rex.Service.Setting/Rex.Service.Setting.csproj" />
+    <Project Path="00.Core/Rex.ShopService.ServiceDefaults/Rex.ShopService.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/01.App/">
+    <Project Path="01.App/Rex.App.UniApp/Rex.App.UniApp.csproj" />
+    <Project Path="01.App/Rex.App.WebAdmin/Rex.App.WebAdmin.csproj" />
+  </Folder>
+  <Folder Name="/02.Gateways/">
+    <Project Path="02.Gateways/Rex.Shop.WebGateway/Rex.Shop.WebGateway.csproj" />
+    <Project Path="02.Gateways/Rex.Shop.WebPublicGateway/Rex.Shop.WebPublicGateway.csproj" />
+  </Folder>
+  <Folder Name="/03.AggregationServices/">
+    <Project Path="03.AggregationServices/Rex.BackendAggregationService/Rex.BackendAggregationService.csproj" />
+    <Project Path="03.AggregationServices/Rex.FrontAggregationService/Rex.FrontAggregationService.csproj" />
+  </Folder>
+  <Folder Name="/04.MicroServices/">
+    <Project Path="04.MicroServices/Rex.AuthService/src/Rex.AuthService.HttpApi.Host/Rex.AuthService.HttpApi.Host.csproj" />
+    <Project Path="04.MicroServices/Rex.BaseService/src/Rex.BaseService.HttpApi.Host/Rex.BaseService.HttpApi.Host.csproj" />
+    <Project Path="04.MicroServices/Rex.GoodService/src/Rex.GoodService.HttpApi.Host/Rex.GoodService.HttpApi.Host.csproj" />
+    <Project Path="04.MicroServices/Rex.OrderService/src/Rex.OrderService.HttpApi.Host/Rex.OrderService.HttpApi.Host.csproj" />
+    <Project Path="04.MicroServices/Rex.PaymentService/src/Rex.PaymentService.HttpApi.Host/Rex.PaymentService.HttpApi.Host.csproj" />
+    <Project Path="04.MicroServices/Rex.PromotionService/src/Rex.PromotionService.HttpApi.Host/Rex.PromotionService.HttpApi.Host.csproj" />
+    <Project Path="04.MicroServices/Rex.ShopService.AppHost/src/Rex.ShopService.AppHost.csproj" />
+  </Folder>
+  <Folder Name="/05.Modules/" />
+  <Folder Name="/05.Modules/Rex.AuthService/">
+    <Project Path="05.Modules/Rex.AuthService/Rex.AuthService.Application.Contracts/Rex.AuthService.Application.Contracts.csproj" />
+    <Project Path="05.Modules/Rex.AuthService/Rex.AuthService.Application/Rex.AuthService.Application.csproj" />
+    <Project Path="05.Modules/Rex.AuthService/Rex.AuthService.DbMigrator/Rex.AuthService.DbMigrator.csproj" />
+    <Project Path="05.Modules/Rex.AuthService/Rex.AuthService.Domain.Shared/Rex.AuthService.Domain.Shared.csproj" />
+    <Project Path="05.Modules/Rex.AuthService/Rex.AuthService.Domain/Rex.AuthService.Domain.csproj" />
+    <Project Path="05.Modules/Rex.AuthService/Rex.AuthService.EntityFrameworkCore/Rex.AuthService.EntityFrameworkCore.csproj" />
+    <Project Path="05.Modules/Rex.AuthService/Rex.AuthService.HttpApi.Client/Rex.AuthService.HttpApi.Client.csproj" />
+    <Project Path="05.Modules/Rex.AuthService/Rex.AuthService.HttpApi/Rex.AuthService.HttpApi.csproj" />
+  </Folder>
+  <Folder Name="/05.Modules/Rex.BaseService/">
+    <Project Path="05.Modules/Rex.BaseService/Rex.BaseService.Application.Contracts/Rex.BaseService.Application.Contracts.csproj" />
+    <Project Path="05.Modules/Rex.BaseService/Rex.BaseService.Application/Rex.BaseService.Application.csproj" />
+    <Project Path="05.Modules/Rex.BaseService/Rex.BaseService.DbMigrator/Rex.BaseService.DbMigrator.csproj" />
+    <Project Path="05.Modules/Rex.BaseService/Rex.BaseService.Domain.Shared/Rex.BaseService.Domain.Shared.csproj" />
+    <Project Path="05.Modules/Rex.BaseService/Rex.BaseService.Domain/Rex.BaseService.Domain.csproj" />
+    <Project Path="05.Modules/Rex.BaseService/Rex.BaseService.EntityFrameworkCore/Rex.BaseService.EntityFrameworkCore.csproj" />
+    <Project Path="05.Modules/Rex.BaseService/Rex.BaseService.HttpApi.Client/Rex.BaseService.HttpApi.Client.csproj" />
+    <Project Path="05.Modules/Rex.BaseService/Rex.BaseService.HttpApi/Rex.BaseService.HttpApi.csproj" />
+  </Folder>
+  <Folder Name="/05.Modules/Rex.GoodService/">
+    <Project Path="05.Modules/Rex.GoodService/Rex.GoodService.Application.Contracts/Rex.GoodService.Application.Contracts.csproj" />
+    <Project Path="05.Modules/Rex.GoodService/Rex.GoodService.Application/Rex.GoodService.Application.csproj" />
+    <Project Path="05.Modules/Rex.GoodService/Rex.GoodService.DbMigrator/Rex.GoodService.DbMigrator.csproj" />
+    <Project Path="05.Modules/Rex.GoodService/Rex.GoodService.Domain.Shared/Rex.GoodService.Domain.Shared.csproj" />
+    <Project Path="05.Modules/Rex.GoodService/Rex.GoodService.Domain/Rex.GoodService.Domain.csproj" />
+    <Project Path="05.Modules/Rex.GoodService/Rex.GoodService.EntityFrameworkCore/Rex.GoodService.EntityFrameworkCore.csproj" />
+    <Project Path="05.Modules/Rex.GoodService/Rex.GoodService.HttpApi.Client/Rex.GoodService.HttpApi.Client.csproj" />
+    <Project Path="05.Modules/Rex.GoodService/Rex.GoodService.HttpApi/Rex.GoodService.HttpApi.csproj" />
+  </Folder>
+  <Folder Name="/05.Modules/Rex.OrderService/">
+    <Project Path="05.Modules/Rex.OrderService/Rex.OrderService.Application.Contracts/Rex.OrderService.Application.Contracts.csproj" />
+    <Project Path="05.Modules/Rex.OrderService/Rex.OrderService.Application/Rex.OrderService.Application.csproj" />
+    <Project Path="05.Modules/Rex.OrderService/Rex.OrderService.DbMigrator/Rex.OrderService.DbMigrator.csproj" />
+    <Project Path="05.Modules/Rex.OrderService/Rex.OrderService.Domain.Shared/Rex.OrderService.Domain.Shared.csproj" />
+    <Project Path="05.Modules/Rex.OrderService/Rex.OrderService.Domain/Rex.OrderService.Domain.csproj" />
+    <Project Path="05.Modules/Rex.OrderService/Rex.OrderService.EntityFrameworkCore/Rex.OrderService.EntityFrameworkCore.csproj" />
+    <Project Path="05.Modules/Rex.OrderService/Rex.OrderService.HttpApi.Client/Rex.OrderService.HttpApi.Client.csproj" />
+    <Project Path="05.Modules/Rex.OrderService/Rex.OrderService.HttpApi/Rex.OrderService.HttpApi.csproj" />
+  </Folder>
+  <Folder Name="/05.Modules/Rex.PaymentService/">
+    <Project Path="05.Modules/Rex.PaymentService/Rex.PaymentService.Application.Contracts/Rex.PaymentService.Application.Contracts.csproj" />
+    <Project Path="05.Modules/Rex.PaymentService/Rex.PaymentService.Application/Rex.PaymentService.Application.csproj" />
+    <Project Path="05.Modules/Rex.PaymentService/Rex.PaymentService.DbMigrator/Rex.PaymentService.DbMigrator.csproj" />
+    <Project Path="05.Modules/Rex.PaymentService/Rex.PaymentService.Domain.Shared/Rex.PaymentService.Domain.Shared.csproj" />
+    <Project Path="05.Modules/Rex.PaymentService/Rex.PaymentService.Domain/Rex.PaymentService.Domain.csproj" />
+    <Project Path="05.Modules/Rex.PaymentService/Rex.PaymentService.EntityFrameworkCore/Rex.PaymentService.EntityFrameworkCore.csproj" />
+    <Project Path="05.Modules/Rex.PaymentService/Rex.PaymentService.HttpApi.Client/Rex.PaymentService.HttpApi.Client.csproj" />
+    <Project Path="05.Modules/Rex.PaymentService/Rex.PaymentService.HttpApi/Rex.PaymentService.HttpApi.csproj" />
+  </Folder>
+  <Folder Name="/05.Modules/Rex.PromotionService/">
+    <Project Path="05.Modules/Rex.PromotionService/Rex.PromotionService.Application.Contracts/Rex.PromotionService.Application.Contracts.csproj" />
+    <Project Path="05.Modules/Rex.PromotionService/Rex.PromotionService.Application/Rex.PromotionService.Application.csproj" />
+    <Project Path="05.Modules/Rex.PromotionService/Rex.PromotionService.DbMigrator/Rex.PromotionService.DbMigrator.csproj" />
+    <Project Path="05.Modules/Rex.PromotionService/Rex.PromotionService.Domain.Shared/Rex.PromotionService.Domain.Shared.csproj" />
+    <Project Path="05.Modules/Rex.PromotionService/Rex.PromotionService.Domain/Rex.PromotionService.Domain.csproj" />
+    <Project Path="05.Modules/Rex.PromotionService/Rex.PromotionService.EntityFrameworkCore/Rex.PromotionService.EntityFrameworkCore.csproj" />
+    <Project Path="05.Modules/Rex.PromotionService/Rex.PromotionService.HttpApi.Client/Rex.PromotionService.HttpApi.Client.csproj" />
+    <Project Path="05.Modules/Rex.PromotionService/Rex.PromotionService.HttpApi/Rex.PromotionService.HttpApi.csproj" />
+  </Folder>
+</Solution>

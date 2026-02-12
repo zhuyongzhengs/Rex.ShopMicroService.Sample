@@ -1,0 +1,26 @@
+<Solution>
+  <Folder Name="/core/">
+    <Project Path="../../00.Core/Rex.Service.AspNetCore/Rex.Service.AspNetCore.csproj" />
+    <Project Path="../../00.Core/Rex.Service.Core/Rex.Service.Core.csproj" />
+    <Project Path="../../00.Core/Rex.Service.Permission/Rex.Service.Permission.csproj" />
+    <Project Path="../../00.Core/Rex.Service.Setting/Rex.Service.Setting.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="../../05.Modules/Rex.PaymentService/Rex.PaymentService.Application.Contracts/Rex.PaymentService.Application.Contracts.csproj" />
+    <Project Path="../../05.Modules/Rex.PaymentService/Rex.PaymentService.Application/Rex.PaymentService.Application.csproj" />
+    <Project Path="../../05.Modules/Rex.PaymentService/Rex.PaymentService.DbMigrator/Rex.PaymentService.DbMigrator.csproj" />
+    <Project Path="../../05.Modules/Rex.PaymentService/Rex.PaymentService.Domain.Shared/Rex.PaymentService.Domain.Shared.csproj" />
+    <Project Path="../../05.Modules/Rex.PaymentService/Rex.PaymentService.Domain/Rex.PaymentService.Domain.csproj" />
+    <Project Path="../../05.Modules/Rex.PaymentService/Rex.PaymentService.EntityFrameworkCore/Rex.PaymentService.EntityFrameworkCore.csproj" />
+    <Project Path="../../05.Modules/Rex.PaymentService/Rex.PaymentService.HttpApi.Client/Rex.PaymentService.HttpApi.Client.csproj" />
+    <Project Path="../../05.Modules/Rex.PaymentService/Rex.PaymentService.HttpApi/Rex.PaymentService.HttpApi.csproj" />
+    <Project Path="src/Rex.PaymentService.HttpApi.Host/Rex.PaymentService.HttpApi.Host.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Rex.PaymentService.Application.Tests/Rex.PaymentService.Application.Tests.csproj" />
+    <Project Path="test/Rex.PaymentService.Domain.Tests/Rex.PaymentService.Domain.Tests.csproj" />
+    <Project Path="test/Rex.PaymentService.EntityFrameworkCore.Tests/Rex.PaymentService.EntityFrameworkCore.Tests.csproj" />
+    <Project Path="test/Rex.PaymentService.HttpApi.Client.ConsoleTestApp/Rex.PaymentService.HttpApi.Client.ConsoleTestApp.csproj" />
+    <Project Path="test/Rex.PaymentService.TestBase/Rex.PaymentService.TestBase.csproj" />
+  </Folder>
+</Solution>

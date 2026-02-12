@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\00.Core\Rex.Service.Core\Rex.Service.Core\Rex.Service.Core.csproj" />
+	  <ProjectReference Include="..\..\..\00.Core\Rex.Service.Core\Rex.Service.Core.csproj" />
     <ProjectReference Include="..\..\..\00.Core\Rex.Service.Permission\Rex.Service.Permission.csproj" />
     <ProjectReference Include="..\..\..\00.Core\Rex.Service.Setting\Rex.Service.Setting.csproj" />
   </ItemGroup>

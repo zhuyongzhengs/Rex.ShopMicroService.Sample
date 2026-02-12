@@ -50,7 +50,6 @@
   
 	
   <ItemGroup>
-    <ProjectReference Include="..\..\00.Core\Rex.Service.Core\Rex.Service.Core\Rex.Service.Core.csproj" />
     <ProjectReference Include="..\..\00.Core\Rex.Service.Permission\Rex.Service.Permission.csproj" />
     <ProjectReference Include="..\..\00.Core\Rex.ShopService.ServiceDefaults\Rex.ShopService.ServiceDefaults.csproj" />
   </ItemGroup>

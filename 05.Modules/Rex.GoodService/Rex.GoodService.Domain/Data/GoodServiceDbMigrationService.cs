@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 using Rex.GoodService.MultiTenancy;
 using Rex.GoodService.PageDesigns;
 using System;
@@ -15,6 +16,7 @@ using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Guids;
 using Volo.Abp.Identity;
 using Volo.Abp.MultiTenancy;
+using Volo.Abp.PermissionManagement;
 using Volo.Abp.TenantManagement;
 
 namespace Rex.GoodService.Data;
@@ -29,19 +31,22 @@ public class GoodServiceDbMigrationService : ITransientDependency
     private readonly ITenantRepository _tenantRepository;
     private readonly ICurrentTenant _currentTenant;
     private readonly IGuidGenerator _guidGenerator;
+    private readonly AbpDataSeedOptions _options;
 
     public GoodServiceDbMigrationService(
         IDataSeeder dataSeeder,
         IEnumerable<IGoodServiceDbSchemaMigrator> dbSchemaMigrators,
         ITenantRepository tenantRepository,
         ICurrentTenant currentTenant,
-        IGuidGenerator guidGenerator)
+        IGuidGenerator guidGenerator,
+        IOptions<AbpDataSeedOptions> options)
     {
         _dataSeeder = dataSeeder;
         _dbSchemaMigrators = dbSchemaMigrators;
         _tenantRepository = tenantRepository;
         _currentTenant = currentTenant;
         _guidGenerator = guidGenerator;
+        _options = options.Value;
         Logger = NullLogger<GoodServiceDbMigrationService>.Instance;
     }
 
@@ -133,6 +138,17 @@ public class GoodServiceDbMigrationService : ITransientDependency
 
     private async Task SeedDataAsync(Tenant? tenant = null)
     {
+        #region 移除默认的身份数据填充
+
+        /*
+        var identityDataSeed = _options.Contributors.FirstOrDefault(x => x.Name == nameof(IdentityDataSeedContributor));
+        if (identityDataSeed != null) _options.Contributors.Remove(identityDataSeed);
+        var permissionDataSeed = _options.Contributors.FirstOrDefault(x => x.Name == nameof(PermissionDataSeedContributor));
+        if (permissionDataSeed != null) _options.Contributors.Remove(permissionDataSeed);
+        */
+
+        #endregion 移除默认的身份数据填充
+
         Logger.LogInformation($"正在执行租户【{(tenant == null ? "host" : tenant.Name)}】数据填充操作...");
 
         await _dataSeeder.SeedAsync(new DataSeedContext(tenant?.Id)

@@ -1,0 +1,26 @@
+<Solution>
+  <Folder Name="/core/">
+    <Project Path="../../00.Core/Rex.Service.AspNetCore/Rex.Service.AspNetCore.csproj" />
+    <Project Path="../../00.Core/Rex.Service.Core/Rex.Service.Core.csproj" />
+    <Project Path="../../00.Core/Rex.Service.Permission/Rex.Service.Permission.csproj" />
+    <Project Path="../../00.Core/Rex.Service.Setting/Rex.Service.Setting.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="../../05.Modules/Rex.AuthService/Rex.AuthService.Application.Contracts/Rex.AuthService.Application.Contracts.csproj" />
+    <Project Path="../../05.Modules/Rex.AuthService/Rex.AuthService.Application/Rex.AuthService.Application.csproj" />
+    <Project Path="../../05.Modules/Rex.AuthService/Rex.AuthService.DbMigrator/Rex.AuthService.DbMigrator.csproj" />
+    <Project Path="../../05.Modules/Rex.AuthService/Rex.AuthService.Domain.Shared/Rex.AuthService.Domain.Shared.csproj" />
+    <Project Path="../../05.Modules/Rex.AuthService/Rex.AuthService.Domain/Rex.AuthService.Domain.csproj" />
+    <Project Path="../../05.Modules/Rex.AuthService/Rex.AuthService.EntityFrameworkCore/Rex.AuthService.EntityFrameworkCore.csproj" />
+    <Project Path="../../05.Modules/Rex.AuthService/Rex.AuthService.HttpApi.Client/Rex.AuthService.HttpApi.Client.csproj" />
+    <Project Path="../../05.Modules/Rex.AuthService/Rex.AuthService.HttpApi/Rex.AuthService.HttpApi.csproj" />
+    <Project Path="src/Rex.AuthService.HttpApi.Host/Rex.AuthService.HttpApi.Host.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Rex.AuthService.Application.Tests/Rex.AuthService.Application.Tests.csproj" />
+    <Project Path="test/Rex.AuthService.Domain.Tests/Rex.AuthService.Domain.Tests.csproj" />
+    <Project Path="test/Rex.AuthService.EntityFrameworkCore.Tests/Rex.AuthService.EntityFrameworkCore.Tests.csproj" />
+    <Project Path="test/Rex.AuthService.HttpApi.Client.ConsoleTestApp/Rex.AuthService.HttpApi.Client.ConsoleTestApp.csproj" />
+    <Project Path="test/Rex.AuthService.TestBase/Rex.AuthService.TestBase.csproj" />
+  </Folder>
+</Solution>

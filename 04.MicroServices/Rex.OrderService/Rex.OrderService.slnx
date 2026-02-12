@@ -1,0 +1,26 @@
+<Solution>
+  <Folder Name="/core/">
+    <Project Path="../../00.Core/Rex.Service.AspNetCore/Rex.Service.AspNetCore.csproj" />
+    <Project Path="../../00.Core/Rex.Service.Core/Rex.Service.Core.csproj" />
+    <Project Path="../../00.Core/Rex.Service.Permission/Rex.Service.Permission.csproj" />
+    <Project Path="../../00.Core/Rex.Service.Setting/Rex.Service.Setting.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="../../05.Modules/Rex.OrderService/Rex.OrderService.Application.Contracts/Rex.OrderService.Application.Contracts.csproj" />
+    <Project Path="../../05.Modules/Rex.OrderService/Rex.OrderService.Application/Rex.OrderService.Application.csproj" />
+    <Project Path="../../05.Modules/Rex.OrderService/Rex.OrderService.DbMigrator/Rex.OrderService.DbMigrator.csproj" />
+    <Project Path="../../05.Modules/Rex.OrderService/Rex.OrderService.Domain.Shared/Rex.OrderService.Domain.Shared.csproj" />
+    <Project Path="../../05.Modules/Rex.OrderService/Rex.OrderService.Domain/Rex.OrderService.Domain.csproj" />
+    <Project Path="../../05.Modules/Rex.OrderService/Rex.OrderService.EntityFrameworkCore/Rex.OrderService.EntityFrameworkCore.csproj" />
+    <Project Path="../../05.Modules/Rex.OrderService/Rex.OrderService.HttpApi.Client/Rex.OrderService.HttpApi.Client.csproj" />
+    <Project Path="../../05.Modules/Rex.OrderService/Rex.OrderService.HttpApi/Rex.OrderService.HttpApi.csproj" />
+    <Project Path="src/Rex.OrderService.HttpApi.Host/Rex.OrderService.HttpApi.Host.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Rex.OrderService.Application.Tests/Rex.OrderService.Application.Tests.csproj" />
+    <Project Path="test/Rex.OrderService.Domain.Tests/Rex.OrderService.Domain.Tests.csproj" />
+    <Project Path="test/Rex.OrderService.EntityFrameworkCore.Tests/Rex.OrderService.EntityFrameworkCore.Tests.csproj" />
+    <Project Path="test/Rex.OrderService.HttpApi.Client.ConsoleTestApp/Rex.OrderService.HttpApi.Client.ConsoleTestApp.csproj" />
+    <Project Path="test/Rex.OrderService.TestBase/Rex.OrderService.TestBase.csproj" />
+  </Folder>
+</Solution>
