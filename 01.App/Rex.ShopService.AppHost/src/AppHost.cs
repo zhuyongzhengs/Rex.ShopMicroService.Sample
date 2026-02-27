@@ -9,7 +9,7 @@ Console.Title = "【Rex商城】Aspire 应用服务";
 var builder = DistributedApplication.CreateBuilder(args);
 var parameters = AppParameters.Create(builder); // 应用参数管理
 
-#region 1.基础设施服务
+#region 1.数据库|中间件服务
 
 /// <summary>
 /// 定义 PostgreSQL 数据服务
@@ -82,7 +82,7 @@ var minio = builder.AddMinioContainer("rex-minio", parameters.Minio.AccessKey, p
         url.DisplayLocation = UrlDisplayLocation.SummaryAndDetails;
     });
 
-#endregion 1.基础设施服务
+#endregion 1.数据库|中间件服务
 
 #region 2.商品微服务
 
@@ -126,6 +126,7 @@ var goodsApi = builder.AddProject<Projects.Rex_GoodService_HttpApi_Host>("goods-
     .WithCommonReferences(redis, sharedDb, auditLogMongo, rabbitmq)
     //.WithHttpsEndpoint(port: 4477)
     .WithReference(goodsDb, connectionName: "Goods")
+    .WithReference(authApi).WaitFor(authApi)
     .WithReference(baseApi).WaitFor(baseApi);
 // 商品服务(数据迁移)
 if (builder.Environment.IsDevelopment())
@@ -138,6 +139,7 @@ var orderApi = builder.AddProject<Projects.Rex_OrderService_HttpApi_Host>("order
     .WithCommonReferences(redis, sharedDb, auditLogMongo, rabbitmq)
     //.WithHttpsEndpoint(port: 5500)
     .WithReference(orderDb, connectionName: "Order")
+    .WithReference(authApi).WaitFor(authApi)
     .WithReference(baseApi).WaitFor(baseApi);
 // 订单服务(数据迁移)
 if (builder.Environment.IsDevelopment())
@@ -150,6 +152,7 @@ var paymentApi = builder.AddProject<Projects.Rex_PaymentService_HttpApi_Host>("p
     .WithCommonReferences(redis, sharedDb, auditLogMongo, rabbitmq)
     //.WithHttpsEndpoint(port: 5510)
     .WithReference(paymentDb, connectionName: "Payment")
+    .WithReference(authApi).WaitFor(authApi)
     .WithReference(baseApi).WaitFor(baseApi);
 // 支付服务(数据迁移)
 if (builder.Environment.IsDevelopment())
@@ -162,6 +165,7 @@ var promotionApi = builder.AddProject<Projects.Rex_PromotionService_HttpApi_Host
     .WithCommonReferences(redis, sharedDb, auditLogMongo, rabbitmq)
     //.WithHttpsEndpoint(port: 4488)
     .WithReference(promotionDb, connectionName: "Promotion")
+    .WithReference(authApi).WaitFor(authApi)
     .WithReference(baseApi).WaitFor(baseApi);
 // 促销服务(数据迁移)
 if (builder.Environment.IsDevelopment())
@@ -222,7 +226,7 @@ var webGatewayService = builder.AddProject<Projects.Rex_Shop_WebGateway>("web-ga
 /// <summary>
 /// 后台管理端
 /// </summary>
-var shopShopAdmin = builder.AddJavaScriptApp("rex-shop-admin", "../../../01.App/Rex.App.WebAdmin/WebAdmin", "dev")
+builder.AddJavaScriptApp("rex-shop-admin", "../../../01.App/Rex.App.WebAdmin/WebAdmin", "dev")
     .WithHttpEndpoint(port: 5120, name: "http", env: "VITE_PORT")
     .WithExternalHttpEndpoints()
     .WithReference(webGatewayService)
@@ -232,7 +236,7 @@ var shopShopAdmin = builder.AddJavaScriptApp("rex-shop-admin", "../../../01.App/
 /// <summary>
 /// H5移动端
 /// </summary>
-var shopShopApp = builder.AddJavaScriptApp("rex-shop-app", "../../../01.App/Rex.App.UniApp/RexShop", "dev:h5")
+builder.AddJavaScriptApp("rex-shop-app", "../../../01.App/Rex.App.UniApp/RexShop", "dev:h5")
     .WithHttpEndpoint(port: 5130, name: "http", env: "VITE_PORT")
     .WithExternalHttpEndpoints()
     .WithReference(webPublicGatewayService)

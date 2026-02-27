@@ -141,7 +141,7 @@ export const useThemeConfig = defineStore('themeConfig', {
 			// 网站副标题（登录页顶部文字）
 			globalViceTitle: 'Rex.ShopMicroService',
 			// 网站副标题（登录页顶部文字）
-			globalViceTitleMsg: '一个基于ABP Framework 8.x框架的微服务电商商城平台，采用主流的互联网技术架构、全新的UI设计、可视化布局、支持集群部署；拥有活动促销、优惠卷、商品秒杀等众多完整的营销功能等，代码完全开源。',
+			globalViceTitleMsg: '一个基于ABP Framework 10.0框架的微服务电商商城平台，采用主流的互联网技术架构、全新的UI设计、可视化布局、支持集群部署；拥有活动促销、优惠卷、商品秒杀等众多完整的营销功能等，代码完全开源。',
 			// 默认初始语言，可选值"<zh-cn|en|zh-tw>"，默认 zh-cn
 			globalI18n: 'zh-cn',
 			// 默认全局组件大小，可选值"<large|'default'|small>"，默认 'large'

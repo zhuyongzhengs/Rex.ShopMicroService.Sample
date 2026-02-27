@@ -9,6 +9,7 @@
   <Folder Name="/01.App/">
     <Project Path="01.App/Rex.App.UniApp/Rex.App.UniApp.csproj" />
     <Project Path="01.App/Rex.App.WebAdmin/Rex.App.WebAdmin.csproj" />
+    <Project Path="01.App/Rex.ShopService.AppHost/src/Rex.ShopService.AppHost.csproj" />
   </Folder>
   <Folder Name="/02.Gateways/">
     <Project Path="02.Gateways/Rex.Shop.WebGateway/Rex.Shop.WebGateway.csproj" />
@@ -25,7 +26,6 @@
     <Project Path="04.MicroServices/Rex.OrderService/src/Rex.OrderService.HttpApi.Host/Rex.OrderService.HttpApi.Host.csproj" />
     <Project Path="04.MicroServices/Rex.PaymentService/src/Rex.PaymentService.HttpApi.Host/Rex.PaymentService.HttpApi.Host.csproj" />
     <Project Path="04.MicroServices/Rex.PromotionService/src/Rex.PromotionService.HttpApi.Host/Rex.PromotionService.HttpApi.Host.csproj" />
-    <Project Path="04.MicroServices/Rex.ShopService.AppHost/src/Rex.ShopService.AppHost.csproj" />
   </Folder>
   <Folder Name="/05.Modules/" />
   <Folder Name="/05.Modules/Rex.AuthService/">

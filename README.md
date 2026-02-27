@@ -14,6 +14,7 @@ Rex.ShopMicroService.Sample
 ├─01.App -- 应用端
 │  ├─Rex.App.UniApp  -- 小程序客户端
 │  ├─Rex.App.WebAdmin  -- 后台管理端
+│  ├─Rex.ShopService.AppHost  -- Aspire🚀启动枢纽(编排中心)
 ├─02.Gateways -- 网关
 │  ├─Rex.Shop.WebGateway  -- 后台网关
 │  ├─Rex.Shop.WebPublicGateway  -- 前台(公共)网关
@@ -27,15 +28,13 @@ Rex.ShopMicroService.Sample
 │  ├─Rex.OrderService.HttpApi.Host  -- 订单服务
 │  ├─Rex.PaymentService.HttpApi.Host  -- 支付服务
 │  ├─Rex.PromotionService.HttpApi.Host  -- 活动促销服务
-│  ├─Rex.ShopService.AppHost  -- Aspire🚀启动枢纽(编排中心)
 ├─05.Modules -- 模块层
 │  ├─Rex.AuthService  -- 认证授权模块
 │  ├─Rex.BaseService  -- 基础服务模块
-│  ├─Rex.GoodService  -- 商品模块
-│  ├─Rex.OrderService  -- 订单模块
-│  ├─Rex.PaymentService  -- 支付模块
-│  ├─Rex.PromotionService  -- 促销模块
-
+│  ├─Rex.GoodService  -- 商品服务模块
+│  ├─Rex.OrderService  -- 订单服务模块
+│  ├─Rex.PaymentService  -- 支付服务模块
+│  ├─Rex.PromotionService  -- 促销服务模块
 ```
 
 ## 🚧技术选型

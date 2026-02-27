@@ -11,7 +11,7 @@ namespace Rex.BaseService.DbMigrator;
 
 internal class Program
 {
-    private static async Task Main(string[] args)
+    private static async Task<int> Main(string[] args)
     {
         Console.Title = "【Rex商城】Base服务";
 
@@ -30,7 +30,20 @@ internal class Program
             .WriteTo.Async(c => c.OpenTelemetry())
             .CreateLogger();
 
-        await CreateHostBuilder(args).RunConsoleAsync();
+        try
+        {
+            await CreateHostBuilder(args).RunConsoleAsync();
+            return 0;
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, ex.Message);
+            return 1;
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
     }
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>

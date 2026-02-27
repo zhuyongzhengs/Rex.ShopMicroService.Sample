@@ -27,17 +27,17 @@
     <ProjectReference Include="..\..\..\02.Gateways\Rex.Shop.WebPublicGateway\Rex.Shop.WebPublicGateway.csproj" />
     <ProjectReference Include="..\..\..\03.AggregationServices\Rex.BackendAggregationService\Rex.BackendAggregationService.csproj" />
     <ProjectReference Include="..\..\..\03.AggregationServices\Rex.FrontAggregationService\Rex.FrontAggregationService.csproj" />
+    <ProjectReference Include="..\..\..\04.MicroServices\Rex.AuthService\src\Rex.AuthService.HttpApi.Host\Rex.AuthService.HttpApi.Host.csproj" />
+    <ProjectReference Include="..\..\..\04.MicroServices\Rex.BaseService\src\Rex.BaseService.HttpApi.Host\Rex.BaseService.HttpApi.Host.csproj" />
+    <ProjectReference Include="..\..\..\04.MicroServices\Rex.GoodService\src\Rex.GoodService.HttpApi.Host\Rex.GoodService.HttpApi.Host.csproj" />
+    <ProjectReference Include="..\..\..\04.MicroServices\Rex.OrderService\src\Rex.OrderService.HttpApi.Host\Rex.OrderService.HttpApi.Host.csproj" />
+    <ProjectReference Include="..\..\..\04.MicroServices\Rex.PaymentService\src\Rex.PaymentService.HttpApi.Host\Rex.PaymentService.HttpApi.Host.csproj" />
+    <ProjectReference Include="..\..\..\04.MicroServices\Rex.PromotionService\src\Rex.PromotionService.HttpApi.Host\Rex.PromotionService.HttpApi.Host.csproj" />
     <ProjectReference Include="..\..\..\05.Modules\Rex.AuthService\Rex.AuthService.DbMigrator\Rex.AuthService.DbMigrator.csproj" />
     <ProjectReference Include="..\..\..\05.Modules\Rex.BaseService\Rex.BaseService.DbMigrator\Rex.BaseService.DbMigrator.csproj" />
     <ProjectReference Include="..\..\..\05.Modules\Rex.GoodService\Rex.GoodService.DbMigrator\Rex.GoodService.DbMigrator.csproj" />
     <ProjectReference Include="..\..\..\05.Modules\Rex.OrderService\Rex.OrderService.DbMigrator\Rex.OrderService.DbMigrator.csproj" />
     <ProjectReference Include="..\..\..\05.Modules\Rex.PaymentService\Rex.PaymentService.DbMigrator\Rex.PaymentService.DbMigrator.csproj" />
     <ProjectReference Include="..\..\..\05.Modules\Rex.PromotionService\Rex.PromotionService.DbMigrator\Rex.PromotionService.DbMigrator.csproj" />
-    <ProjectReference Include="..\..\Rex.AuthService\src\Rex.AuthService.HttpApi.Host\Rex.AuthService.HttpApi.Host.csproj" />
-    <ProjectReference Include="..\..\Rex.BaseService\src\Rex.BaseService.HttpApi.Host\Rex.BaseService.HttpApi.Host.csproj" />
-    <ProjectReference Include="..\..\Rex.GoodService\src\Rex.GoodService.HttpApi.Host\Rex.GoodService.HttpApi.Host.csproj" />
-    <ProjectReference Include="..\..\Rex.OrderService\src\Rex.OrderService.HttpApi.Host\Rex.OrderService.HttpApi.Host.csproj" />
-    <ProjectReference Include="..\..\Rex.PaymentService\src\Rex.PaymentService.HttpApi.Host\Rex.PaymentService.HttpApi.Host.csproj" />
-    <ProjectReference Include="..\..\Rex.PromotionService\src\Rex.PromotionService.HttpApi.Host\Rex.PromotionService.HttpApi.Host.csproj" />
   </ItemGroup>
 </Project>
