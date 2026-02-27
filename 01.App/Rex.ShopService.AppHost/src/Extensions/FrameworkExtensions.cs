@@ -32,7 +32,7 @@ namespace Rex.ShopService.AppHost.Extensions
                 "[cyan]容器编排：[/][Grey93]Aspire[/]"
             );
             AnsiConsole.WriteLine();
-            Thread.Sleep(1500);
+            //Thread.Sleep(1500);
             Tree baseTree = new Tree("[bold darkcyan]◆ 基础设施服务[/]");
             baseTree.AddNode("[Grey93]PostgreSQL 17.6[/]");
             baseTree.AddNode("[Grey93]Redis 8.2[/]");
