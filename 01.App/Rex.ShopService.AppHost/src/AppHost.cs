@@ -1,13 +1,13 @@
-using Rex.ShopService.AppHost.Configurations;
+锘縰sing Rex.ShopService.AppHost.Configurations;
 using Rex.ShopService.AppHost.Extensions;
 using System.Text;
 
 Console.OutputEncoding = Encoding.UTF8;
-Console.Title = "【Rex商城】Aspire 应用服务";
+Console.Title = "銆怰ex鍟嗗煄銆慉spire 搴旂敤鏈嶅姟";
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-// 添加服务编排
+// 娣诲姞鏈嶅姟缂栨帓
 builder.AddOrchestrationService();
 
 var app = builder.Build();
