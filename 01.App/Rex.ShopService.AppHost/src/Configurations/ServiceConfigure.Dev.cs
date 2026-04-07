@@ -129,10 +129,12 @@ namespace Rex.ShopService.AppHost.Configurations
                 .WithCommonReferences(redis, sharedDb, auditLogMongo, rabbitmq)
                 //.WithHttpsEndpoint(port: 4477)
                 .WithReference(goodsDb, connectionName: "Goods")
-                .WithReference(authApi).WaitFor(authApi)
-                .WithReference(baseApi).WaitFor(baseApi);
+                .WithReference(authApi)
+                .WithReference(baseApi);
             // 商品服务(数据迁移)
-            builder.AddMigration<Projects.Rex_GoodService_DbMigrator>("goods-migrator", goodsApi, redis, goodsDb, "Goods");
+            builder.AddMigration<Projects.Rex_GoodService_DbMigrator>("goods-migrator", goodsApi, redis, goodsDb, "Goods")
+                .WaitFor(authApi)
+                .WaitFor(baseApi);
 
             /// <summary>
             /// 订单服务
@@ -141,10 +143,12 @@ namespace Rex.ShopService.AppHost.Configurations
                 .WithCommonReferences(redis, sharedDb, auditLogMongo, rabbitmq)
                 //.WithHttpsEndpoint(port: 5500)
                 .WithReference(orderDb, connectionName: "Order")
-                .WithReference(authApi).WaitFor(authApi)
-                .WithReference(baseApi).WaitFor(baseApi);
+                .WithReference(authApi)
+                .WithReference(baseApi);
             // 订单服务(数据迁移)
-            builder.AddMigration<Projects.Rex_OrderService_DbMigrator>("order-migrator", orderApi, redis, orderDb, "Order");
+            builder.AddMigration<Projects.Rex_OrderService_DbMigrator>("order-migrator", orderApi, redis, orderDb, "Order")
+                .WaitFor(authApi)
+                .WaitFor(baseApi);
 
             /// <summary>
             /// 支付服务
@@ -153,10 +157,12 @@ namespace Rex.ShopService.AppHost.Configurations
                 .WithCommonReferences(redis, sharedDb, auditLogMongo, rabbitmq)
                 //.WithHttpsEndpoint(port: 5510)
                 .WithReference(paymentDb, connectionName: "Payment")
-                .WithReference(authApi).WaitFor(authApi)
-                .WithReference(baseApi).WaitFor(baseApi);
+                .WithReference(authApi)
+                .WithReference(baseApi);
             // 支付服务(数据迁移)
-            builder.AddMigration<Projects.Rex_PaymentService_DbMigrator>("payment-migrator", paymentApi, redis, paymentDb, "Payment");
+            builder.AddMigration<Projects.Rex_PaymentService_DbMigrator>("payment-migrator", paymentApi, redis, paymentDb, "Payment")
+                .WaitFor(authApi)
+                .WaitFor(baseApi);
 
             /// <summary>
             /// 促销服务
@@ -165,10 +171,12 @@ namespace Rex.ShopService.AppHost.Configurations
                 .WithCommonReferences(redis, sharedDb, auditLogMongo, rabbitmq)
                 //.WithHttpsEndpoint(port: 4488)
                 .WithReference(promotionDb, connectionName: "Promotion")
-                .WithReference(authApi).WaitFor(authApi)
-                .WithReference(baseApi).WaitFor(baseApi);
+                .WithReference(authApi)
+                .WithReference(baseApi);
             // 促销服务(数据迁移)
-            builder.AddMigration<Projects.Rex_PromotionService_DbMigrator>("promotion-migrator", promotionApi, redis, promotionDb, "Promotion");
+            builder.AddMigration<Projects.Rex_PromotionService_DbMigrator>("promotion-migrator", promotionApi, redis, promotionDb, "Promotion")
+                .WaitFor(authApi)
+                .WaitFor(baseApi);
 
             #endregion 2.商品微服务
 
